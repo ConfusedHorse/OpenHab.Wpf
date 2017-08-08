@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Threading;
+using OpenHab.Wpf.View;
 
 namespace OpenHab.Wpf
 {
@@ -13,5 +9,15 @@ namespace OpenHab.Wpf
     /// </summary>
     public partial class App : Application
     {
+        private void OpenHabWpf_OnStartup(object sender, StartupEventArgs e)
+        {
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+        }
+
+        private void OpenHabWpf_OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
