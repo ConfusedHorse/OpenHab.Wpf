@@ -55,8 +55,7 @@
                      FontSize="20"
                      VerticalContentAlignment="Center"
                      x:Name="IpAddressTextBox"
-                     Text="{Binding IpAddress, UpdateSourceTrigger=PropertyChanged}"
-                     TextChanged="IpAddressTextBox_OnTextChanged">
+                     Text="{Binding IpAddress, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.Style>
                     <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
                         <Style.Triggers>

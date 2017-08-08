@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using OpenHab.Wpf.CrossCutting.Context;
 using OpenHab.Wpf.CrossCutting.Helper;
@@ -11,6 +12,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private bool _connectionEstablished;
         private bool? _ipAddressIsValid;
         private bool _checkingConnection;
+        private DateTime _latestCheck;
 
         public ServerAddressViewModel(RestContext restContext)
         {
@@ -28,7 +30,6 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 _ipAddress = value;
                 IpAddressIsValid = string.IsNullOrEmpty(value) ? null : (bool?)IpHelper.ValidateIPv4(value);
                 RaisePropertyChanged();
-                RaisePropertyChanged(() => IpAddressIsValid);
             }
         }
 
@@ -38,6 +39,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             private set
             {
                 _ipAddressIsValid = value;
+                if (value.HasValue && value.Value) CheckConnectionAsync();
+                else ConnectionEstablished = false;
                 RaisePropertyChanged();
             }
         }
@@ -75,10 +78,14 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         {
             CheckingConnection = true;
             ConnectionEstablished = false;
+            var start = DateTime.Now;
+            _latestCheck = start;
+            var connectionEstablished = false;
+
             if (IpAddressIsValid.HasValue && IpAddressIsValid.Value)
-                ConnectionEstablished = await Task.Run(() => RestContext.Reconnect(IpAddress));
-            else
-                ConnectionEstablished = false;
+                connectionEstablished = await Task.Run(() => RestContext.Reconnect(IpAddress));
+
+            if (start >= _latestCheck) ConnectionEstablished = connectionEstablished;
             CheckingConnection = false;
         }
     }

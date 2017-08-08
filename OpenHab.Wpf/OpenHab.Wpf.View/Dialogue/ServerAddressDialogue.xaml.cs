@@ -1,8 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using Ninject;
-using OpenHab.Wpf.CrossCutting.Context;
-using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.View.Module;
 
 namespace OpenHab.Wpf.View.Dialogue
@@ -15,11 +12,6 @@ namespace OpenHab.Wpf.View.Dialogue
         public ServerAddressDialogue()
         {
             InitializeComponent();
-        }
-
-        private void IpAddressTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            ViewModelLocator.Instance.ServerAddressViewModel.CheckConnectionAsync();
         }
 
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
