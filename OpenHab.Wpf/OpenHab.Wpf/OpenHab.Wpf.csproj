@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -77,6 +80,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -97,6 +101,10 @@
     <ProjectReference Include="..\OpenHab.Wpf.CrossCutting\OpenHab.Wpf.CrossCutting.csproj">
       <Project>{a6f273b2-b74a-4636-a32c-6e77b9e440af}</Project>
       <Name>OpenHab.Wpf.CrossCutting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenHab.Wpf.NetRestApi\OpenHab.Wpf.NetRestApi.csproj">
+      <Project>{724d0594-72af-42d5-abc0-8e11ffbb1bcf}</Project>
+      <Name>OpenHab.Wpf.NetRestApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\OpenHab.Wpf.ViewModel\OpenHab.Wpf.ViewModel.csproj">
       <Project>{240962e2-95f9-4a98-91e1-dc493f4127c5}</Project>
