@@ -5,6 +5,18 @@ VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHab.Wpf", "OpenHab.Wpf\OpenHab.Wpf.csproj", "{C88C7854-9D70-4DDE-A96D-BA77B2A08520}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 Application", "0 Application", "{69028585-9469-4F35-880F-F311116DC659}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 View", "1 View", "{F9E1FA27-CDA3-462A-AB66-D5E0A98A2EB2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 Business", "2 Business", "{6F31502D-7A6B-4A4F-BF83-6DF45BCC1BCD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 Data", "3 Data", "{93A48C7E-016B-4B82-9A87-99CC20FF3410}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 CrossCutting", "4 CrossCutting", "{D134E371-9B24-4D7F-B1D0-E3107E290260}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHAB.NetRestApi", "..\..\OpenHab.NetRestApi\OpenHAB.NetRestApi\OpenHAB.NetRestApi.csproj", "{807FEF64-BBC1-40BE-84AA-6138D7B4FC04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +27,16 @@ Global
 		{C88C7854-9D70-4DDE-A96D-BA77B2A08520}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C88C7854-9D70-4DDE-A96D-BA77B2A08520}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C88C7854-9D70-4DDE-A96D-BA77B2A08520}.Release|Any CPU.Build.0 = Release|Any CPU
+		{807FEF64-BBC1-40BE-84AA-6138D7B4FC04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{807FEF64-BBC1-40BE-84AA-6138D7B4FC04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{807FEF64-BBC1-40BE-84AA-6138D7B4FC04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{807FEF64-BBC1-40BE-84AA-6138D7B4FC04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C88C7854-9D70-4DDE-A96D-BA77B2A08520} = {69028585-9469-4F35-880F-F311116DC659}
+		{807FEF64-BBC1-40BE-84AA-6138D7B4FC04} = {93A48C7E-016B-4B82-9A87-99CC20FF3410}
 	EndGlobalSection
 EndGlobal
