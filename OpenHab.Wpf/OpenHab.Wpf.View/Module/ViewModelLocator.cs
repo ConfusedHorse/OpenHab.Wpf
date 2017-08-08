@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Ninject;
 using OpenHab.Wpf.CrossCutting.Module;
+using OpenHab.Wpf.ViewModel.ViewModels;
 
 namespace OpenHab.Wpf.View.Module
 {
@@ -21,7 +22,7 @@ namespace OpenHab.Wpf.View.Module
 
         #endregion Singleton
 
-        //public TODOViewModel TODOViewModel => NinjectKernel.StandardKernel.Get<TODOViewModel>();
+        public ServerAddressViewModel ServerAddressViewModel => NinjectKernel.StandardKernel.Get<ServerAddressViewModel>();
 
         public static void Cleanup()
         {

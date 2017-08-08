@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Module\BusinessModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -53,10 +54,6 @@
     <ProjectReference Include="..\OpenHab.Wpf.CrossCutting\OpenHab.Wpf.CrossCutting.csproj">
       <Project>{a6f273b2-b74a-4636-a32c-6e77b9e440af}</Project>
       <Name>OpenHab.Wpf.CrossCutting</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenHab.Wpf.NetRestApi\OpenHab.Wpf.NetRestApi.csproj">
-      <Project>{724d0594-72af-42d5-abc0-8e11ffbb1bcf}</Project>
-      <Name>OpenHab.Wpf.NetRestApi</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

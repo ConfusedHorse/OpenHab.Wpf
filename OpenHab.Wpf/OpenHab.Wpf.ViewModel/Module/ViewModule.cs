@@ -1,4 +1,5 @@
 ﻿using Ninject.Modules;
+using OpenHab.Wpf.ViewModel.ViewModels;
 
 namespace OpenHab.Wpf.ViewModel.Module
 {
@@ -6,7 +7,7 @@ namespace OpenHab.Wpf.ViewModel.Module
     {
         public override void Load()
         {
-            //Bind<TODOViewModel>().ToSelf().InSingletonScope();
+            Bind<ServerAddressViewModel>().ToSelf().InSingletonScope();
         }
     }
 }
