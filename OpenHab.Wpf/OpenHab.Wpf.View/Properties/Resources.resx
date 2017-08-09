@@ -144,4 +144,7 @@
   <data name="ServerAddressPrompt" xml:space="preserve">
     <value>Please type in the address of the OpenHab server component you would like to connect to.</value>
   </data>
+  <data name="Sitemaps" xml:space="preserve">
+    <value>Sitemaps</value>
+  </data>
 </root>

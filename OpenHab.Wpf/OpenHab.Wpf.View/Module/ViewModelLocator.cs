@@ -22,7 +22,8 @@ namespace OpenHab.Wpf.View.Module
 
         #endregion Singleton
 
-        public ServerAddressViewModel ServerAddressViewModel => NinjectKernel.StandardKernel.Get<ServerAddressViewModel>();
+        public ServerViewModel ServerViewModel => NinjectKernel.StandardKernel.Get<ServerViewModel>();
+        public SitemapViewModel SitemapViewModel => NinjectKernel.StandardKernel.Get<SitemapViewModel>();
 
         public static void Cleanup()
         {

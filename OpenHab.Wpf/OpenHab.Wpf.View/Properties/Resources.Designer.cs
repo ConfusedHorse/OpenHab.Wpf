@@ -140,5 +140,14 @@ namespace OpenHab.Wpf.View.Properties {
                 return ResourceManager.GetString("ServerAddressPrompt", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sitemaps ähnelt.
+        /// </summary>
+        public static string Sitemaps {
+            get {
+                return ResourceManager.GetString("Sitemaps", resourceCulture);
+            }
+        }
     }
 }

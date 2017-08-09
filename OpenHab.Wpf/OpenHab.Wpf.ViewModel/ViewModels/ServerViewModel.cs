@@ -6,15 +6,19 @@ using OpenHab.Wpf.CrossCutting.Helper;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels
 {
-    public class ServerAddressViewModel : ViewModelBase
+    public class ServerViewModel : ViewModelBase
     {
+        #region Fields
+
         private string _ipAddress;
         private bool _connectionEstablished;
         private bool? _ipAddressIsValid;
         private bool _checkingConnection;
         private DateTime _latestCheck;
 
-        public ServerAddressViewModel(RestContext restContext)
+        #endregion
+
+        public ServerViewModel(RestContext restContext)
         {
             RestContext = restContext;
             IpAddress = RestContext.ServerAddress;
@@ -69,9 +73,17 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         #endregion
 
+        #region Public Methods
+
+        public void InvalidateConnection()
+        {
+            RestContext.Online = false;
+        }
+
         public void SaveIpAddress()
         {
             RestContext.ServerAddress = _ipAddress;
+            RestContext.Online = true;
         }
 
         public async void CheckConnectionAsync()
@@ -88,5 +100,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             if (start >= _latestCheck) ConnectionEstablished = connectionEstablished;
             CheckingConnection = false;
         }
+
+        #endregion
     }
 }

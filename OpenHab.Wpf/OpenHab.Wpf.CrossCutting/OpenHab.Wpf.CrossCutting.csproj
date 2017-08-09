@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Context\GlobalContext.cs" />
     <Compile Include="Context\RestContext.cs" />
+    <Compile Include="Events\ServerConnectionChangedEventArgs.cs" />
     <Compile Include="Helper\IpHelper.cs" />
     <Compile Include="Module\ContextModule.cs" />
     <Compile Include="Module\NinjectKernel.cs" />

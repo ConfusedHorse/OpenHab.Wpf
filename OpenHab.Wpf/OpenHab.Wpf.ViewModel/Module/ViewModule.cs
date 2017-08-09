@@ -7,7 +7,7 @@ namespace OpenHab.Wpf.ViewModel.Module
     {
         public override void Load()
         {
-            Bind<ServerAddressViewModel>().ToSelf().InSingletonScope();
+            Bind<ServerViewModel>().ToSelf().InSingletonScope();
         }
     }
 }

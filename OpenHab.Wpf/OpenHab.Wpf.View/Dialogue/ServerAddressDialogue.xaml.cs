@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using OpenHab.Wpf.View.Module;
 
 namespace OpenHab.Wpf.View.Dialogue
@@ -16,7 +15,7 @@ namespace OpenHab.Wpf.View.Dialogue
 
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ViewModelLocator.Instance.ServerAddressViewModel.SaveIpAddress();
+            ViewModelLocator.Instance.ServerViewModel.SaveIpAddress();
             DialogResult = true;
         }
 
@@ -24,6 +23,11 @@ namespace OpenHab.Wpf.View.Dialogue
         {
             DialogResult = false;
             Application.Current.Shutdown();
+        }
+
+        private void ServerAddressDialogue_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            ViewModelLocator.Instance.ServerViewModel.InvalidateConnection();
         }
     }
 }

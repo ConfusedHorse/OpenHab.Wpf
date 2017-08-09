@@ -63,6 +63,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\SitemapsControl.xaml.cs">
+      <DependentUpon>SitemapsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogue\ServerAddressDialogue.xaml.cs">
       <DependentUpon>ServerAddressDialogue.xaml</DependentUpon>
     </Compile>
@@ -95,6 +98,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\SitemapsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogue\ServerAddressDialogue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -114,6 +121,10 @@
     <Page Include="Resources\Helpers\CircularBusyIndicator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\StyleResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
