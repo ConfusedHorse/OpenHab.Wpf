@@ -20,6 +20,7 @@
             <!-- Content goes here -->
             
             <!-- test with sitemaps -->
+            <controls:ItemsControl/> <!--TODO-->
         </Grid>
     </Grid>
 </Window>
