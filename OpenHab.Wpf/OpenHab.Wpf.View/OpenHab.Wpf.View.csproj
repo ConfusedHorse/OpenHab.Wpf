@@ -63,8 +63,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\SitemapsControl.xaml.cs">
-      <DependentUpon>SitemapsControl.xaml</DependentUpon>
+    <Compile Include="Controls\SitemapControl.xaml.cs">
+      <DependentUpon>SitemapControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogue\ServerAddressDialogue.xaml.cs">
       <DependentUpon>ServerAddressDialogue.xaml</DependentUpon>
@@ -98,7 +98,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\SitemapsControl.xaml">
+    <Page Include="Controls\SitemapControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -20,7 +20,6 @@
             <!-- Content goes here -->
             
             <!-- test with sitemaps -->
-            <controls:SitemapsControl/>
         </Grid>
     </Grid>
 </Window>

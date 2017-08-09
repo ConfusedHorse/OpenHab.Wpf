@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:module="clr-namespace:OpenHab.Wpf.View.Module"
              xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
+             xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding SitemapViewModel, 
@@ -28,7 +29,7 @@
         </Grid>
 
         <Grid Row="1" x:Name="Sitemap">
-            <!-- Content goes here -->
+            <!-- TODO implement hierarchical structure -->
         </Grid>
     </Grid>
 </UserControl>

@@ -37,6 +37,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
+        public Homepage Homepage => Sitemap?.Homepage;
+
         public bool IsEnabled
         {
             get => _isEnabled;
@@ -77,6 +79,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             IsBusy = true;
 
             Sitemap = await Task.Run(() => _restContext.Client.SitemapService.GetDefaultSitemap());
+            //TODO implement extension .ToViewModel(this Sitemap sitemap);
 
             IsBusy = false;
         }
