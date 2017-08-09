@@ -1,24 +1,25 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using OpenHab.Wpf.CrossCutting.Context;
 using OpenHab.Wpf.CrossCutting.Events;
-using OpenHAB.NetRestApi.Models;
+using OpenHab.Wpf.ViewModel.Helper;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels
 {
-    public class SitemapViewModel : ViewModelBase
+    public class ItemsViewModel : ViewModelBase
     {
-
         #region Fields
 
         private readonly RestContext _restContext;
+        private ObservableCollection<ItemViewModel> _items = new ObservableCollection<ItemViewModel>();
         private bool _isEnabled;
         private bool _isBusy;
-        private Sitemap _sitemap;
 
         #endregion
 
-        public SitemapViewModel(RestContext restContext)
+        public ItemsViewModel(RestContext restContext)
         {
             _restContext = restContext;
             _restContext.ConnectionChanged += RestContextOnConnectionChanged;
@@ -26,17 +27,15 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         #region Properties
 
-        public Sitemap Sitemap
+        public ObservableCollection<ItemViewModel> Items
         {
-            get => _sitemap;
+            get => _items;
             set
             {
-                _sitemap = value;
+                _items = value;
                 RaisePropertyChanged();
             }
         }
-
-        public Homepage Homepage => Sitemap?.Homepage;
 
         public bool IsEnabled
         {
@@ -69,16 +68,20 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private void RestContextOnConnectionChanged(RestContext sender, ServerConnectionChangedEventArgs args)
         {
             IsEnabled = args.ConnectionEstablished;
-            if (IsEnabled) LoadSitemapsAsync();
+            if (IsEnabled) RefreshItems();
         }
 
-        private async void LoadSitemapsAsync()
+        private async void RefreshItems()
         {
             if (IsBusy) return;
             IsBusy = true;
 
-            Sitemap = await Task.Run(() => _restContext.Client.SitemapService.GetDefaultSitemap());
-            //TODO implement extension .ToViewModel(this Sitemap sitemap);
+            var items = await Task.Run(() => _restContext.Client.ItemService.GetItems());
+            var itemInformation = await Task.Run(() =>
+            {
+                return items.Select(item => _restContext.Client.ItemService.GetItem(item.Name));
+            });
+            Items = itemInformation.ToViewModels();
 
             IsBusy = false;
         }
