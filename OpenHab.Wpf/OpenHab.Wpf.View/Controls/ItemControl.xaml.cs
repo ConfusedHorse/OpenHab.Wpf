@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -119,6 +121,28 @@ namespace OpenHab.Wpf.View.Controls
             values[index] = Convert.ToInt32(source.Value).ToString();
 
             _latestStateCausedByUserInteraction = string.Join(",", values);
+            _delayDispatcherTimer.Start();
+        }
+
+        #endregion
+
+        #region Number
+        
+        private void NumberTextBox_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter && e.Key != Key.Tab) return;
+            NumberTextBoxValueChangedByUserInteraction(sender);
+        }
+
+        private void NumberTextBoxValueChangedByUserInteraction(object sender)
+        {
+            var source = (TextBox)sender;
+            if (!source.IsKeyboardFocused) return;
+
+            var errors = Validation.GetErrors(source);
+            if (errors.Any()) return;
+
+            _latestStateCausedByUserInteraction = source.Text.Replace(',', '.');
             _delayDispatcherTimer.Start();
         }
 

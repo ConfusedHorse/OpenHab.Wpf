@@ -115,6 +115,24 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Field must not be empty. Please enter a numeric value ähnelt.
+        /// </summary>
+        public static string FieldMustNotBeEmpty {
+            get {
+                return ResourceManager.GetString("FieldMustNotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Illegal characters, please enter numeric values only ähnelt.
+        /// </summary>
+        public static string IllegalCharacters {
+            get {
+                return ResourceManager.GetString("IllegalCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die IP address: ähnelt.
         /// </summary>
         public static string IpAddress {

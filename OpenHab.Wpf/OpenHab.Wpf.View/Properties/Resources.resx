@@ -159,4 +159,10 @@
   <data name="Saturation" xml:space="preserve">
     <value>Saturation</value>
   </data>
+  <data name="FieldMustNotBeEmpty" xml:space="preserve">
+    <value>Field must not be empty. Please enter a numeric value</value>
+  </data>
+  <data name="IllegalCharacters" xml:space="preserve">
+    <value>Illegal characters, please enter numeric values only</value>
+  </data>
 </root>

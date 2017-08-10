@@ -90,6 +90,7 @@
     <Compile Include="Resources\Helpers\CircularBusyIndicator.xaml.cs">
       <DependentUpon>CircularBusyIndicator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Helpers\Validation\DoubleValueValidationRule.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\OpenHab.NetRestApi\OpenHAB.NetRestApi\OpenHAB.NetRestApi.csproj">
