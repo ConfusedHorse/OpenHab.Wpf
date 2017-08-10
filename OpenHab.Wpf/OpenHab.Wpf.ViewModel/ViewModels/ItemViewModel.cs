@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using Ninject;
@@ -144,6 +145,15 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
+        public string FormattedState
+        {
+            get
+            {
+                var format = StateDescription?.Pattern;
+                return format != null ? string.Format(format, _state) : _state;
+            }
+        }
+
         public string TransformedState
         {
             get => _transformedState;
@@ -170,6 +180,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         public async void SendCommandAsync(string newState)
         {
+            State = newState;
             await Task.Run(() =>
                 NinjectKernel.StandardKernel.Get<RestContext>().Client.ItemService.SendCommand(_item, _state));
         }

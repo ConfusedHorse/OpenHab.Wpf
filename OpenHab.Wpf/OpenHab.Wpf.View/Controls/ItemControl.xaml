@@ -6,6 +6,7 @@
              xmlns:viewModels="clr-namespace:OpenHab.Wpf.ViewModel.ViewModels;assembly=OpenHab.Wpf.ViewModel"
              xmlns:constants="clr-namespace:OpenHAB.NetRestApi.Constants;assembly=OpenHAB.NetRestApi"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
              MinHeight="50" MinWidth="300"
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="500"
@@ -24,34 +25,117 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Row="0">
+                    <Grid Row="0" Margin="0 5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         
                         <TextBlock Grid.Column="0" 
-                                   Margin="10"
+                                   Margin="10 0"
                                    HorizontalAlignment="Left"
                                    Style="{StaticResource {x:Type TextBlock}}"
                                    Text="{Binding Label}"/>
 
                         <TextBlock Grid.Column="1" 
-                                   Margin="10"
+                                   Margin="10 0"
                                    HorizontalAlignment="Right"
                                    Style="{StaticResource {x:Type TextBlock}}"
                                    Text="{Binding State, StringFormat={}{0}%}"/>
                     </Grid>
 
                     <Grid Row="1" Margin="10 0 10 10">
-                        <Slider Value="{Binding State, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,                                                                         
+                        <Slider Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
                                         Converter={StaticResource StateToDimmerConverter}}"
                                 Minimum="0"
                                 Maximum="100"
                                 Ticks="1"
                                 IsMoveToPointEnabled="True"
                                 PreviewMouseUp="DimmerSlider_OnPreviewMouseUp"
+                                Thumb.DragDelta="DimmerSlider_OnDragDelta"
                                 Thumb.DragCompleted="DimmerSlider_OnDragCompleted"/>
+                    </Grid>
+                </Grid>
+            </ControlTemplate>
+            
+            <ControlTemplate x:Key="ColorControlTemplate">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Column="0" 
+                               Grid.Row="0" 
+                               Margin="5 0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource {x:Type TextBlock}}"
+                               Text="{x:Static p:Resources.Color}"/>
+                    
+                    <TextBlock Grid.Column="0" 
+                               Grid.Row="1" 
+                               Margin="5 0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource {x:Type TextBlock}}"
+                               Text="{x:Static p:Resources.Saturation}"/>
+                    
+                    <TextBlock Grid.Column="0" 
+                               Grid.Row="2" 
+                               Margin="5 0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource {x:Type TextBlock}}"
+                               Text="{x:Static p:Resources.Brightness}"/>
+
+                    <Grid Column="1" Row="0" VerticalAlignment="Center"
+                          Margin="5 0"
+                          Background="{StaticResource HorzontalColorHueBrush}">
+                        <Slider Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
+                                        Converter={StaticResource StateToColorConverter}, 
+                                        ConverterParameter=0}"
+                                Minimum="0"
+                                Maximum="360"
+                                Ticks="1"
+                                IsMoveToPointEnabled="True"
+                                PreviewMouseUp="ColorHueSlider_OnPreviewMouseUp"
+                                Thumb.DragDelta="ColorHueSlider_OnDragDelta"
+                                Thumb.DragCompleted="ColorHueSlider_OnDragCompleted"/>
+                    </Grid>
+
+                    <Grid Column="1" Row="1" VerticalAlignment="Center"
+                          Margin="5 0">
+                        <Slider Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
+                                        Converter={StaticResource StateToColorConverter}, 
+                                        ConverterParameter=1}"
+                                Minimum="0"
+                                Maximum="100"
+                                Ticks="1"
+                                IsMoveToPointEnabled="True"
+                                PreviewMouseUp="ColorSaturationSlider_OnPreviewMouseUp"
+                                Thumb.DragDelta="ColorSaturationSlider_OnDragDelta"
+                                Thumb.DragCompleted="ColorSaturationSlider_OnDragCompleted"/>
+                    </Grid>
+
+                    <Grid Column="1" Row="2" VerticalAlignment="Center"
+                          Margin="5 0">
+                        <Slider Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
+                                        Converter={StaticResource StateToColorConverter}, 
+                                        ConverterParameter=2}"
+                                Minimum="0"
+                                Maximum="100"
+                                Ticks="1"
+                                IsMoveToPointEnabled="True"
+                                PreviewMouseUp="ColorBrightnessSlider_OnPreviewMouseUp"
+                                Thumb.DragDelta="ColorBrightnessSlider_OnDragDelta"
+                                Thumb.DragCompleted="ColorBrightnessSlider_OnDragCompleted"/>
                     </Grid>
                 </Grid>
             </ControlTemplate>
@@ -77,11 +161,7 @@
                             <Setter Property="Template" Value="{StaticResource DimmerControlTemplate}"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static constants:WidgetType.Color}">
-                            <Setter Property="Content">
-                                <Setter.Value>
-                                    <TextBlock Text="NOT YET IMPLEMENTED"/>
-                                </Setter.Value>
-                            </Setter>
+                            <Setter Property="Template" Value="{StaticResource ColorControlTemplate}"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static constants:WidgetType.Number}">
                             <Setter Property="Content">

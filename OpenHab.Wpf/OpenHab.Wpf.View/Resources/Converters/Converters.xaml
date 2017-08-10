@@ -3,4 +3,5 @@
                     xmlns:converters="clr-namespace:OpenHab.Wpf.View.Resources.Converters">
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <converters:StateToDimmerConverter x:Key="StateToDimmerConverter" />
+    <converters:StateToColorConverter x:Key="StateToColorConverter" />
 </ResourceDictionary>

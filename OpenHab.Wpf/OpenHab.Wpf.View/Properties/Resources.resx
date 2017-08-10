@@ -150,4 +150,13 @@
   <data name="Items" xml:space="preserve">
     <value>Items</value>
   </data>
+  <data name="Brightness" xml:space="preserve">
+    <value>Brightness</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Saturation" xml:space="preserve">
+    <value>Saturation</value>
+  </data>
 </root>

@@ -56,4 +56,17 @@
            TargetType="TextBlock">
         <Setter Property="FontSize" Value="30" />
     </Style>
+    
+    <!-- Brushes -->
+    <LinearGradientBrush x:Key="HorzontalColorHueBrush" StartPoint="0,0.5" EndPoint="1,0.5">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="#00FF0000" Offset="0" />
+            <GradientStop Color="#88FFFF00" Offset="0.167" />
+            <GradientStop Color="#8800FF00" Offset="0.333" />
+            <GradientStop Color="#8800FFFF" Offset="0.5" />
+            <GradientStop Color="#880000FF" Offset="0.667" />
+            <GradientStop Color="#88FF00FF" Offset="0.833" />
+            <GradientStop Color="#00FF0000" Offset="1" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
 </ResourceDictionary>
