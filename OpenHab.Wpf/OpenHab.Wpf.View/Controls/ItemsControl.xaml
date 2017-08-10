@@ -4,12 +4,47 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:module="clr-namespace:OpenHab.Wpf.View.Module"
+             xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
+             xmlns:viewModels="clr-namespace:OpenHab.Wpf.ViewModel.ViewModels;assembly=OpenHab.Wpf.ViewModel"
+             xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding ItemsViewModel, 
                                    Source={x:Static module:ViewModelLocator.Instance}}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/BaseResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="{Binding Items.Count, FallbackValue=0}"
-                   FontSize="100"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Row="0" x:Name="Header">
+            <TextBlock Style="{StaticResource Header1}"
+                       Text="{x:Static p:Resources.Items}"></TextBlock>
+        </Grid>
+
+        <Grid Row="1" x:Name="Items">
+            <ItemsControl x:Name="Colors"
+                          Margin="5"
+                          ItemsSource="{Binding Items}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewModels:ItemViewModel}">
+                        <controls:ItemControl DataContext="{Binding}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
     </Grid>
 </UserControl>

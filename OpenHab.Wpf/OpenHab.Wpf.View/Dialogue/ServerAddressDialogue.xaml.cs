@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using OpenHab.Wpf.View.Module;
 
 namespace OpenHab.Wpf.View.Dialogue
@@ -8,9 +9,17 @@ namespace OpenHab.Wpf.View.Dialogue
     /// </summary>
     public partial class ServerAddressDialogue : Window
     {
-        public ServerAddressDialogue()
+        public ServerAddressDialogue(bool autoAcceptViableConnection = false)
         {
             InitializeComponent();
+            if (autoAcceptViableConnection && ViewModelLocator.Instance.ServerViewModel.RestContext.Reconnect())
+                Loaded += AutoAccept;
+        }
+
+        private void AutoAccept(object sender, RoutedEventArgs routedEventArgs)
+        {
+            ViewModelLocator.Instance.ServerViewModel.SaveIpAddress();
+            DialogResult = true;
         }
 
         private void OkButton_OnClick(object sender, RoutedEventArgs e)

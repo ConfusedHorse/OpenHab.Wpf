@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="OpenHab.Wpf.View.Controls.ItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:OpenHab.Wpf.ViewModel.ViewModels;assembly=OpenHab.Wpf.ViewModel"
+             xmlns:constants="clr-namespace:OpenHAB.NetRestApi.Constants;assembly=OpenHAB.NetRestApi"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             MinHeight="50" MinWidth="300"
+             mc:Ignorable="d"
+             d:DesignHeight="50" d:DesignWidth="500"
+             d:DataContext="{d:DesignInstance Type={x:Type viewModels:ItemViewModel}, 
+                                              IsDesignTimeCreatable=False}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/BaseResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <ControlTemplate x:Key="DimmerControlTemplate">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" 
+                                   Margin="10"
+                                   HorizontalAlignment="Left"
+                                   Style="{StaticResource {x:Type TextBlock}}"
+                                   Text="{Binding Label}"/>
+
+                        <TextBlock Grid.Column="1" 
+                                   Margin="10"
+                                   HorizontalAlignment="Right"
+                                   Style="{StaticResource {x:Type TextBlock}}"
+                                   Text="{Binding State, StringFormat={}{0}%}"/>
+                    </Grid>
+
+                    <Grid Row="1" Margin="10 0 10 10">
+                        <Slider Value="{Binding State, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,                                                                         
+                                        Converter={StaticResource StateToDimmerConverter}}"
+                                Minimum="0"
+                                Maximum="100"
+                                Ticks="1"
+                                IsMoveToPointEnabled="True"
+                                PreviewMouseUp="DimmerSlider_OnPreviewMouseUp"
+                                Thumb.DragCompleted="DimmerSlider_OnDragCompleted"/>
+                    </Grid>
+                </Grid>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="5"
+          Background="WhiteSmoke"> <!-- TODO color for type -->
+        <Grid.Effect>
+            <DropShadowEffect ShadowDepth="2" />
+        </Grid.Effect>
+        
+        <ContentControl VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch">
+            <ContentControl.Style>
+                <Style TargetType="{x:Type ContentControl}">
+                    <Setter Property="Content" x:Name="Fallback">
+                        <Setter.Value>
+                            <TextBlock Text="{Binding State}"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static constants:WidgetType.Dimmer}">
+                            <Setter Property="Template" Value="{StaticResource DimmerControlTemplate}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static constants:WidgetType.Color}">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <TextBlock Text="NOT YET IMPLEMENTED"/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static constants:WidgetType.Number}">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <TextBlock Text="NOT YET IMPLEMENTED"/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+    </Grid>
+</UserControl>
