@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using OpenHab.Wpf.CrossCutting.Context;
 using OpenHab.Wpf.CrossCutting.Events;

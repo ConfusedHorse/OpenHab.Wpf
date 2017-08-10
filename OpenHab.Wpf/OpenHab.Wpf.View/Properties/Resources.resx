@@ -139,12 +139,30 @@
     <value>Please type in a valid IP address. (e.g.: 192.168.1.1)</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>Ok.</value>
+    <value>Ok</value>
   </data>
   <data name="ServerAddressPrompt" xml:space="preserve">
     <value>Please type in the address of the OpenHab server component you would like to connect to.</value>
   </data>
   <data name="Sitemaps" xml:space="preserve">
     <value>Sitemaps</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>Items</value>
+  </data>
+  <data name="Brightness" xml:space="preserve">
+    <value>Brightness</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Saturation" xml:space="preserve">
+    <value>Saturation</value>
+  </data>
+  <data name="FieldMustNotBeEmpty" xml:space="preserve">
+    <value>Field must not be empty. Please enter a numeric value</value>
+  </data>
+  <data name="IllegalCharacters" xml:space="preserve">
+    <value>Illegal characters, please enter numeric values only</value>
   </data>
 </root>

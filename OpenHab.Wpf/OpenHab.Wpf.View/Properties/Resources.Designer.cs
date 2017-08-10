@@ -61,11 +61,29 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Brightness ähnelt.
+        /// </summary>
+        public static string Brightness {
+            get {
+                return ResourceManager.GetString("Brightness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Close Application ähnelt.
         /// </summary>
         public static string CloseApplication {
             get {
                 return ResourceManager.GetString("CloseApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Color ähnelt.
+        /// </summary>
+        public static string Color {
+            get {
+                return ResourceManager.GetString("Color", resourceCulture);
             }
         }
         
@@ -97,11 +115,38 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Field must not be empty. Please enter a numeric value ähnelt.
+        /// </summary>
+        public static string FieldMustNotBeEmpty {
+            get {
+                return ResourceManager.GetString("FieldMustNotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Illegal characters, please enter numeric values only ähnelt.
+        /// </summary>
+        public static string IllegalCharacters {
+            get {
+                return ResourceManager.GetString("IllegalCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die IP address: ähnelt.
         /// </summary>
         public static string IpAddress {
             get {
                 return ResourceManager.GetString("IpAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Items ähnelt.
+        /// </summary>
+        public static string Items {
+            get {
+                return ResourceManager.GetString("Items", resourceCulture);
             }
         }
         
@@ -124,11 +169,20 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Ok. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ok ähnelt.
         /// </summary>
         public static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Saturation ähnelt.
+        /// </summary>
+        public static string Saturation {
+            get {
+                return ResourceManager.GetString("Saturation", resourceCulture);
             }
         }
         
