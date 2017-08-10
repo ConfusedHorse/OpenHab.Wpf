@@ -61,11 +61,29 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Brightness ähnelt.
+        /// </summary>
+        public static string Brightness {
+            get {
+                return ResourceManager.GetString("Brightness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Close Application ähnelt.
         /// </summary>
         public static string CloseApplication {
             get {
                 return ResourceManager.GetString("CloseApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Color ähnelt.
+        /// </summary>
+        public static string Color {
+            get {
+                return ResourceManager.GetString("Color", resourceCulture);
             }
         }
         
@@ -138,6 +156,15 @@ namespace OpenHab.Wpf.View.Properties {
         public static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Saturation ähnelt.
+        /// </summary>
+        public static string Saturation {
+            get {
+                return ResourceManager.GetString("Saturation", resourceCulture);
             }
         }
         

@@ -25,7 +25,7 @@ namespace OpenHab.Wpf.View.Controls
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             _delayDispatcherTimer = new DispatcherTimer {Interval = TimeSpan.FromMilliseconds(50)};
-            _delayDispatcherTimer.Tick += UpdateState;
+            _delayDispatcherTimer.Tick += UpdateState; //catch multiple parallel events
         }
 
         private void UpdateState(object sender, EventArgs eventArgs)
@@ -42,6 +42,11 @@ namespace OpenHab.Wpf.View.Controls
             DimmerSliderValueChangedByUserInteraction(sender);
         }
 
+        private void DimmerSlider_OnDragDelta(object sender, DragDeltaEventArgs e)
+        {
+            DimmerSliderValueChangedByUserInteraction(sender);
+        }
+
         private void DimmerSlider_OnDragCompleted(object sender, DragCompletedEventArgs e)
         {
             DimmerSliderValueChangedByUserInteraction(sender);
@@ -52,6 +57,68 @@ namespace OpenHab.Wpf.View.Controls
             var source = (Slider)sender;
             if (!source.IsKeyboardFocused) return;
             _latestStateCausedByUserInteraction = Convert.ToInt32(source.Value).ToString();
+            _delayDispatcherTimer.Start();
+        }
+
+        #endregion
+
+        #region Color
+
+        private void ColorHueSlider_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ColorHueSliderValueChangedByUserInteraction(sender, 0);
+        }
+
+        private void ColorHueSlider_OnDragDelta(object sender, DragDeltaEventArgs e)
+        {
+            ColorHueSliderValueChangedByUserInteraction(sender, 0);
+        }
+
+        private void ColorHueSlider_OnDragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            ColorHueSliderValueChangedByUserInteraction(sender, 0);
+        }
+
+        private void ColorSaturationSlider_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ColorHueSliderValueChangedByUserInteraction(sender, 1);
+        }
+
+        private void ColorSaturationSlider_OnDragDelta(object sender, DragDeltaEventArgs e)
+        {
+            ColorHueSliderValueChangedByUserInteraction(sender, 1);
+        }
+
+        private void ColorSaturationSlider_OnDragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            ColorHueSliderValueChangedByUserInteraction(sender, 1);
+        }
+
+        private void ColorBrightnessSlider_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ColorHueSliderValueChangedByUserInteraction(sender, 2);
+        }
+
+        private void ColorBrightnessSlider_OnDragDelta(object sender, DragDeltaEventArgs e)
+        {
+            ColorHueSliderValueChangedByUserInteraction(sender, 2);
+        }
+
+        private void ColorBrightnessSlider_OnDragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            ColorHueSliderValueChangedByUserInteraction(sender, 2);
+        }
+
+        private void ColorHueSliderValueChangedByUserInteraction(object sender, int index)
+        {
+            var source = (Slider)sender;
+            if (!source.IsKeyboardFocused) return;
+
+            var target = (ItemViewModel)DataContext;
+            var values = target.State?.Split(',') ?? new[] { "0", "0", "0" };
+            values[index] = Convert.ToInt32(source.Value).ToString();
+
+            _latestStateCausedByUserInteraction = string.Join(",", values);
             _delayDispatcherTimer.Start();
         }
 
