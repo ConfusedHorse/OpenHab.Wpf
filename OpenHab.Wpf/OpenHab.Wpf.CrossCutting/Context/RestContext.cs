@@ -41,6 +41,9 @@ namespace OpenHab.Wpf.CrossCutting.Context
                 _online = value;
                 Debug.WriteLine(_online ? "Connection has been established!" : "Connection has been terminated!");
                 ConnectionChanged?.Invoke(this, new ServerConnectionChangedEventArgs(_online, ServerAddress));
+
+                if (_online) Client.EventService.InitializeAsync();
+                else Client.EventService.TerminateAsync();
             }
         }
 

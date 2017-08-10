@@ -106,6 +106,15 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Items ähnelt.
+        /// </summary>
+        public static string Items {
+            get {
+                return ResourceManager.GetString("Items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Could not connect to the server with given ip address. ähnelt.
         /// </summary>
         public static string NoConnectionEstablished {
@@ -124,7 +133,7 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Ok. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ok ähnelt.
         /// </summary>
         public static string Ok {
             get {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Threading;
+using GalaSoft.MvvmLight.Threading;
 using OpenHab.Wpf.View;
 using OpenHab.Wpf.View.Dialogue;
 
@@ -15,6 +16,8 @@ namespace OpenHab.Wpf
         {
             var mainWindow = new MainWindow();
             mainWindow.Show();
+
+            DispatcherHelper.Initialize();
             PrepareContext(mainWindow);
         }
 
@@ -23,7 +26,7 @@ namespace OpenHab.Wpf
             bool? canConnectToServer = false;
             while (canConnectToServer != null && !(bool)canConnectToServer)
             {
-                var serverAddressDialogue = new ServerAddressDialogue {Owner = owner};
+                var serverAddressDialogue = new ServerAddressDialogue(true) {Owner = owner};
                 canConnectToServer = serverAddressDialogue.ShowDialog();
             }
         }
