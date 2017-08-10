@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:OpenHab.Wpf.ViewModel.ViewModels;assembly=OpenHab.Wpf.ViewModel"
              xmlns:constants="clr-namespace:OpenHAB.NetRestApi.Constants;assembly=OpenHAB.NetRestApi"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
+             xmlns:validation="clr-namespace:OpenHab.Wpf.View.Resources.Helpers.Validation"
              MinHeight="50" MinWidth="300"
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="500"
@@ -139,10 +139,45 @@
                     </Grid>
                 </Grid>
             </ControlTemplate>
+
+            <ControlTemplate x:Key="NumberControlTemplate">
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" 
+                               Margin="10 0"
+                               HorizontalAlignment="Left"
+                               Style="{StaticResource {x:Type TextBlock}}"
+                               Text="{Binding Label}"/>
+
+                    <TextBox Grid.Column="1" 
+                             Margin="10 0"
+                             MinWidth="100"
+                             HorizontalAlignment="Right"
+                             HorizontalContentAlignment="Right"
+                             Style="{StaticResource {x:Type TextBox}}"
+                             PreviewKeyDown="NumberTextBox_OnPreviewKeyDown">
+                        <TextBox.Text>
+                            <Binding Path="State"
+                                     UpdateSourceTrigger="PropertyChanged"
+                                     ValidatesOnDataErrors="True"
+                                     NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <validation:DoubleValueValidationRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+            </ControlTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
+    
     <Grid Margin="5"
-          Background="WhiteSmoke"> <!-- TODO color for type -->
+          Background="WhiteSmoke">
         <Grid.Effect>
             <DropShadowEffect ShadowDepth="2" />
         </Grid.Effect>
@@ -164,12 +199,9 @@
                             <Setter Property="Template" Value="{StaticResource ColorControlTemplate}"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static constants:WidgetType.Number}">
-                            <Setter Property="Content">
-                                <Setter.Value>
-                                    <TextBlock Text="NOT YET IMPLEMENTED"/>
-                                </Setter.Value>
-                            </Setter>
+                            <Setter Property="Template" Value="{StaticResource NumberControlTemplate}"/>
                         </DataTrigger>
+                        <!-- TODO: implement missing WidgetTypes -->
                     </Style.Triggers>
                 </Style>
             </ContentControl.Style>
