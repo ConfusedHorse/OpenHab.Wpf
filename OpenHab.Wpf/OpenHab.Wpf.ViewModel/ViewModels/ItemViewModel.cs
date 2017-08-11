@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using OpenHab.Wpf.CrossCutting.Helper;
@@ -190,6 +189,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private void InitializeEventHandlers()
         {
             if (_item == null) return;
+            _item.InitializeEvents();
 
             _item.Updated += OnUpdated;
             _item.StateChanged += OnStateChanged;

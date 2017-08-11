@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using OpenHab.Wpf.CrossCutting.Context;
@@ -103,7 +104,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             IsBusy = true;
 
             var things = await Task.Run(() => _restContext.Client.ThingService.GetThings());
-            Things = things.ToViewModels();
+            var usefulThings = things.Where(t => t.Channels.Any());
+            
+            Things = usefulThings.ToViewModels();
 
             IsBusy = false;
         }

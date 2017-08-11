@@ -12,7 +12,7 @@ namespace OpenHab.Wpf
     /// </summary>
     public partial class App : Application
     {
-        private const bool AutoConnectToServer = false;
+        private const bool AutoConnectToServer = true;
 
         private void OpenHabWpf_OnStartup(object sender, StartupEventArgs e)
         {
