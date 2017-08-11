@@ -12,6 +12,8 @@ namespace OpenHab.Wpf
     /// </summary>
     public partial class App : Application
     {
+        private const bool AutoConnectToServer = false;
+
         private void OpenHabWpf_OnStartup(object sender, StartupEventArgs e)
         {
             var mainWindow = new MainWindow();
@@ -26,7 +28,7 @@ namespace OpenHab.Wpf
             bool? canConnectToServer = false;
             while (canConnectToServer != null && !(bool)canConnectToServer)
             {
-                var serverAddressDialogue = new ServerAddressDialogue(true) {Owner = owner};
+                var serverAddressDialogue = new ServerAddressDialogue(AutoConnectToServer) {Owner = owner};
                 canConnectToServer = serverAddressDialogue.ShowDialog();
             }
         }

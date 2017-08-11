@@ -32,19 +32,19 @@
                         </Grid.ColumnDefinitions>
                         
                         <TextBlock Grid.Column="0" 
-                                   Margin="10 0"
+                                   Margin="5 0"
                                    HorizontalAlignment="Left"
                                    Style="{StaticResource {x:Type TextBlock}}"
                                    Text="{Binding Label}"/>
 
                         <TextBlock Grid.Column="1" 
-                                   Margin="10 0"
+                                   Margin="5 0"
                                    HorizontalAlignment="Right"
                                    Style="{StaticResource {x:Type TextBlock}}"
                                    Text="{Binding State, StringFormat={}{0}%}"/>
                     </Grid>
 
-                    <Grid Row="1" Margin="10 0 10 10">
+                    <Grid Row="1" Margin="5 0 5 5">
                         <Slider Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
                                         Converter={StaticResource StateToDimmerConverter}}"
                                 Minimum="0"
@@ -178,9 +178,9 @@
     
     <Grid Margin="5"
           Background="WhiteSmoke">
-        <Grid.Effect>
+        <!--<Grid.Effect>
             <DropShadowEffect ShadowDepth="2" />
-        </Grid.Effect>
+        </Grid.Effect>-->
         
         <ContentControl VerticalAlignment="Stretch"
                         HorizontalAlignment="Stretch">

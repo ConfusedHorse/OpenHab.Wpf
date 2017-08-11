@@ -29,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
@@ -71,6 +74,12 @@
     </Compile>
     <Compile Include="Controls\SitemapControl.xaml.cs">
       <DependentUpon>SitemapControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ThingControl.xaml.cs">
+      <DependentUpon>ThingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ThingsControl.xaml.cs">
+      <DependentUpon>ThingsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogue\ServerAddressDialogue.xaml.cs">
       <DependentUpon>ServerAddressDialogue.xaml</DependentUpon>
@@ -116,6 +125,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SitemapControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ThingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ThingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

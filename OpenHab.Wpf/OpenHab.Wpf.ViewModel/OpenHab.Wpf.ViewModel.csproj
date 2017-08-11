@@ -64,12 +64,17 @@
     <Compile Include="Helper\ViewModelExtensions.cs" />
     <Compile Include="Module\ViewModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ThingsViewModel.cs" />
     <Compile Include="ViewModels\OptionViewModel.cs" />
     <Compile Include="ViewModels\ServerViewModel.cs" />
     <Compile Include="ViewModels\ItemsViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\StateDescriptionViewModel.cs" />
     <Compile Include="ViewModels\SitemapViewModel.cs" />
+    <Compile Include="ViewModels\StatusInfoViewModel.cs" />
+    <Compile Include="ViewModels\FirmwareViewModel.cs" />
+    <Compile Include="ViewModels\ChannelViewModel.cs" />
+    <Compile Include="ViewModels\ThingViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\OpenHab.NetRestApi\OpenHAB.NetRestApi\OpenHAB.NetRestApi.csproj">

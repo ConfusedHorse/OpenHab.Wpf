@@ -1,14 +1,12 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
-using Ninject;
-using OpenHab.Wpf.CrossCutting.Context;
 using OpenHab.Wpf.CrossCutting.Helper;
-using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Constants;
 using OpenHAB.NetRestApi.Models;
+using OpenHAB.NetRestApi.Models.Events;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels
 {
@@ -37,14 +35,15 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             Name = item.Name;
             Label = item.Label;
             Category = item.Category;
-            Tags = item.Tags.ToViewModels();
-            GroupNames = item.GroupNames.ToViewModels();
+            Tags = item.Tags?.ToViewModels();
+            GroupNames = item.GroupNames?.ToViewModels();
             Link = item.Link;
             State = item.State;
             TransformedState = item.TransformedState;
-            StateDescription = item.StateDescription.ToViewModel();
+            StateDescription = item.StateDescription?.ToViewModel();
 
             _item = item;
+            InitializeEventHandlers();
         }
 
         public void Update(Item item)
@@ -53,12 +52,12 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             Name = item.Name;
             Label = item.Label;
             Category = item.Category;
-            Tags = item.Tags.ToViewModels();
-            GroupNames = item.GroupNames.ToViewModels();
+            Tags = item.Tags?.ToViewModels();
+            GroupNames = item.GroupNames?.ToViewModels();
             Link = item.Link;
             State = item.State;
             TransformedState = item.TransformedState;
-            StateDescription = item.StateDescription.ToViewModel();
+            StateDescription = item.StateDescription?.ToViewModel();
 
             _item = item;
         }
@@ -181,13 +180,30 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         public async void SendCommandAsync(string newState)
         {
             State = newState;
-            await Task.Run(() =>
-                NinjectKernel.StandardKernel.Get<RestContext>().Client.ItemService.SendCommand(_item, _state));
+            await Task.Run(() => _item.SendCommand(_state));
         }
 
         #endregion
 
         #region Private Methods
+
+        private void InitializeEventHandlers()
+        {
+            if (_item == null) return;
+
+            _item.Updated += OnUpdated;
+            _item.StateChanged += OnStateChanged;
+        }
+
+        private void OnUpdated(object sender, ItemUpdatedEvent eventObject)
+        {
+            Update(eventObject.NewItem);
+        }
+
+        private void OnStateChanged(object sender, ItemStateChangedEvent eventObject)
+        {
+            State = eventObject.StateValue;
+        }
 
         #endregion
     }

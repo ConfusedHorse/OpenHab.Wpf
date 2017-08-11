@@ -203,5 +203,14 @@ namespace OpenHab.Wpf.View.Properties {
                 return ResourceManager.GetString("Sitemaps", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Things ähnelt.
+        /// </summary>
+        public static string Things {
+            get {
+                return ResourceManager.GetString("Things", resourceCulture);
+            }
+        }
     }
 }

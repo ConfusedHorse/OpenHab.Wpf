@@ -91,10 +91,10 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             var eventService = _restContext.Client.EventService;
             Debug.WriteLine($"Initializing Event Handlers for {nameof(ItemsViewModel)}");
 
-            eventService.ItemStateChanged += OnItemStateChanged;
             eventService.ItemAdded += OnItemAdded;
             eventService.ItemRemoved += OnItemRemoved;
-            eventService.ItemUpdated += OnItemUpdated;
+            //eventService.ItemUpdated += OnItemUpdated; //is now fired by item itself
+            //eventService.ItemStateChanged += OnItemStateChanged;
         }
 
         private void TerminateEventHandlers()
@@ -102,16 +102,10 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             var eventService = _restContext.Client.EventService;
             Debug.WriteLine($"Terminating Event Handlers for {nameof(ItemsViewModel)}");
 
-            eventService.ItemStateChanged -= OnItemStateChanged;
             eventService.ItemAdded -= OnItemAdded;
             eventService.ItemRemoved -= OnItemRemoved;
-            eventService.ItemUpdated -= OnItemUpdated;
-        }
-
-        private void OnItemStateChanged(object sender, ItemStateChangedEvent eventObject)
-        {
-            var item = _items.FirstOrDefault(i => i.Name == eventObject.Target);
-            if (item != null) item.State = eventObject.StateValue;
+            //eventService.ItemUpdated -= OnItemUpdated; //is now fired by item itself
+            //eventService.ItemStateChanged -= OnItemStateChanged;
         }
 
         private void OnItemAdded(object sender, ItemAddedEvent eventObject)
@@ -130,6 +124,12 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         {
             var item = _items.FirstOrDefault(i => i.Name == eventObject.OldItem.Name);
             item?.Update(eventObject.NewItem);
+        }
+
+        private void OnItemStateChanged(object sender, ItemStateChangedEvent eventObject)
+        {
+            var item = _items.FirstOrDefault(i => i.Name == eventObject.Target);
+            if (item != null) item.State = eventObject.StateValue;
         }
 
         private async void RefreshItems()

@@ -28,6 +28,16 @@ namespace OpenHab.Wpf.ViewModel.Helper
             return stateDescription == null ? null : new StateDescriptionViewModel(stateDescription);
         }
 
+        public static ThingViewModel ToViewModel(this Thing thing)
+        {
+            return new ThingViewModel(thing);
+        }
+
+        public static ObservableCollection<ThingViewModel> ToViewModels(this IEnumerable<Thing> things)
+        {
+            return new ObservableCollection<ThingViewModel>(things.Select(o => o.ToViewModel()));
+        }
+
         public static OptionViewModel ToViewModel(this Option option)
         {
             return new OptionViewModel(option);
@@ -36,6 +46,26 @@ namespace OpenHab.Wpf.ViewModel.Helper
         public static ObservableCollection<OptionViewModel> ToViewModels(this IEnumerable<Option> options)
         {
             return new ObservableCollection<OptionViewModel>(options.Select(o => o.ToViewModel()));
+        }
+
+        public static ChannelViewModel ToViewModel(this Channel channel)
+        {
+            return new ChannelViewModel(channel);
+        }
+
+        public static ObservableCollection<ChannelViewModel> ToViewModels(this IEnumerable<Channel> channels)
+        {
+            return new ObservableCollection<ChannelViewModel>(channels.Select(o => o.ToViewModel()));
+        }
+
+        public static StatusInfoViewModel ToViewModel(this StatusInfo statusInfo)
+        {
+            return new StatusInfoViewModel(statusInfo);
+        }
+
+        public static FirmwareViewModel ToViewModel(this Firmware firmware)
+        {
+            return new FirmwareViewModel(firmware);
         }
     }
 }

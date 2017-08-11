@@ -165,4 +165,7 @@
   <data name="IllegalCharacters" xml:space="preserve">
     <value>Illegal characters, please enter numeric values only</value>
   </data>
+  <data name="Things" xml:space="preserve">
+    <value>Things</value>
+  </data>
 </root>
