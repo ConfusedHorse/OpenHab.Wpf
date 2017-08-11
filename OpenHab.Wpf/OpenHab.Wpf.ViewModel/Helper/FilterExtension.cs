@@ -19,7 +19,14 @@ namespace OpenHab.Wpf.ViewModel.Helper
 
         private static string CreateBrowseValue(ThingViewModel t)
         {
-            return $"{t.Uid}{t.ThingTypeUid}{t.Label}{t.Location}";
+            var channelBrowseValue = string.Join(string.Empty, t.LinkedItems.Select(CreateBrowseValue));
+            return $"{t.Uid}{t.ThingTypeUid}{t.Label}{t.Location}{channelBrowseValue}";
+        }
+
+        private static string CreateBrowseValue(ItemViewModel i)
+        {
+            var tagsBrowseValue = string.Join(string.Empty, i.Tags);
+            return $"{i.Label}{i.Name}{i.Category}{tagsBrowseValue}";
         }
     }
 }
