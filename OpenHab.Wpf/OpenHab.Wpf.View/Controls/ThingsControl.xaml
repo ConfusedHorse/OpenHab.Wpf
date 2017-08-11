@@ -7,8 +7,9 @@
              xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
              xmlns:viewModels="clr-namespace:OpenHab.Wpf.ViewModel.ViewModels;assembly=OpenHab.Wpf.ViewModel"
              xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
+             xmlns:attachments="clr-namespace:OpenHab.Wpf.View.Resources.Helpers.Attachments"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="300" d:DesignWidth="500"
              DataContext="{Binding ThingsViewModel, 
                                    Source={x:Static module:ViewModelLocator.Instance}}">
     <UserControl.Resources>
@@ -21,18 +22,32 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
+            <RowDefinition Height="75"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Row="0" x:Name="Header">
             <TextBlock Style="{StaticResource Header1}"
-                       Text="{x:Static p:Resources.Things}"></TextBlock>
+                       Text="{x:Static p:Resources.Things}"/>
         </Grid>
 
-        <Grid Row="1" x:Name="Items">
+        <Grid Row="1" x:Name="Browser"
+              Margin="10" Width="400" HorizontalAlignment="Left">
+            <TextBox Text="{Binding FilterCsv, UpdateSourceTrigger=PropertyChanged, Delay=50}">
+                <attachments:WatermarkService.Watermark>
+                    <TextBlock Text="{x:Static p:Resources.StartTypeToBrowseForThings}"
+                               Style="{StaticResource {x:Type TextBlock}}"
+                               VerticalAlignment="Center"
+                               Margin="5"
+                               Foreground="Gray"/>
+                </attachments:WatermarkService.Watermark>
+            </TextBox>
+        </Grid>
+
+        <Grid Row="2" x:Name="Items">
             <ItemsControl x:Name="Colors"
                           Margin="5"
-                          ItemsSource="{Binding Things}">
+                          ItemsSource="{Binding FilteredThings}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModels:ThingViewModel}">
                         <controls:ThingControl DataContext="{Binding}"/>
@@ -48,3 +63,4 @@
         </Grid>
     </Grid>
 </UserControl>
+

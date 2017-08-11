@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenHab.Wpf.CrossCutting.Helper
+namespace OpenHab.Wpf.CrossCutting.Helpers
 {
     public static class EnumHelper
     {

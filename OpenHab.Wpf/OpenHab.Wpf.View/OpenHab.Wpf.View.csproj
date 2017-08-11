@@ -96,6 +96,8 @@
     </Compile>
     <Compile Include="Resources\Converters\StateToColorConverter.cs" />
     <Compile Include="Resources\Converters\StateToDimmerConverter.cs" />
+    <Compile Include="Resources\Helpers\Attachments\WatermarkAdorner.cs" />
+    <Compile Include="Resources\Helpers\Attachments\WatermarkService.cs" />
     <Compile Include="Resources\Helpers\CircularBusyIndicator.xaml.cs">
       <DependentUpon>CircularBusyIndicator.xaml</DependentUpon>
     </Compile>

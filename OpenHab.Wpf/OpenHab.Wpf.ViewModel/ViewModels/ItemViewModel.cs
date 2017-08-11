@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
-using OpenHab.Wpf.CrossCutting.Helper;
+using OpenHab.Wpf.CrossCutting.Helpers;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Constants;
 using OpenHAB.NetRestApi.Models;

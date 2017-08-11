@@ -47,9 +47,10 @@
     <Compile Include="Context\GlobalContext.cs" />
     <Compile Include="Context\RestContext.cs" />
     <Compile Include="Events\ServerConnectionChangedEventArgs.cs" />
-    <Compile Include="Helper\ColorHelper.cs" />
-    <Compile Include="Helper\EnumHelper.cs" />
-    <Compile Include="Helper\IpHelper.cs" />
+    <Compile Include="Helpers\ColorHelper.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\IpHelper.cs" />
+    <Compile Include="Helpers\StringExtension.cs" />
     <Compile Include="Module\ContextModule.cs" />
     <Compile Include="Module\NinjectKernel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

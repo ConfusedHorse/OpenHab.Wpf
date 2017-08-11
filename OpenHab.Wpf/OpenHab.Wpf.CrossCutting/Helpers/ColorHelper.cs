@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 
-namespace OpenHab.Wpf.CrossCutting.Helper
+namespace OpenHab.Wpf.CrossCutting.Helpers
 {
     public static class ColorHelper
     {

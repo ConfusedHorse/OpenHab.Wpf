@@ -168,4 +168,7 @@
   <data name="Things" xml:space="preserve">
     <value>Things</value>
   </data>
+  <data name="StartTypeToBrowseForThings" xml:space="preserve">
+    <value>Start typing to filter things...</value>
+  </data>
 </root>

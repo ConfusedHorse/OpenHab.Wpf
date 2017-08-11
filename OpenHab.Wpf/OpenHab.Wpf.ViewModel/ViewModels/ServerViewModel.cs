@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using OpenHab.Wpf.CrossCutting.Context;
-using OpenHab.Wpf.CrossCutting.Helper;
+using OpenHab.Wpf.CrossCutting.Helpers;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels
 {

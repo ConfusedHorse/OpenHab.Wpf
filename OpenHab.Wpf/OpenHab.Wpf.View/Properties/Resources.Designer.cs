@@ -205,6 +205,15 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Start typing to filter things... ähnelt.
+        /// </summary>
+        public static string StartTypeToBrowseForThings {
+            get {
+                return ResourceManager.GetString("StartTypeToBrowseForThings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Things ähnelt.
         /// </summary>
         public static string Things {

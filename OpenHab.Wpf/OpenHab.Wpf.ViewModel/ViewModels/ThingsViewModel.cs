@@ -17,6 +17,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private ObservableCollection<ThingViewModel> _things = new ObservableCollection<ThingViewModel>();
         private bool _isEnabled;
         private bool _isBusy;
+        private string _filterCsv;
 
         #endregion
 
@@ -35,8 +36,22 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             {
                 _things = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged(() => FilteredThings);
             }
         }
+
+        public string FilterCsv
+        {
+            get => _filterCsv;
+            set
+            {
+                _filterCsv = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged(() => FilteredThings);
+            }
+        }
+
+        public ObservableCollection<ThingViewModel> FilteredThings => _things.FilterBy(_filterCsv);
 
         public bool IsEnabled
         {
@@ -87,6 +102,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private void InitializeEventHandlers()
         {
             var eventService = _restContext.Client.EventService;
+            //TODO implement event handlers
             Debug.WriteLine($"Initializing Event Handlers for {nameof(ThingsViewModel)}");
             
         }
