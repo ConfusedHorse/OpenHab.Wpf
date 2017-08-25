@@ -3,29 +3,29 @@ using OpenHAB.NetRestApi.Models;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels
 {
-    public class OptionViewModel : ViewModelBase
+    public class FilterCriteriaViewModel : ViewModelBase
     {
         #region Fields
 
-        private string _label;
+        private string _name;
         private string _value;
 
         #endregion
 
-        public OptionViewModel(Option option)
+        public FilterCriteriaViewModel(FilterCriteria filterCriteria)
         {
-            Label = option.Label;
-            Value = option.Value;
+            Name = filterCriteria.Name;
+            Value = filterCriteria.Value;
         }
 
         #region Properties
 
-        public string Label
+        public string Name
         {
-            get => _label;
+            get => _name;
             set
             {
-                _label = value;
+                _name = value;
                 RaisePropertyChanged();
             }
         }

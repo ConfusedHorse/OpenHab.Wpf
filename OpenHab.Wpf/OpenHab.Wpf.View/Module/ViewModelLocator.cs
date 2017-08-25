@@ -25,6 +25,7 @@ namespace OpenHab.Wpf.View.Module
         public ServerViewModel ServerViewModel => NinjectKernel.StandardKernel.Get<ServerViewModel>();
         public ItemsViewModel ItemsViewModel => NinjectKernel.StandardKernel.Get<ItemsViewModel>();
         public ThingsViewModel ThingsViewModel => NinjectKernel.StandardKernel.Get<ThingsViewModel>();
+        public RulesViewModel RulesViewModel => NinjectKernel.StandardKernel.Get<RulesViewModel>();
 
         public static void Cleanup()
         {

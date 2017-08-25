@@ -32,10 +32,10 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             Kind = channel.Kind;
             Label = channel.Label;
             Description = channel.Description;
-            Tags = channel.Tags.ToViewModels();
+            Tags = channel.Tags?.ToViewModels();
             Properties = channel.Properties;
             Category = channel.Category;
-            StateDescription = channel.StateDescription.ToViewModel();
+            StateDescription = channel.StateDescription?.ToViewModel();
             Advanced = channel.Advanced;
             ThingConfiguration = channel.ThingConfiguration;
 

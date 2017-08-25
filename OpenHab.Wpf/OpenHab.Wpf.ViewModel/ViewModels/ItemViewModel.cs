@@ -45,22 +45,6 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             InitializeEventHandlers();
         }
 
-        public void Update(Item item)
-        {
-            Type = item.Type.ToEnum(WidgetType.Text);
-            Name = item.Name;
-            Label = item.Label;
-            Category = item.Category;
-            Tags = item.Tags?.ToViewModels();
-            GroupNames = item.GroupNames?.ToViewModels();
-            Link = item.Link;
-            State = item.State;
-            TransformedState = item.TransformedState;
-            StateDescription = item.StateDescription?.ToViewModel();
-
-            _item = item;
-        }
-
         #region Properties
         
         public WidgetType Type
@@ -180,6 +164,22 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         {
             State = newState;
             await Task.Run(() => _item.SendCommand(_state));
+        }
+
+        public void Update(Item item)
+        {
+            Type = item.Type.ToEnum(WidgetType.Text);
+            Name = item.Name;
+            Label = item.Label;
+            Category = item.Category;
+            Tags = item.Tags?.ToViewModels();
+            GroupNames = item.GroupNames?.ToViewModels();
+            Link = item.Link;
+            State = item.State;
+            TransformedState = item.TransformedState;
+            StateDescription = item.StateDescription?.ToViewModel();
+
+            _item = item;
         }
 
         #endregion

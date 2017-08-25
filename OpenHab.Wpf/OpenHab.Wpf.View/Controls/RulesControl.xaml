@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="OpenHab.Wpf.View.Controls.RulesControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:module="clr-namespace:OpenHab.Wpf.View.Module"
+             xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
+             xmlns:viewModels="clr-namespace:OpenHab.Wpf.ViewModel.ViewModels;assembly=OpenHab.Wpf.ViewModel"
+             xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
+             xmlns:extra="http://schemas.extra.com/ui"
+             xmlns:params="http://schemas.codeplex.com/elysium/params"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500"
+             DataContext="{Binding RulesViewModel, 
+                                   Source={x:Static module:ViewModelLocator.Instance}}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/BaseResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Row="0" x:Name="Browser"
+              Width="200" HorizontalAlignment="Left"
+              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+            <extra:TextBoxExtended Text="{Binding FilterCsv, UpdateSourceTrigger=PropertyChanged, Delay=150}"
+                                   Watermark="{x:Static p:Resources.StartTypeToBrowseForThings}"/>
+        </Grid>
+
+        <Grid Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!--TODO add possible tools like actions, triggers and conditions here-->
+
+            <Grid Column="0">
+                <ItemsControl x:Name="Things"
+                              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
+                              ItemsSource="{Binding ThingsViewModel.FilteredThings, Source={x:Static module:ViewModelLocator.Instance}}">
+                    <i:Interaction.Behaviors>
+                        <extra:AnimatingItemsControlBehavior x:Name="ThingsBehavior"/>
+                    </i:Interaction.Behaviors>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:ThingViewModel}">
+                            <controls:ThingControl DataContext="{Binding}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+
+            <GridSplitter Grid.Column="1" 
+                          Style="{StaticResource VerticalGridSplitterStyle}"/>
+
+            <Grid x:Name="RuleDesigner"
+                  Column="2">
+                <ItemsControl x:Name="Rules"
+                              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
+                              ItemsSource="{Binding FilteredRules}">
+                    <i:Interaction.Behaviors>
+                        <extra:AnimatingItemsControlBehavior x:Name="RulesBehavior"/>
+                    </i:Interaction.Behaviors>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:RuleViewModel}">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="NOT YET IMPLEMENTED"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
+

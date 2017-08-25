@@ -26,9 +26,9 @@
                 <TabItem Header="{x:Static p:Resources.Things}">
                     <controls:ThingsControl/>
                 </TabItem>
-                <!--<TabItem Header="{x:Static p:Resources.Items}">
-                    <controls:ItemsControl/>
-                </TabItem>-->
+                <TabItem Header="{x:Static p:Resources.Rules}">
+                    <controls:RulesControl/>
+                </TabItem>
             </TabControl>
             
             <!--TODO-->

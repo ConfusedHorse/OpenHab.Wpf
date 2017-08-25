@@ -172,6 +172,25 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         #region Public Methods
 
+        public void Update(Thing thing)
+        {
+            Label = thing.Label;
+            BridgeUid = thing.BridgeUid;
+            Configuration = thing.Configuration;
+            Properties = thing.Properties;
+            Uid = thing.Uid;
+            ThingTypeUid = thing.ThingTypeUid;
+            Channels = thing.Channels?.ToViewModels();
+            Location = thing.Location;
+            StatusInfo = thing.StatusInfo?.ToViewModel();
+            FirmwareStatus = thing.FirmwareStatus?.ToViewModel();
+            Editable = thing.Editable;
+
+            _thing = thing;
+
+            RefreshLinkedItemsAsync();
+        }
+
         #endregion
 
         #region Private Methods
@@ -179,7 +198,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private async void RefreshLinkedItemsAsync()
         {
             if (_channels.IsNullOrEmpty()) return;
-            LinkedItems = await Task.Run(() => _thing.GetLinkedItems().ToViewModels());
+            LinkedItems = await Task.Run(() => _thing.GetLinkedItems()?.ToViewModels());
         }
 
         #endregion

@@ -18,7 +18,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         {
             Minimum = stateDescription.Minimum;
             Maximum = stateDescription.Maximum;
-            Options = stateDescription.Options.ToViewModels();
+            Options = stateDescription.Options?.ToViewModels();
             Pattern = stateDescription.Pattern;
             ReadOnly = stateDescription.ReadOnly;
             Step = stateDescription.Step;

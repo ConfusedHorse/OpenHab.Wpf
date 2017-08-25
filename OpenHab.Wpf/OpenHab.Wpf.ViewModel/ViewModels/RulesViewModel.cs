@@ -4,26 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Threading;
+using Ninject;
 using OpenHab.Wpf.CrossCutting.Context;
 using OpenHab.Wpf.CrossCutting.Events;
+using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.ViewModel.Helper;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels
 {
-    public class ThingsViewModel : ViewModelBase
+    public class RulesViewModel : ViewModelBase
     {
         #region Fields
 
         private readonly RestContext _restContext;
-        private ObservableCollection<ThingViewModel> _things = new ObservableCollection<ThingViewModel>();
+        private ObservableCollection<RuleViewModel> _rules = new ObservableCollection<RuleViewModel>();
         private bool _isEnabled;
         private bool _isBusy;
         private string _filterCsv;
-        private ObservableCollection<ThingViewModel> _filteredThings = new ObservableCollection<ThingViewModel>();
+        private ObservableCollection<RuleViewModel> _filteredRules = new ObservableCollection<RuleViewModel>();
 
         #endregion
 
-        public ThingsViewModel(RestContext restContext)
+        public RulesViewModel(RestContext restContext)
         {
             _restContext = restContext;
             _restContext.ConnectionChanged += RestContextOnConnectionChanged;
@@ -31,13 +33,13 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         #region Properties
 
-        public ObservableCollection<ThingViewModel> Things
+        public ObservableCollection<RuleViewModel> Rules
         {
-            get => _things;
+            get => _rules;
             set
             {
-                _things = value;
-                FilteredThings = new ObservableCollection<ThingViewModel>(value);
+                _rules = value;
+                FilteredRules = new ObservableCollection<RuleViewModel>(value);
                 RaisePropertyChanged();
             }
         }
@@ -48,6 +50,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _filterCsv = value;
+
+                NinjectKernel.StandardKernel.Get<ThingsViewModel>().FilterCsv = value;
+
                 UpdateFilteredThingsAsync();
                 RaisePropertyChanged();
             }
@@ -57,28 +62,28 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         {
             DispatcherHelper.RunAsync(() =>
             {
-                var updatedThings = _things.FilterBy(_filterCsv);
-                var thingsToBeAdded = updatedThings.Where(ut => !_filteredThings.Contains(ut)).ToArray();
-                var thingsToBeRemoved = _filteredThings.Where(ft => !updatedThings.Contains(ft)).ToArray();
+                var updateRules = _rules.FilterBy(_filterCsv);
+                var rulesToBeAdded = updateRules.Where(ut => !_filteredRules.Contains(ut)).ToArray();
+                var rulesToBeRemoved = _filteredRules.Where(ft => !updateRules.Contains(ft)).ToArray();
 
-                foreach (var thingViewModel in thingsToBeAdded)
+                foreach (var ruleViewModel in rulesToBeAdded)
                 {
-                    FilteredThings.Add(thingViewModel);
+                    FilteredRules.Add(ruleViewModel);
                 }
 
-                foreach (var thingViewModel in thingsToBeRemoved)
+                foreach (var ruleViewModel in rulesToBeRemoved)
                 {
-                    FilteredThings.Remove(thingViewModel);
+                    FilteredRules.Remove(ruleViewModel);
                 }
             });
         }
 
-        public ObservableCollection<ThingViewModel> FilteredThings
+        public ObservableCollection<RuleViewModel> FilteredRules
         {
-            get => _filteredThings;
+            get => _filteredRules;
             set
             {
-                _filteredThings = value;
+                _filteredRules = value;
                 RaisePropertyChanged();
             }
         }
@@ -120,7 +125,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         private void Initialize()
         {
-            RefreshThingsAsync();
+            RefreshRulesAsync();
             InitializeEventHandlers();
         }
 
@@ -133,26 +138,24 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         {
             var eventService = _restContext.Client.EventService;
             //TODO implement event handlers
-            Debug.WriteLine($"Initializing Event Handlers for {nameof(ThingsViewModel)}");
+            Debug.WriteLine($"Initializing Event Handlers for {nameof(RulesViewModel)}");
             
         }
 
         private void TerminateEventHandlers()
         {
             var eventService = _restContext.Client.EventService;
-            Debug.WriteLine($"Terminating Event Handlers for {nameof(ThingsViewModel)}");
+            Debug.WriteLine($"Terminating Event Handlers for {nameof(RulesViewModel)}");
             
         }
         
-        private async void RefreshThingsAsync()
+        private async void RefreshRulesAsync()
         {
             if (IsBusy) return;
             IsBusy = true;
 
-            var things = await Task.Run(() => _restContext.Client.ThingService.GetThings());
-            var usefulThings = things.Where(t => t.Channels.Any());
-            
-            Things = usefulThings?.ToViewModels();
+            var rules = await Task.Run(() => _restContext.Client.RuleService.GetRules());
+            Rules = rules?.ToViewModels();
 
             IsBusy = false;
         }

@@ -177,4 +177,7 @@
   <data name="ConnectAutomaticallyExplanation" xml:space="preserve">
     <value>The given IP adress will be stored and connection is established automatically when possible,</value>
   </data>
+  <data name="Rules" xml:space="preserve">
+    <value>Rules</value>
+  </data>
 </root>

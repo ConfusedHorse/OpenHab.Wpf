@@ -110,7 +110,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         private void OnItemAdded(object sender, ItemAddedEvent eventObject)
         {
-            var item = eventObject.Item.ToViewModel();
+            var item = eventObject.Item?.ToViewModel();
             if (item != null) DispatcherHelper.RunAsync(() => Items.Add(item));
         }
 
@@ -142,7 +142,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             {
                 return items.Select(item => _restContext.Client.ItemService.GetItem(item.Name));
             });
-            Items = itemInformation.ToViewModels();
+            Items = itemInformation?.ToViewModels();
 
             IsBusy = false;
         }
