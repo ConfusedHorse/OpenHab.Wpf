@@ -171,4 +171,10 @@
   <data name="StartTypeToBrowseForThings" xml:space="preserve">
     <value>Start typing to filter things...</value>
   </data>
+  <data name="ConnectAutomatically" xml:space="preserve">
+    <value>Connect automatically</value>
+  </data>
+  <data name="ConnectAutomaticallyExplanation" xml:space="preserve">
+    <value>The given IP adress will be stored and connection is established automatically when possible,</value>
+  </data>
 </root>

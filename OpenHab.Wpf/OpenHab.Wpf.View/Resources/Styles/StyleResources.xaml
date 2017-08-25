@@ -3,7 +3,7 @@
                     xmlns:view="clr-namespace:OpenHab.Wpf.View">
     
     <!-- Generic control styles -->
-    <Style BasedOn="{StaticResource {x:Type Window}}" TargetType="view:MainWindow">
+    <!--<Style BasedOn="{StaticResource {x:Type Window}}" TargetType="view:MainWindow">
         <Setter Property="Background" Value="LightGray"/>
     </Style>
 
@@ -29,7 +29,7 @@
         <Setter Property="BorderBrush" Value="Black" />
     </Style>
 
-    <!-- Common control styles -->
+    --><!-- Common control styles --><!--
     <Style x:Key="BaseHeader" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Segoe UI" />
         <Setter Property="FontWeight" Value="DemiBold" />
@@ -55,7 +55,7 @@
            BasedOn="{StaticResource BaseHeader}"
            TargetType="TextBlock">
         <Setter Property="FontSize" Value="30" />
-    </Style>
+    </Style>-->
     
     <!-- Brushes -->
     <LinearGradientBrush x:Key="HorzontalColorHueBrush" StartPoint="0,0.5" EndPoint="1,0.5">

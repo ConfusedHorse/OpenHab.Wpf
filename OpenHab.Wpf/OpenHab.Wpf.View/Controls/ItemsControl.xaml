@@ -7,6 +7,7 @@
              xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
              xmlns:viewModels="clr-namespace:OpenHab.Wpf.ViewModel.ViewModels;assembly=OpenHab.Wpf.ViewModel"
              xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
+             xmlns:params="http://schemas.codeplex.com/elysium/params"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding ItemsViewModel, 
@@ -20,18 +21,18 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Row="0" x:Name="Header">
-            <TextBlock Style="{StaticResource Header1}"
+            <TextBlock Style="{StaticResource HeaderTextStyle}"
                        Text="{x:Static p:Resources.Items}"/>
         </Grid>
 
         <Grid Row="1" x:Name="Items">
             <ItemsControl x:Name="Colors"
-                          Margin="5"
+                          Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
                           ItemsSource="{Binding Items}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModels:ItemViewModel}">

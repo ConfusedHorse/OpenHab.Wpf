@@ -88,6 +88,24 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Connect automatically ähnelt.
+        /// </summary>
+        public static string ConnectAutomatically {
+            get {
+                return ResourceManager.GetString("ConnectAutomatically", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The given IP adress will be stored and connection is established automatically when possible, ähnelt.
+        /// </summary>
+        public static string ConnectAutomaticallyExplanation {
+            get {
+                return ResourceManager.GetString("ConnectAutomaticallyExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Connection to the server has been established successfully. ähnelt.
         /// </summary>
         public static string ConnectionEstablished {

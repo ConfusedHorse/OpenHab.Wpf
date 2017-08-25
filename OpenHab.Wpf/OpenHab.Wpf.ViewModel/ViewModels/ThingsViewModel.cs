@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Threading;
 using OpenHab.Wpf.CrossCutting.Context;
 using OpenHab.Wpf.CrossCutting.Events;
 using OpenHab.Wpf.ViewModel.Helper;
@@ -18,6 +19,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private bool _isEnabled;
         private bool _isBusy;
         private string _filterCsv;
+        private ObservableCollection<ThingViewModel> _filteredThings = new ObservableCollection<ThingViewModel>();
 
         #endregion
 
@@ -35,8 +37,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _things = value;
+                FilteredThings = new ObservableCollection<ThingViewModel>(value);
                 RaisePropertyChanged();
-                RaisePropertyChanged(() => FilteredThings);
             }
         }
 
@@ -46,12 +48,40 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _filterCsv = value;
+                UpdateFilteredThingsAsync();
                 RaisePropertyChanged();
-                RaisePropertyChanged(() => FilteredThings);
             }
         }
 
-        public ObservableCollection<ThingViewModel> FilteredThings => _things.FilterBy(_filterCsv);
+        private void UpdateFilteredThingsAsync()
+        {
+            DispatcherHelper.RunAsync(() =>
+            {
+                var updatedThings = _things.FilterBy(_filterCsv);
+                var thingsToBeAdded = updatedThings.Where(ut => !_filteredThings.Contains(ut)).ToArray();
+                var thingsToBeRemoved = _filteredThings.Where(ft => !updatedThings.Contains(ft)).ToArray();
+
+                foreach (var thingViewModel in thingsToBeAdded)
+                {
+                    FilteredThings.Add(thingViewModel);
+                }
+
+                foreach (var thingViewModel in thingsToBeRemoved)
+                {
+                    FilteredThings.Remove(thingViewModel);
+                }
+            });
+        }
+
+        public ObservableCollection<ThingViewModel> FilteredThings
+        {
+            get => _filteredThings;
+            set
+            {
+                _filteredThings = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public bool IsEnabled
         {

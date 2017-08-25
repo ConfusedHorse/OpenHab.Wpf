@@ -34,5 +34,17 @@ namespace OpenHab.Wpf.CrossCutting.Properties {
                 this["ServerAddress"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ConnectAutomatically {
+            get {
+                return ((bool)(this["ConnectAutomatically"]));
+            }
+            set {
+                this["ConnectAutomatically"] = value;
+            }
+        }
     }
 }

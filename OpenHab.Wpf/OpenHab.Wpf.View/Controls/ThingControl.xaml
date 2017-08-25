@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:viewModels="clr-namespace:OpenHab.Wpf.ViewModel.ViewModels;assembly=OpenHab.Wpf.ViewModel"
              xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
+             xmlns:params="http://schemas.codeplex.com/elysium/params"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance Type={x:Type viewModels:ThingViewModel}, 
@@ -17,25 +18,26 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Margin="5"
-          Background="WhiteSmoke">
+    <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+          Background="{StaticResource BackgroundBrush}">
         <Grid.Effect>
             <DropShadowEffect ShadowDepth="2" />
         </Grid.Effect>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Row="0" x:Name="Header">
-            <TextBlock Style="{StaticResource Header2}"
+            <TextBlock Style="{StaticResource HeaderTextStyle}"
+                       Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                        Text="{Binding Label}"/>
         </Grid>
 
-        <Grid Row="1" x:Name="Items">
-            <ItemsControl x:Name="Colors"
-                          Margin="5"
+        <Grid Row="1">
+            <ItemsControl x:Name="Items"
+                          Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
                           ItemsSource="{Binding LinkedItems}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModels:ItemViewModel}">

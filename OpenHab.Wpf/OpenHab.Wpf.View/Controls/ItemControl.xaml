@@ -7,7 +7,8 @@
              xmlns:constants="clr-namespace:OpenHAB.NetRestApi.Constants;assembly=OpenHAB.NetRestApi"
              xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
              xmlns:validation="clr-namespace:OpenHab.Wpf.View.Resources.Helpers.Validation"
-             MinHeight="50" MinWidth="300"
+             xmlns:params="http://schemas.codeplex.com/elysium/params"
+             MinHeight="20" MinWidth="250"
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="500"
              d:DataContext="{d:DesignInstance Type={x:Type viewModels:ItemViewModel}, 
@@ -25,26 +26,25 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Row="0" Margin="0 5">
+                    <Grid Row="0"
+                          Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         
                         <TextBlock Grid.Column="0" 
-                                   Margin="5 0"
+                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
                                    HorizontalAlignment="Left"
-                                   Style="{StaticResource {x:Type TextBlock}}"
                                    Text="{Binding Label}"/>
 
                         <TextBlock Grid.Column="1" 
-                                   Margin="5 0"
+                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
                                    HorizontalAlignment="Right"
-                                   Style="{StaticResource {x:Type TextBlock}}"
                                    Text="{Binding State, StringFormat={}{0}%}"/>
                     </Grid>
 
-                    <Grid Row="1" Margin="5 0 5 5">
+                    <Grid Row="1" Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                         <Slider Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
                                         Converter={StaticResource StateToDimmerConverter}}"
                                 Minimum="0"
@@ -73,30 +73,30 @@
                     
                     <TextBlock Grid.Column="0" 
                                Grid.Row="0" 
-                               Margin="5 0"
+                               Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
-                               Style="{StaticResource {x:Type TextBlock}}"
+                               Style="{StaticResource NormalTextStyle}"
                                Text="{x:Static p:Resources.Color}"/>
                     
                     <TextBlock Grid.Column="0" 
                                Grid.Row="1" 
-                               Margin="5 0"
+                               Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
-                               Style="{StaticResource {x:Type TextBlock}}"
+                               Style="{StaticResource NormalTextStyle}"
                                Text="{x:Static p:Resources.Saturation}"/>
                     
                     <TextBlock Grid.Column="0" 
                                Grid.Row="2" 
-                               Margin="5 0"
+                               Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
-                               Style="{StaticResource {x:Type TextBlock}}"
+                               Style="{StaticResource NormalTextStyle}"
                                Text="{x:Static p:Resources.Brightness}"/>
 
                     <Grid Column="1" Row="0" VerticalAlignment="Center"
-                          Margin="5 0"
+                          Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                           Background="{StaticResource HorzontalColorHueBrush}">
                         <Slider Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
                                         Converter={StaticResource StateToColorConverter}, 
@@ -111,7 +111,7 @@
                     </Grid>
 
                     <Grid Column="1" Row="1" VerticalAlignment="Center"
-                          Margin="5 0">
+                          Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                         <Slider Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
                                         Converter={StaticResource StateToColorConverter}, 
                                         ConverterParameter=1}"
@@ -125,7 +125,7 @@
                     </Grid>
 
                     <Grid Column="1" Row="2" VerticalAlignment="Center"
-                          Margin="5 0">
+                          Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                         <Slider Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
                                         Converter={StaticResource StateToColorConverter}, 
                                         ConverterParameter=2}"
@@ -141,24 +141,25 @@
             </ControlTemplate>
 
             <ControlTemplate x:Key="NumberControlTemplate">
-                <Grid Margin="0 5">
+                <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" 
-                               Margin="10 0"
+                               Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                                HorizontalAlignment="Left"
-                               Style="{StaticResource {x:Type TextBlock}}"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource NormalTextStyle}"
                                Text="{Binding Label}"/>
 
                     <TextBox Grid.Column="1" 
-                             Margin="10 0"
-                             MinWidth="100"
+                             Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                             MinWidth="50"
                              HorizontalAlignment="Right"
+                             VerticalAlignment="Center"
                              HorizontalContentAlignment="Right"
-                             Style="{StaticResource {x:Type TextBox}}"
                              PreviewKeyDown="NumberTextBox_OnPreviewKeyDown">
                         <TextBox.Text>
                             <Binding Path="State"
@@ -175,9 +176,9 @@
             </ControlTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
-    
-    <Grid Margin="5"
-          Background="WhiteSmoke">
+
+    <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
+          Background="{StaticResource BackgroundBrush}">
         <!--<Grid.Effect>
             <DropShadowEffect ShadowDepth="2" />
         </Grid.Effect>-->
@@ -188,7 +189,8 @@
                 <Style TargetType="{x:Type ContentControl}">
                     <Setter Property="Content" x:Name="Fallback">
                         <Setter.Value>
-                            <TextBlock Text="{Binding State}"/>
+                            <TextBlock Text="{Binding State}"
+                                       Style="{StaticResource NormalTextStyle}"/>
                         </Setter.Value>
                     </Setter>
                     <Style.Triggers>

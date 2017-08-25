@@ -56,7 +56,7 @@ namespace OpenHab.Wpf.View.Controls
         private void DimmerSliderValueChangedByUserInteraction(object sender)
         {
             var source = (Slider)sender;
-            if (!source.IsKeyboardFocused) return;
+            //if (!source.IsKeyboardFocused) return;
             _latestStateCausedByUserInteraction = Convert.ToInt32(source.Value).ToString();
             _delayDispatcherTimer.Start();
         }
@@ -113,7 +113,7 @@ namespace OpenHab.Wpf.View.Controls
         private void ColorHueSliderValueChangedByUserInteraction(object sender, int index)
         {
             var source = (Slider)sender;
-            if (!source.IsKeyboardFocused) return;
+            //if (!source.IsKeyboardFocused) return;
 
             var target = (ItemViewModel)DataContext;
             var values = target.State?.Split(',') ?? new[] { "0", "0", "0" };

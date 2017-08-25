@@ -15,12 +15,14 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private bool? _ipAddressIsValid;
         private bool _checkingConnection;
         private DateTime _latestCheck;
+        private readonly GlobalContext _globalContext;
 
         #endregion
 
-        public ServerViewModel(RestContext restContext)
+        public ServerViewModel(RestContext restContext, GlobalContext globalContext)
         {
             RestContext = restContext;
+            _globalContext = globalContext;
             IpAddress = RestContext.ServerAddress;
         }
 
@@ -65,6 +67,16 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _checkingConnection = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool ConnectAutomatically
+        {
+            get => _globalContext.Settings.ConnectAutomatically;
+            set
+            {
+                _globalContext.Settings.ConnectAutomatically = value;
                 RaisePropertyChanged();
             }
         }
