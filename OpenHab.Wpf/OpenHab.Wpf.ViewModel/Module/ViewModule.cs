@@ -8,7 +8,6 @@ namespace OpenHab.Wpf.ViewModel.Module
         public override void Load()
         {
             Bind<ServerViewModel>().ToSelf().InSingletonScope();
-            Bind<SitemapViewModel>().ToSelf().InSingletonScope();
             Bind<ItemsViewModel>().ToSelf().InSingletonScope();
             Bind<ThingsViewModel>().ToSelf().InSingletonScope();
 
