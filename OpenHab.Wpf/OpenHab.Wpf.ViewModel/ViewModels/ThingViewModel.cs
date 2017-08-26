@@ -1,8 +1,15 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Threading;
+using Ninject;
+using OpenHab.Wpf.CrossCutting.Context;
+using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Models;
+using OpenHAB.NetRestApi.Models.Events;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels
 {
@@ -42,6 +49,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             Editable = thing.Editable;
 
             _thing = thing;
+            InitializeEventHandlers();
 
             RefreshLinkedItemsAsync();
         }
@@ -199,6 +207,39 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         {
             if (_channels.IsNullOrEmpty()) return;
             LinkedItems = await Task.Run(() => _thing.GetLinkedItems()?.ToViewModels());
+        }
+
+        private void InitializeEventHandlers()
+        {
+            if (_thing == null) return;
+            _thing.Updated += ThingOnUpdated;
+            _thing.ItemChannelLinkAdded += ThingOnItemChannelLinkAdded;
+            _thing.ItemChannelLinkRemoved += ThingOnItemChannelLinkRemoved;
+
+            _thing.InitializeEvents();
+        }
+
+        private void ThingOnUpdated(object sender, ThingUpdatedEvent eventObject)
+        {
+            Update(eventObject.NewThing);
+        }
+
+        private void ThingOnItemChannelLinkAdded(object sender, ItemChannelLinkAddedEvent eventObject)
+        {
+            if (LinkedItems.IsNullOrEmpty()) return;
+
+            var client = NinjectKernel.StandardKernel.Get<RestContext>().Client;
+            var item = client.ItemService.GetItem(eventObject.ItemName);
+            DispatcherHelper.RunAsync(() => LinkedItems.Add(item.ToViewModel()));
+        }
+
+        private void ThingOnItemChannelLinkRemoved(object sender, ItemChannelLinkRemovedEvent eventObject)
+        {
+            if (LinkedItems.IsNullOrEmpty()) return;
+            
+            var item = _linkedItems.FirstOrDefault(li => li.Name == eventObject.ItemName);
+            if (item == null) return;
+            DispatcherHelper.RunAsync(() => LinkedItems.Remove(item));
         }
 
         #endregion

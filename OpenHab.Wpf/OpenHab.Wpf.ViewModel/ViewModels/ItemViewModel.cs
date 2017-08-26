@@ -189,10 +189,11 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private void InitializeEventHandlers()
         {
             if (_item == null) return;
-            _item.InitializeEvents();
 
             _item.Updated += OnUpdated;
             _item.StateChanged += OnStateChanged;
+
+            _item.InitializeEvents();
         }
 
         private void OnUpdated(object sender, ItemUpdatedEvent eventObject)
