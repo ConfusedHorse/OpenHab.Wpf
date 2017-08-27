@@ -39,6 +39,11 @@ namespace OpenHab.Wpf.ViewModel.Helper
             return new ObservableCollection<RuleViewModel>(filteredRules);
         }
 
+        public static bool FilterBy(this RuleViewModel self, string filterCsv)
+        {
+            return CreateBrowseValue(self).Search(filterCsv);
+        }
+
         private static string CreateBrowseValue(RuleViewModel r)
         {
             var actionsBrowseValue = string.Join(string.Empty, r.Actions.Select(CreateBrowseValue));

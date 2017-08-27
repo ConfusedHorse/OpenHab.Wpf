@@ -8,6 +8,9 @@
              xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
              xmlns:validation="clr-namespace:OpenHab.Wpf.View.Resources.Helpers.Validation"
              xmlns:params="http://schemas.codeplex.com/elysium/params"
+             xmlns:extraFixed="clr-namespace:OpenHab.Wpf.View.Resources.Helpers.ElysiumDragFix"
+             xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
+             xmlns:extra="http://schemas.extra.com/ui"
              MinHeight="20" MinWidth="250"
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="500"
@@ -18,143 +21,149 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/BaseResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
+
             <ControlTemplate x:Key="DimmerControlTemplate">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Grid Row="0"
                           Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        
-                        <TextBlock Grid.Column="0" 
+
+                        <TextBlock Grid.Column="0"
                                    Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
                                    HorizontalAlignment="Left"
-                                   Text="{Binding Label}"/>
+                                   Text="{Binding Label}" />
 
-                        <TextBlock Grid.Column="1" 
+                        <TextBlock Grid.Column="1"
                                    Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
                                    HorizontalAlignment="Right"
-                                   Text="{Binding State, StringFormat={}{0}%}"/>
+                                   Text="{Binding State, StringFormat={}{0}%}" />
                     </Grid>
 
-                    <Grid Row="1" Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
-                        <Slider Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
+                    <Grid Row="1"
+                          Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                        <Slider
+                            Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
                                         Converter={StaticResource StateToDimmerConverter}}"
-                                Minimum="0"
-                                Maximum="100"
-                                Ticks="1"
-                                IsMoveToPointEnabled="True"
-                                PreviewMouseUp="DimmerSlider_OnPreviewMouseUp"
-                                Thumb.DragDelta="DimmerSlider_OnDragDelta"
-                                Thumb.DragCompleted="DimmerSlider_OnDragCompleted"/>
+                            Minimum="0"
+                            Maximum="100"
+                            Ticks="1"
+                            IsMoveToPointEnabled="True"
+                            PreviewMouseUp="DimmerSlider_OnPreviewMouseUp"
+                            Thumb.DragDelta="DimmerSlider_OnDragDelta"
+                            Thumb.DragCompleted="DimmerSlider_OnDragCompleted" />
                     </Grid>
                 </Grid>
             </ControlTemplate>
-            
+
             <ControlTemplate x:Key="ColorControlTemplate">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    
+
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    
-                    <TextBlock Grid.Column="0" 
-                               Grid.Row="0" 
+
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="0"
                                Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
                                Style="{StaticResource NormalTextStyle}"
-                               Text="{x:Static p:Resources.Color}"/>
-                    
-                    <TextBlock Grid.Column="0" 
-                               Grid.Row="1" 
+                               Text="{x:Static p:Resources.Color}" />
+
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="1"
                                Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
                                Style="{StaticResource NormalTextStyle}"
-                               Text="{x:Static p:Resources.Saturation}"/>
-                    
-                    <TextBlock Grid.Column="0" 
-                               Grid.Row="2" 
+                               Text="{x:Static p:Resources.Saturation}" />
+
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="2"
                                Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
                                Style="{StaticResource NormalTextStyle}"
-                               Text="{x:Static p:Resources.Brightness}"/>
+                               Text="{x:Static p:Resources.Brightness}" />
 
                     <Grid Column="1" Row="0" VerticalAlignment="Center"
                           Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                           Background="{StaticResource HorzontalColorHueBrush}">
-                        <Slider Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
+                        <Slider
+                            Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
                                         Converter={StaticResource StateToColorConverter}, 
                                         ConverterParameter=0}"
-                                Minimum="0"
-                                Maximum="360"
-                                Ticks="1"
-                                IsMoveToPointEnabled="True"
-                                PreviewMouseUp="ColorHueSlider_OnPreviewMouseUp"
-                                Thumb.DragDelta="ColorHueSlider_OnDragDelta"
-                                Thumb.DragCompleted="ColorHueSlider_OnDragCompleted"/>
+                            Minimum="0"
+                            Maximum="360"
+                            Ticks="1"
+                            IsMoveToPointEnabled="True"
+                            PreviewMouseUp="ColorHueSlider_OnPreviewMouseUp"
+                            Thumb.DragDelta="ColorHueSlider_OnDragDelta"
+                            Thumb.DragCompleted="ColorHueSlider_OnDragCompleted" />
                     </Grid>
 
                     <Grid Column="1" Row="1" VerticalAlignment="Center"
                           Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
-                        <Slider Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
+                        <Slider
+                            Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
                                         Converter={StaticResource StateToColorConverter}, 
                                         ConverterParameter=1}"
-                                Minimum="0"
-                                Maximum="100"
-                                Ticks="1"
-                                IsMoveToPointEnabled="True"
-                                PreviewMouseUp="ColorSaturationSlider_OnPreviewMouseUp"
-                                Thumb.DragDelta="ColorSaturationSlider_OnDragDelta"
-                                Thumb.DragCompleted="ColorSaturationSlider_OnDragCompleted"/>
+                            Minimum="0"
+                            Maximum="100"
+                            Ticks="1"
+                            IsMoveToPointEnabled="True"
+                            PreviewMouseUp="ColorSaturationSlider_OnPreviewMouseUp"
+                            Thumb.DragDelta="ColorSaturationSlider_OnDragDelta"
+                            Thumb.DragCompleted="ColorSaturationSlider_OnDragCompleted" />
                     </Grid>
 
                     <Grid Column="1" Row="2" VerticalAlignment="Center"
                           Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
-                        <Slider Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
+                        <Slider
+                            Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,                                                                         
                                         Converter={StaticResource StateToColorConverter}, 
                                         ConverterParameter=2}"
-                                Minimum="0"
-                                Maximum="100"
-                                Ticks="1"
-                                IsMoveToPointEnabled="True"
-                                PreviewMouseUp="ColorBrightnessSlider_OnPreviewMouseUp"
-                                Thumb.DragDelta="ColorBrightnessSlider_OnDragDelta"
-                                Thumb.DragCompleted="ColorBrightnessSlider_OnDragCompleted"/>
+                            Minimum="0"
+                            Maximum="100"
+                            Ticks="1"
+                            IsMoveToPointEnabled="True"
+                            PreviewMouseUp="ColorBrightnessSlider_OnPreviewMouseUp"
+                            Thumb.DragDelta="ColorBrightnessSlider_OnDragDelta"
+                            Thumb.DragCompleted="ColorBrightnessSlider_OnDragCompleted" />
                     </Grid>
                 </Grid>
             </ControlTemplate>
 
             <ControlTemplate x:Key="NumberControlTemplate">
-                <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                <Grid
+                    Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" 
+                    <TextBlock Grid.Column="0"
                                Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
                                Style="{StaticResource NormalTextStyle}"
-                               Text="{Binding Label}"/>
+                               Text="{Binding Label}" />
 
-                    <TextBox Grid.Column="1" 
+                    <TextBox Grid.Column="1"
                              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                              MinWidth="50"
                              HorizontalAlignment="Right"
@@ -177,36 +186,70 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
-          Background="{StaticResource BackgroundBrush}">
-        <!--<Grid.Effect>
-            <DropShadowEffect ShadowDepth="2" />
-        </Grid.Effect>-->
-        
-        <ContentControl VerticalAlignment="Stretch"
+    <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <ContentControl x:Name="ItemGrid"
+                        Grid.Column="0"
                         HorizontalAlignment="Stretch">
             <ContentControl.Style>
                 <Style TargetType="{x:Type ContentControl}">
                     <Setter Property="Content" x:Name="Fallback">
                         <Setter.Value>
                             <TextBlock Text="{Binding State}"
-                                       Style="{StaticResource NormalTextStyle}"/>
+                                       Style="{StaticResource NormalTextStyle}" />
                         </Setter.Value>
                     </Setter>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static constants:WidgetType.Dimmer}">
-                            <Setter Property="Template" Value="{StaticResource DimmerControlTemplate}"/>
+                            <Setter Property="Template" Value="{StaticResource DimmerControlTemplate}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static constants:WidgetType.Color}">
-                            <Setter Property="Template" Value="{StaticResource ColorControlTemplate}"/>
+                            <Setter Property="Template" Value="{StaticResource ColorControlTemplate}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static constants:WidgetType.Number}">
-                            <Setter Property="Template" Value="{StaticResource NumberControlTemplate}"/>
+                            <Setter Property="Template" Value="{StaticResource NumberControlTemplate}" />
                         </DataTrigger>
-                        <!-- TODO: implement missing WidgetTypes -->
+                        <!-- TODO: implement missing types -->
                     </Style.Triggers>
                 </Style>
             </ContentControl.Style>
         </ContentControl>
+
+        <Grid x:Name="DragGrid"
+              Grid.Column="1"
+              Visibility="{Binding Path=AllowRuleOperations, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:ItemControl}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+              extraFixed:DragManager.Data="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}}"
+              extraFixed:DragManager.Effects="Copy"
+              extraFixed:DragManager.Format="RuleComponent"
+              extraFixed:DragManager.IsEnabled="True">
+            <extraFixed:DragManager.ContentTemplate>
+                <DataTemplate DataType="{x:Type viewModels:ItemViewModel}">
+                    <Border Style="{StaticResource DragBorderStyle}"
+                            Background="{StaticResource AccentLevel5Brush}">
+                        <controls:ItemControl DataContext="{Binding}"/>
+                    </Border>
+                </DataTemplate>
+            </extraFixed:DragManager.ContentTemplate>
+
+            <Grid x:Name="DragGridVisual">
+                <extra:Icon VerticalAlignment="Top"
+                            Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
+                            Style="{StaticResource TouchIconStyle}"
+                            Size="Large">
+                    <extra:Icon.ToolTip>
+                        <Grid>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{x:Static p:Resources.DragItemToAddAsAction}"/>
+                                <TextBlock Text="{x:Static p:Resources.RightClickItemForMoreOptions}"/>
+                            </StackPanel>
+                        </Grid>
+                    </extra:Icon.ToolTip>
+                </extra:Icon>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

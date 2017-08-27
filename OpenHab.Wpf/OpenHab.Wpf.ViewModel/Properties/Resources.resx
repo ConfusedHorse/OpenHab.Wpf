@@ -117,82 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CloseApplication" xml:space="preserve">
-    <value>Close Application</value>
+  <data name="ItemCommandActionDefaultDescription" xml:space="preserve">
+    <value>Changes the current state of the item {0} to "{1}".</value>
   </data>
-  <data name="ConnectionEstablished" xml:space="preserve">
-    <value>Connection to the server has been established successfully.</value>
-  </data>
-  <data name="ConnectionIndicator" xml:space="preserve">
-    <value>Check if the connection can be established.</value>
-  </data>
-  <data name="ConnectToServer" xml:space="preserve">
-    <value>Connect to server</value>
-  </data>
-  <data name="IpAddress" xml:space="preserve">
-    <value>IP address:</value>
-  </data>
-  <data name="NoConnectionEstablished" xml:space="preserve">
-    <value>Could not connect to the server with given ip address.</value>
-  </data>
-  <data name="NotAValidIpAddress" xml:space="preserve">
-    <value>Please type in a valid IP address. (e.g.: 192.168.1.1)</value>
-  </data>
-  <data name="Ok" xml:space="preserve">
-    <value>Ok</value>
-  </data>
-  <data name="ServerAddressPrompt" xml:space="preserve">
-    <value>Please type in the address of the OpenHab server component you would like to connect to.</value>
-  </data>
-  <data name="Sitemaps" xml:space="preserve">
-    <value>Sitemaps</value>
-  </data>
-  <data name="Items" xml:space="preserve">
-    <value>Items</value>
-  </data>
-  <data name="Brightness" xml:space="preserve">
-    <value>Brightness</value>
-  </data>
-  <data name="Color" xml:space="preserve">
-    <value>Color</value>
-  </data>
-  <data name="Saturation" xml:space="preserve">
-    <value>Saturation</value>
-  </data>
-  <data name="FieldMustNotBeEmpty" xml:space="preserve">
-    <value>Field must not be empty. Please enter a numeric value</value>
-  </data>
-  <data name="IllegalCharacters" xml:space="preserve">
-    <value>Illegal characters, please enter numeric values only</value>
-  </data>
-  <data name="Things" xml:space="preserve">
-    <value>Things</value>
-  </data>
-  <data name="StartTypeToBrowseForThings" xml:space="preserve">
-    <value>Start typing to filter things...</value>
-  </data>
-  <data name="ConnectAutomatically" xml:space="preserve">
-    <value>Connect automatically</value>
-  </data>
-  <data name="ConnectAutomaticallyExplanation" xml:space="preserve">
-    <value>The given IP adress will be stored and connection is established automatically when possible,</value>
-  </data>
-  <data name="Rules" xml:space="preserve">
-    <value>Rules</value>
-  </data>
-  <data name="StartTypeToBrowseForEverything" xml:space="preserve">
-    <value>Start typing to filter everything...</value>
-  </data>
-  <data name="DragItemToAddAsAction" xml:space="preserve">
-    <value>Drag item over the actions section to add it as an action</value>
-  </data>
-  <data name="RightClickItemForMoreOptions" xml:space="preserve">
-    <value>Right click here for more options &lt;NOT IMPLEMENTED&gt;</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
+  <data name="ItemCommandActionDefaultLabel" xml:space="preserve">
+    <value>Set {0} to {1}</value>
   </data>
 </root>

@@ -1,7 +1,12 @@
 ﻿using System.Collections.ObjectModel;
+using Framework.UI.Input;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Threading;
+using Ninject;
+using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Models;
+using OpenHAB.NetRestApi.Models.Events;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels
 {
@@ -28,6 +33,26 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         #endregion
 
         public RuleViewModel(Rule rule)
+        {
+            Triggers = rule.Triggers?.ToViewModels();
+            Conditions = rule.Conditions?.ToViewModels();
+            Actions = rule.Actions?.ToViewModels();
+            Configuration = rule.Configuration;
+            ConfigDescriptions = rule.ConfigDescriptions?.ToViewModels();
+            TemplateUid = rule.TemplateUid;
+            Uid = rule.Uid;
+            Name = rule.Name;
+            Tags = rule.Tags?.ToViewModels();
+            Visibility = rule.Visibility;
+            Description = rule.Description;
+            Enabled = rule.Enabled;
+            Status = rule.Status?.ToViewModel();
+
+            _rule = rule;
+            InitializeEventHandlers();
+        }
+
+        public void Update(Rule rule)
         {
             Triggers = rule.Triggers?.ToViewModels();
             Conditions = rule.Conditions?.ToViewModels();
@@ -180,11 +205,50 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         #endregion
 
+        #region Commands
+        
+        public DelegateCommand<object> AddActionFromDragDataCommand { get; } = new DelegateCommand<object>(AddActionFromDragData);
+
+        #endregion
+
         #region Public Methods
 
         #endregion
 
         #region Private Methods
+
+        private static void AddActionFromDragData(object data)
+        {
+            switch (data)
+            {
+                case ItemViewModel i:
+                    AddActionFromItem(i);
+                    break;
+                //TODO add other ModuleTypes here
+            }
+        }
+
+        private static void AddActionFromItem(ItemViewModel itemViewModel)
+        {
+            var itemCommandAction = itemViewModel.ToActionViewModel();
+            var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
+            var currentRule = rulesViewModel.CurrentRule;
+            DispatcherHelper.RunAsync(() => currentRule.Actions.Add(itemCommandAction));
+        }
+
+        private void InitializeEventHandlers()
+        {
+            if (_rule == null) return;
+
+            _rule.Updated += OnUpdated;
+
+            _rule.InitializeEvents();
+        }
+
+        private void OnUpdated(object sender, RuleUpdatedEvent eventObject)
+        {
+            Update(eventObject.NewRule);
+        }
 
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using OpenHab.Wpf.CrossCutting.Context;
 using OpenHab.Wpf.CrossCutting.Events;
 using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.ViewModel.Helper;
+using OpenHAB.NetRestApi.Models.Events;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels
 {
@@ -22,6 +24,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private bool _isBusy;
         private string _filterCsv;
         private ObservableCollection<RuleViewModel> _filteredRules = new ObservableCollection<RuleViewModel>();
+        private RuleViewModel _currentRule;
 
         #endregion
 
@@ -88,6 +91,16 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
+        public RuleViewModel CurrentRule
+        {
+            get => _currentRule;
+            set
+            {
+                _currentRule = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public bool IsEnabled
         {
             get => _isEnabled;
@@ -137,18 +150,46 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private void InitializeEventHandlers()
         {
             var eventService = _restContext.Client.EventService;
-            //TODO implement event handlers
+            eventService.RuleAdded += EventServiceOnRuleAdded;
+            eventService.RuleRemoved += EventServiceOnRuleRemoved;
+
             Debug.WriteLine($"Initializing Event Handlers for {nameof(RulesViewModel)}");
-            
         }
 
         private void TerminateEventHandlers()
         {
             var eventService = _restContext.Client.EventService;
+            eventService.RuleAdded -= EventServiceOnRuleAdded;
+            eventService.RuleRemoved -= EventServiceOnRuleRemoved;
             Debug.WriteLine($"Terminating Event Handlers for {nameof(RulesViewModel)}");
-            
         }
-        
+
+        private void EventServiceOnRuleAdded(object sender, RuleAddedEvent eventObject)
+        {
+            //if (Rules.IsNullOrEmpty()) return;
+
+            var rule = eventObject.Rule.ToViewModel();
+            DispatcherHelper.RunAsync(() =>
+            {
+                Rules.Add(rule);
+                if (rule.FilterBy(_filterCsv))
+                    FilteredRules.Add(rule);
+            });
+        }
+
+        private void EventServiceOnRuleRemoved(object sender, RuleRemovedEvent eventObject)
+        {
+            if (Rules.IsNullOrEmpty()) return;
+
+            var rule = _rules.FirstOrDefault(r => r.Uid == eventObject.Rule.Uid);
+            if (rule == null) return;
+            DispatcherHelper.RunAsync(() =>
+            {
+                Rules.Remove(rule);
+                FilteredRules.Remove(rule);
+            });
+        }
+
         private async void RefreshRulesAsync()
         {
             if (IsBusy) return;
@@ -156,6 +197,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
             var rules = await Task.Run(() => _restContext.Client.RuleService.GetRules());
             Rules = rules?.ToViewModels();
+            CurrentRule = _rules?.FirstOrDefault();
 
             IsBusy = false;
         }

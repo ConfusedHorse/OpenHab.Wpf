@@ -103,6 +103,11 @@ namespace OpenHab.Wpf.ViewModel.Helper
             return new ActionViewModel(action);
         }
 
+        public static ActionViewModel ToActionViewModel(this ItemViewModel itemViewModel)
+        {
+            return new ActionViewModel(itemViewModel);
+        }
+
         public static ObservableCollection<ActionViewModel> ToViewModels(this IEnumerable<Action> actions)
         {
             return new ObservableCollection<ActionViewModel>(actions.Select(a => a?.ToViewModel()));

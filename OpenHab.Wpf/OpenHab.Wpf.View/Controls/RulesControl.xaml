@@ -27,23 +27,26 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Row="0" x:Name="Browser"
-              Width="200" HorizontalAlignment="Left"
+        <Grid Row="0" 
+              x:Name="BrowserGrid"
+              Width="200" 
+              HorizontalAlignment="Left"
               Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
             <extra:TextBoxExtended Text="{Binding FilterCsv, UpdateSourceTrigger=PropertyChanged, Delay=150}"
-                                   Watermark="{x:Static p:Resources.StartTypeToBrowseForThings}"/>
+                                   Watermark="{x:Static p:Resources.StartTypeToBrowseForEverything}"/>
         </Grid>
 
         <Grid Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" MinWidth="100"/>
                 <ColumnDefinition Width="6"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="Auto" MinWidth="100"/>
             </Grid.ColumnDefinitions>
-            
-            <!--TODO add possible tools like actions, triggers and conditions here-->
 
-            <Grid Column="0">
+            <Grid x:Name="LeftGrid"
+                  Column="0">
                 <ItemsControl x:Name="Things"
                               Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
                               ItemsSource="{Binding ThingsViewModel.FilteredThings, Source={x:Static module:ViewModelLocator.Instance}}">
@@ -53,7 +56,8 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type viewModels:ThingViewModel}">
-                            <controls:ThingControl DataContext="{Binding}"/>
+                            <controls:ThingControl DataContext="{Binding}"
+                                                   AllowRuleOperations="True"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -61,31 +65,55 @@
 
             <GridSplitter Grid.Column="1" 
                           Style="{StaticResource VerticalGridSplitterStyle}"/>
-
-            <Grid x:Name="RuleDesigner"
+            
+            <Grid x:Name="CenterGrid"
                   Column="2">
-                <ItemsControl x:Name="Rules"
-                              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
-                              ItemsSource="{Binding FilteredRules}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" MinHeight="100"/>
+                    <RowDefinition Height="6"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <Grid x:Name="TopMiddleGrid"
+                      Row="0">
+                    <!--TODO place ModuleTypesControl here-->
+                    <TextBlock Text="ModuleTypesControl goes here"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                </Grid>
+
+                <GridSplitter Grid.Row="1" 
+                              Style="{StaticResource HorizontalGridSplitterStyle}"/>
+
+                <Grid x:Name="BottonMiddleGrid"
+                      Row="2">
+                    <controls:RuleEditorControl DataContext="{Binding CurrentRule}"/>
+                </Grid>
+                
+            </Grid>
+
+            <GridSplitter Grid.Column="3" 
+                          Style="{StaticResource VerticalGridSplitterStyle}"/>
+
+            <Grid x:Name="RightGrid"
+                  Column="4">
+                <ListBox x:Name="Rules"
+                         Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
+                         ItemsSource="{Binding FilteredRules, Mode=TwoWay}"
+                         SelectedItem="{Binding CurrentRule, Mode=TwoWay}">
                     <i:Interaction.Behaviors>
                         <extra:AnimatingItemsControlBehavior x:Name="RulesBehavior"/>
                     </i:Interaction.Behaviors>
 
-                    <ItemsControl.ItemTemplate>
+                    <ListBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type viewModels:RuleViewModel}">
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="{Binding Name}"/>
                                 <TextBlock Text="NOT YET IMPLEMENTED"/>
                             </StackPanel>
                         </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
         </Grid>
     </Grid>

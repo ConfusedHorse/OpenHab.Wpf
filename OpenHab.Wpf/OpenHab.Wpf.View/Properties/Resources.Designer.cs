@@ -133,6 +133,24 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Description ähnelt.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Drag item over the actions section to add it as an action ähnelt.
+        /// </summary>
+        public static string DragItemToAddAsAction {
+            get {
+                return ResourceManager.GetString("DragItemToAddAsAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Field must not be empty. Please enter a numeric value ähnelt.
         /// </summary>
         public static string FieldMustNotBeEmpty {
@@ -169,6 +187,15 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Name ähnelt.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Could not connect to the server with given ip address. ähnelt.
         /// </summary>
         public static string NoConnectionEstablished {
@@ -192,6 +219,15 @@ namespace OpenHab.Wpf.View.Properties {
         public static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Right click here for more options &lt;NOT IMPLEMENTED&gt; ähnelt.
+        /// </summary>
+        public static string RightClickItemForMoreOptions {
+            get {
+                return ResourceManager.GetString("RightClickItemForMoreOptions", resourceCulture);
             }
         }
         
@@ -228,6 +264,15 @@ namespace OpenHab.Wpf.View.Properties {
         public static string Sitemaps {
             get {
                 return ResourceManager.GetString("Sitemaps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Start typing to filter everything... ähnelt.
+        /// </summary>
+        public static string StartTypeToBrowseForEverything {
+            get {
+                return ResourceManager.GetString("StartTypeToBrowseForEverything", resourceCulture);
             }
         }
         

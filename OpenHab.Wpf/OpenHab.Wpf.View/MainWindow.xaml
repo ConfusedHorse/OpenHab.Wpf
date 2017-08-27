@@ -23,11 +23,11 @@
             <!-- Content goes here -->
             
             <TabControl>
-                <TabItem Header="{x:Static p:Resources.Things}">
-                    <controls:ThingsControl/>
-                </TabItem>
                 <TabItem Header="{x:Static p:Resources.Rules}">
                     <controls:RulesControl/>
+                </TabItem>
+                <TabItem Header="{x:Static p:Resources.Things}">
+                    <controls:ThingsControl/>
                 </TabItem>
             </TabControl>
             

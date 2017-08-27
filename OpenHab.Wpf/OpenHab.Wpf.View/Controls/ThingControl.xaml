@@ -19,10 +19,7 @@
     </UserControl.Resources>
 
     <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-          Background="{StaticResource BackgroundBrush}">
-        <Grid.Effect>
-            <DropShadowEffect ShadowDepth="2" />
-        </Grid.Effect>
+          Background="{StaticResource AccentLevel5Brush}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -41,7 +38,8 @@
                           ItemsSource="{Binding LinkedItems}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModels:ItemViewModel}">
-                        <controls:ItemControl DataContext="{Binding}"/>
+                        <controls:ItemControl DataContext="{Binding}"
+                                              AllowRuleOperations="{Binding Path=AllowRuleOperations, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:ThingControl}}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

@@ -16,11 +16,18 @@ namespace OpenHab.Wpf.View.Controls
     {
         private DispatcherTimer _delayDispatcherTimer;
         private string _latestStateCausedByUserInteraction;
+        public static readonly DependencyProperty AllowRuleOperationsProperty = DependencyProperty.Register("AllowRuleOperations", typeof(bool), typeof(ItemControl), new PropertyMetadata(default(bool)));
 
         public ItemControl()
         {
             InitializeComponent();
             Loaded += OnLoaded;
+        }
+
+        public bool AllowRuleOperations
+        {
+            get => (bool) GetValue(AllowRuleOperationsProperty);
+            set => SetValue(AllowRuleOperationsProperty, value);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)

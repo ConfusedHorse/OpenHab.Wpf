@@ -65,6 +65,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
     </Reference>
@@ -97,6 +98,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RuleEditorControl.xaml.cs">
+      <DependentUpon>RuleEditorControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ItemControl.xaml.cs">
       <DependentUpon>ItemControl.xaml</DependentUpon>
     </Compile>
@@ -127,6 +131,10 @@
     </Compile>
     <Compile Include="Resources\Converters\StateToColorConverter.cs" />
     <Compile Include="Resources\Converters\StateToDimmerConverter.cs" />
+    <Compile Include="Resources\Helpers\ElysiumDragFix\CopyCommand.cs" />
+    <Compile Include="Resources\Helpers\ElysiumDragFix\DragManager.cs" />
+    <Compile Include="Resources\Helpers\ElysiumDragFix\DragViewer.cs" />
+    <Compile Include="Resources\Helpers\ElysiumDragFix\MouseHelper.cs" />
     <Compile Include="Resources\Helpers\Validation\DoubleValueValidationRule.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\RuleEditorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\ItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

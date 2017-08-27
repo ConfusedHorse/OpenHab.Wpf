@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Dynamic;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using OpenHab.Wpf.ViewModel.Helper;
@@ -43,6 +44,21 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             ConfigDescriptions = action.ConfigDescriptions?.ToViewModels();
 
             _action = action;
+        }
+
+        public ActionViewModel(ItemViewModel itemViewModel)
+        {
+            var itemName = itemViewModel.Name;
+            var state = itemViewModel.State;
+
+            Configuration = new
+            {
+                itemName = itemName,
+                state = state
+            };
+            Label = string.Format(Properties.Resources.ItemCommandActionDefaultLabel, itemName, state);
+            Description = string.Format(Properties.Resources.ItemCommandActionDefaultDescription, itemName, state);
+            Type = "core.ItemCommandAction";
         }
 
         #region Properties
