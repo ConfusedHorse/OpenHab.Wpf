@@ -1,0 +1,123 @@
+﻿<UserControl x:Class="OpenHab.Wpf.View.Controls.RuleControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModels="clr-namespace:OpenHab.Wpf.ViewModel.ViewModels;assembly=OpenHab.Wpf.ViewModel"
+             xmlns:params="http://schemas.codeplex.com/elysium/params"
+             xmlns:extra="http://schemas.extra.com/ui"
+             xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
+             xmlns:metro="http://schemas.codeplex.com/elysium"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance Type={x:Type viewModels:RuleViewModel}, 
+                                              IsDesignTimeCreatable=False}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/BaseResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="TimerPlayTimerStopToggleCommandButtonStyle" 
+                   BasedOn="{StaticResource MediumIconToggleCommandButtonStyle}" 
+                   TargetType="{x:Type metro:ToggleCommandButton}">
+                <Setter Property="Content" Value="{StaticResource TimerStopIconStyle}"/>
+                <Setter Property="ToolTip" Value="{x:Static p:Resources.RuleToggleOn}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Content" Value="{StaticResource TimerPlayIconStyle}"/>
+                        <Setter Property="ToolTip" Value="{x:Static p:Resources.RuleToggleOff}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Row="0" x:Name="Header">
+                <TextBlock Style="{StaticResource HeaderTextStyle}"
+                           Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                           Text="{Binding Name}"/>
+            </Grid>
+
+            <Grid Row="1">
+                <TextBlock Text="{Binding Description}"/>
+            </Grid>
+        </Grid>
+        
+        <Grid x:Name="RuleOptionsGrid"
+              Row="1"
+              HorizontalAlignment="Right">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Column="0"
+                  Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                <metro:CommandButton Command="{Binding RunRuleCommand}">
+                    <extra:Icon VerticalAlignment="Top"
+                                Style="{StaticResource ControlPlayIconStyle}"
+                                Size="Medium">
+                        <extra:Icon.ToolTip>
+                            <Grid>
+                                <TextBlock Text="{x:Static p:Resources.RunRule}"/>
+                            </Grid>
+                        </extra:Icon.ToolTip>
+                    </extra:Icon>
+                </metro:CommandButton>
+            </Grid>
+
+            <Grid Column="1"
+                  Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                <metro:ToggleCommandButton x:Name="RuleToggleSwitch" 
+                                           Style="{StaticResource TimerPlayTimerStopToggleCommandButtonStyle}"
+                                           IsChecked="{Binding Enabled}"
+                                           Checked="RuleToggleSwitch_OnChecked"
+                                           Unchecked="RuleToggleSwitch_OnUnchecked"/>
+            </Grid>
+
+            <Grid Column="2"
+                  Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                <metro:CommandButton Command="{Binding DeleteRuleCommand}">
+                    <extra:Icon VerticalAlignment="Top"
+                                Style="{StaticResource TrashIconStyle}"
+                                Size="Medium">
+                        <extra:Icon.ToolTip>
+                            <Grid>
+                                <TextBlock Text="{x:Static p:Resources.DeleteRule}"/>
+                            </Grid>
+                        </extra:Icon.ToolTip>
+                    </extra:Icon>
+                </metro:CommandButton>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

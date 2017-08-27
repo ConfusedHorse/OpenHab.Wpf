@@ -195,4 +195,16 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="RunRule" xml:space="preserve">
+    <value>Performs all actions of this rule immediately</value>
+  </data>
+  <data name="DeleteRule" xml:space="preserve">
+    <value>Deletes this rule</value>
+  </data>
+  <data name="RuleToggleOff" xml:space="preserve">
+    <value>This rule is currently enabled. Click to disable it.</value>
+  </data>
+  <data name="RuleToggleOn" xml:space="preserve">
+    <value>This rule is currently disabled. Click to enable it.</value>
+  </data>
 </root>

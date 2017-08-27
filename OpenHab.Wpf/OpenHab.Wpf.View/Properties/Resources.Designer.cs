@@ -133,6 +133,15 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Deletes this rule ähnelt.
+        /// </summary>
+        public static string DeleteRule {
+            get {
+                return ResourceManager.GetString("DeleteRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Description ähnelt.
         /// </summary>
         public static string Description {
@@ -237,6 +246,33 @@ namespace OpenHab.Wpf.View.Properties {
         public static string Rules {
             get {
                 return ResourceManager.GetString("Rules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die This rule is currently enabled. Click to disable it. ähnelt.
+        /// </summary>
+        public static string RuleToggleOff {
+            get {
+                return ResourceManager.GetString("RuleToggleOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die This rule is currently disabled. Click to enable it. ähnelt.
+        /// </summary>
+        public static string RuleToggleOn {
+            get {
+                return ResourceManager.GetString("RuleToggleOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Performs all actions of this rule immediately ähnelt.
+        /// </summary>
+        public static string RunRule {
+            get {
+                return ResourceManager.GetString("RunRule", resourceCulture);
             }
         }
         

@@ -61,6 +61,24 @@ namespace OpenHab.Wpf.ViewModel.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Do you really want to delete this rule? ({0}) ähnelt.
+        /// </summary>
+        internal static string DeleteRuleContent {
+            get {
+                return ResourceManager.GetString("DeleteRuleContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Delete Rule ähnelt.
+        /// </summary>
+        internal static string DeleteRuleHeader {
+            get {
+                return ResourceManager.GetString("DeleteRuleHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Changes the current state of the item {0} to &quot;{1}&quot;. ähnelt.
         /// </summary>
         internal static string ItemCommandActionDefaultDescription {

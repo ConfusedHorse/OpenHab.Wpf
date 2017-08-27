@@ -1,4 +1,8 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows;
+using Framework.UI.Controls;
 using Framework.UI.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Threading;
@@ -50,6 +54,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
             _rule = rule;
             InitializeEventHandlers();
+            InitializeCommands();
         }
 
         public void Update(Rule rule)
@@ -207,7 +212,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         #region Commands
         
-        public DelegateCommand<object> AddActionFromDragDataCommand { get; } = new DelegateCommand<object>(AddActionFromDragData);
+        public DelegateCommand<object> AddActionFromDragDataCommand { get; private set; }
+        public DelegateCommand RunRuleCommand { get; private set; }
+        public DelegateCommand DeleteRuleCommand { get; private set; }
 
         #endregion
 
@@ -216,6 +223,59 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         #endregion
 
         #region Private Methods
+
+        #region Events
+
+        private void InitializeEventHandlers()
+        {
+            if (_rule == null) return;
+            _rule.Updated += OnUpdated;
+
+            _rule.InitializeEvents();
+        }
+
+        private void OnUpdated(object sender, RuleUpdatedEvent eventObject)
+        {
+            Update(eventObject.NewRule);
+        }
+
+        #endregion
+
+        #region Commands
+
+        private void InitializeCommands()
+        {
+            RunRuleCommand = new DelegateCommand(RunRule, CanRunRule);
+            DeleteRuleCommand = new DelegateCommand(DeleteRuleAsync, CanDeleteRule);
+            AddActionFromDragDataCommand = new DelegateCommand<object>(AddActionFromDragData);
+        }
+
+        private void RunRule()
+        {
+            _rule.Run();
+        }
+
+        private bool CanRunRule()
+        {
+            return Uid != null;
+        }
+
+        private async void DeleteRuleAsync()
+        {
+            var owner = Application.Current.MainWindow;
+            var result = await MessageDialog.ShowAsync(Properties.Resources.DeleteRuleHeader,
+                string.Format(Properties.Resources.DeleteRuleContent, Name ?? Uid), MessageBoxButton.YesNo,
+                owner: owner);
+            if (result == MessageBoxResult.Yes)
+            {
+                _rule.Delete();
+            }
+        }
+
+        private bool CanDeleteRule()
+        {
+            return Uid != null;
+        }
 
         private static void AddActionFromDragData(object data)
         {
@@ -228,26 +288,25 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
+        public void ToggleRule(bool? ruleEnabled)
+        {
+            if (ruleEnabled != null && ruleEnabled != _enabled)
+                Enabled = (bool)ruleEnabled;
+            
+            if (_enabled)
+                _rule.Enable();
+            else
+                _rule.Disable();
+        }
+
+        #endregion
+
         private static void AddActionFromItem(ItemViewModel itemViewModel)
         {
             var itemCommandAction = itemViewModel.ToActionViewModel();
             var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
             var currentRule = rulesViewModel.CurrentRule;
             DispatcherHelper.RunAsync(() => currentRule.Actions.Add(itemCommandAction));
-        }
-
-        private void InitializeEventHandlers()
-        {
-            if (_rule == null) return;
-
-            _rule.Updated += OnUpdated;
-
-            _rule.InitializeEvents();
-        }
-
-        private void OnUpdated(object sender, RuleUpdatedEvent eventObject)
-        {
-            Update(eventObject.NewRule);
         }
 
         #endregion

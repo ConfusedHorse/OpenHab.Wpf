@@ -78,6 +78,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 {
                     FilteredRules.Remove(ruleViewModel);
                 }
+
+                CurrentRule = _rules?.FirstOrDefault();
             });
         }
 
@@ -88,6 +90,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             {
                 _filteredRules = value;
                 RaisePropertyChanged();
+                CurrentRule = _rules?.FirstOrDefault();
             }
         }
 
@@ -197,7 +200,6 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
             var rules = await Task.Run(() => _restContext.Client.RuleService.GetRules());
             Rules = rules?.ToViewModels();
-            CurrentRule = _rules?.FirstOrDefault();
 
             IsBusy = false;
         }
