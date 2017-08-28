@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Framework.UI.Input;
 using GalaSoft.MvvmLight;
 using Ninject;
-using OpenHab.Wpf.CrossCutting.Context;
 using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Models;

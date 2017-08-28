@@ -105,6 +105,16 @@ namespace OpenHab.Wpf.ViewModel.Helper
             return new ActionViewModel(action);
         }
 
+        public static TriggerViewModel ToTriggerViewModel(this ItemViewModel itemViewModel)
+        {
+            return new TriggerViewModel(itemViewModel);
+        }
+
+        public static ConditionViewModel ToConditionViewModel(this ItemViewModel itemViewModel)
+        {
+            return new ConditionViewModel(itemViewModel);
+        }
+
         public static ActionViewModel ToActionViewModel(this ItemViewModel itemViewModel)
         {
             return new ActionViewModel(itemViewModel);
@@ -156,12 +166,12 @@ namespace OpenHab.Wpf.ViewModel.Helper
 
         public static Rule FromViewModel(this RuleViewModel ruleViewModel)
         {
-            return ModelFactory.Create(ruleViewModel);
+            return DataModelFactory.Create(ruleViewModel);
         }
 
         public static Action FromViewModel(this ActionViewModel action)
         {
-            return ModelFactory.Create(action);
+            return DataModelFactory.Create(action);
         }
 
         public static List<Action> FromViewModels(this ObservableCollection<ActionViewModel> actions)
@@ -171,7 +181,7 @@ namespace OpenHab.Wpf.ViewModel.Helper
 
         public static Trigger FromViewModel(this TriggerViewModel trigger)
         {
-            return ModelFactory.Create(trigger);
+            return DataModelFactory.Create(trigger);
         }
 
         public static List<Trigger> FromViewModels(this ObservableCollection<TriggerViewModel> triggers)
@@ -181,7 +191,7 @@ namespace OpenHab.Wpf.ViewModel.Helper
 
         public static Condition FromViewModel(this ConditionViewModel condition)
         {
-            return ModelFactory.Create(condition);
+            return DataModelFactory.Create(condition);
         }
 
         public static List<Condition> FromViewModels(this ObservableCollection<ConditionViewModel> conditions)
@@ -191,7 +201,7 @@ namespace OpenHab.Wpf.ViewModel.Helper
 
         public static Output FromViewModel(this OutputViewModel output)
         {
-            return ModelFactory.Create(output);
+            return DataModelFactory.Create(output);
         }
 
         public static List<Output> FromViewModels(this ObservableCollection<OutputViewModel> outputs)
@@ -201,7 +211,7 @@ namespace OpenHab.Wpf.ViewModel.Helper
 
         public static ConfigDescription FromViewModel(this ConfigDescriptionViewModel configDescription)
         {
-            return ModelFactory.Create(configDescription);
+            return DataModelFactory.Create(configDescription);
         }
 
         public static List<ConfigDescription> FromViewModels(this ObservableCollection<ConfigDescriptionViewModel> configDescriptions)
@@ -211,7 +221,7 @@ namespace OpenHab.Wpf.ViewModel.Helper
 
         public static StatusInfo FromViewModel(this StatusInfoViewModel statusInfo)
         {
-            return ModelFactory.Create(statusInfo);
+            return DataModelFactory.Create(statusInfo);
         }
 
         public static List<StatusInfo> FromViewModels(this ObservableCollection<StatusInfoViewModel> statusInfos)
@@ -221,7 +231,7 @@ namespace OpenHab.Wpf.ViewModel.Helper
 
         public static Option FromViewModel(this OptionViewModel option)
         {
-            return ModelFactory.Create(option);
+            return DataModelFactory.Create(option);
         }
 
         public static List<Option> FromViewModels(this ObservableCollection<OptionViewModel> options)
@@ -231,7 +241,7 @@ namespace OpenHab.Wpf.ViewModel.Helper
 
         public static FilterCriteria FromViewModel(this FilterCriteriaViewModel filterCriteria)
         {
-            return ModelFactory.Create(filterCriteria);
+            return DataModelFactory.Create(filterCriteria);
         }
 
         public static List<FilterCriteria> FromViewModels(this ObservableCollection<FilterCriteriaViewModel> filterCriterias)

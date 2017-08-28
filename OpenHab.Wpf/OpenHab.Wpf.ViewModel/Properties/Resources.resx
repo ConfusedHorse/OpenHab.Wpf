@@ -129,6 +129,18 @@
   <data name="ItemCommandActionDefaultLabel" xml:space="preserve">
     <value>Set {0} to {1}</value>
   </data>
+  <data name="ItemStateConditionDefaultLabel" xml:space="preserve">
+    <value>{0} must be {1}</value>
+  </data>
+  <data name="ItemStateConditionDefaultDescription" xml:space="preserve">
+    <value>Rule action will only be performed when {0} is "{1}".</value>
+  </data>
+  <data name="ItemStateUpdateTriggerDefaultDescription" xml:space="preserve">
+    <value>Triggers the rule when {0} gets updated (state may be the same)</value>
+  </data>
+  <data name="ItemStateUpdateTriggerDefaultLabel" xml:space="preserve">
+    <value>When {0} changes</value>
+  </data>
   <data name="NewRule" xml:space="preserve">
     <value>NewRule</value>
   </data>

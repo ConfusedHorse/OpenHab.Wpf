@@ -280,6 +280,20 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             Actions.Remove(actionViewModel);
             UnsavedChanges = true;
         }
+        
+        public void RemoveTrigger(TriggerViewModel triggerViewModel)
+        {
+            if (Triggers.IsNullOrEmpty()) return;
+            Triggers.Remove(triggerViewModel);
+            UnsavedChanges = true;
+        }
+        
+        public void RemoveCondition(ConditionViewModel conditionViewModel)
+        {
+            if (Conditions.IsNullOrEmpty()) return;
+            Conditions.Remove(conditionViewModel);
+            UnsavedChanges = true;
+        }
 
         public void SaveChangesAsync()
         {
@@ -325,6 +339,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         public DelegateCommand RunRuleCommand { get; private set; }
         public DelegateCommand DeleteRuleCommand { get; private set; }
         public DelegateCommand SaveRuleCommand { get; private set; }
+        public DelegateCommand<object> AddTriggerFromDragDataCommand { get; private set; }
+        public DelegateCommand<object> AddConditionFromDragDataCommand { get; private set; }
         public DelegateCommand<object> AddActionFromDragDataCommand { get; private set; }
 
         private void InitializeCommands()
@@ -332,6 +348,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             RunRuleCommand = new DelegateCommand(RunRule, CanRunRule);
             DeleteRuleCommand = new DelegateCommand(DeleteRuleAsync, CanDeleteRule);
             SaveRuleCommand = new DelegateCommand(SaveChangesAsync, CanSaveRule);
+            AddTriggerFromDragDataCommand = new DelegateCommand<object>(AddTriggerFromDragData);
+            AddConditionFromDragDataCommand = new DelegateCommand<object>(AddConditionFromDragData);
             AddActionFromDragDataCommand = new DelegateCommand<object>(AddActionFromDragData);
         }
 
@@ -375,6 +393,46 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             return !IsRuleDummy;
         }
 
+        private static void AddTriggerFromDragData(object data)
+        {
+            switch (data)
+            {
+                case ItemViewModel i:
+                    AddTriggerFromItem(i);
+                    break;
+                //TODO add other ModuleTypes here
+            }
+        }
+
+        private static void AddTriggerFromItem(ItemViewModel itemViewModel)
+        {
+            var itemStateUpdateTrigger = itemViewModel.ToTriggerViewModel();
+            var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
+            var currentRule = rulesViewModel.CurrentRule;
+            currentRule.UnsavedChanges = true;
+            DispatcherHelper.RunAsync(() => currentRule.Triggers.Add(itemStateUpdateTrigger));
+        }
+
+        private static void AddConditionFromDragData(object data)
+        {
+            switch (data)
+            {
+                case ItemViewModel i:
+                    AddConditionFromItem(i);
+                    break;
+                //TODO add other ModuleTypes here
+            }
+        }
+
+        private static void AddConditionFromItem(ItemViewModel itemViewModel)
+        {
+            var itemStateCondition = itemViewModel.ToConditionViewModel();
+            var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
+            var currentRule = rulesViewModel.CurrentRule;
+            currentRule.UnsavedChanges = true;
+            DispatcherHelper.RunAsync(() => currentRule.Conditions.Add(itemStateCondition));
+        }
+
         private static void AddActionFromDragData(object data)
         {
             switch (data)
@@ -386,8 +444,6 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
-        #endregion
-
         private static void AddActionFromItem(ItemViewModel itemViewModel)
         {
             var itemCommandAction = itemViewModel.ToActionViewModel();
@@ -396,6 +452,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             currentRule.UnsavedChanges = true;
             DispatcherHelper.RunAsync(() => currentRule.Actions.Add(itemCommandAction));
         }
+
+        #endregion
 
         #endregion
     }

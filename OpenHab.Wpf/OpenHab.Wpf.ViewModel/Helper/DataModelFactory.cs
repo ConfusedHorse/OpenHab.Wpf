@@ -3,7 +3,7 @@ using OpenHAB.NetRestApi.Models;
 
 namespace OpenHab.Wpf.ViewModel.Helper
 {
-    public static class ModelFactory
+    public static class DataModelFactory
     {
         public static Rule Create(RuleViewModel ruleViewModel)
         {

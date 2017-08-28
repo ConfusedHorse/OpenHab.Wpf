@@ -97,6 +97,42 @@ namespace OpenHab.Wpf.ViewModel.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rule action will only be performed when {0} is &quot;{1}&quot;. ähnelt.
+        /// </summary>
+        internal static string ItemStateConditionDefaultDescription {
+            get {
+                return ResourceManager.GetString("ItemStateConditionDefaultDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {0} must be {1} ähnelt.
+        /// </summary>
+        internal static string ItemStateConditionDefaultLabel {
+            get {
+                return ResourceManager.GetString("ItemStateConditionDefaultLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Triggers the rule when {0} gets updated (state may be the same) ähnelt.
+        /// </summary>
+        internal static string ItemStateUpdateTriggerDefaultDescription {
+            get {
+                return ResourceManager.GetString("ItemStateUpdateTriggerDefaultDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die When {0} changes ähnelt.
+        /// </summary>
+        internal static string ItemStateUpdateTriggerDefaultLabel {
+            get {
+                return ResourceManager.GetString("ItemStateUpdateTriggerDefaultLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die NewRule ähnelt.
         /// </summary>
         internal static string NewRule {

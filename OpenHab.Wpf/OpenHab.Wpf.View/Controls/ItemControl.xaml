@@ -224,7 +224,7 @@
               Visibility="{Binding Path=AllowRuleOperations, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:ItemControl}}, Converter={StaticResource BooleanToVisibilityConverter}}"
               extraFixed:DragManager.Data="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}}"
               extraFixed:DragManager.Effects="Copy"
-              extraFixed:DragManager.Format="RuleComponent_Action"
+              extraFixed:DragManager.Format="RuleComponent"
               extraFixed:DragManager.IsEnabled="True">
             <extraFixed:DragManager.ContentTemplate>
                 <DataTemplate DataType="{x:Type viewModels:ItemViewModel}">

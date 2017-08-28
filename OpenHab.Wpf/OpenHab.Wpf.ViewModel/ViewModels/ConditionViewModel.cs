@@ -1,6 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Framework.UI.Input;
 using GalaSoft.MvvmLight;
+using Ninject;
+using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Models;
 
@@ -43,6 +47,25 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             ConfigDescriptions = condition.ConfigDescriptions?.ToViewModels();
 
             _condition = condition;
+            InitializeCommands();
+        }
+
+        public ConditionViewModel(ItemViewModel itemViewModel)
+        {
+            var itemName = itemViewModel.Name;
+            var state = itemViewModel.State;
+
+            Configuration = new
+            {
+                itemName = itemName,
+                command = state
+            };
+            Id = Guid.NewGuid().ToString();
+            Label = string.Format(Properties.Resources.ItemStateConditionDefaultLabel, itemName, state);
+            Description = string.Format(Properties.Resources.ItemStateConditionDefaultDescription, itemName, state);
+            Type = "core.ItemStateCondition";
+
+            InitializeCommands();
         }
 
         #region Properties
@@ -160,6 +183,23 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         #endregion
 
         #region Public Methods
+
+        #endregion
+
+        #region Commands
+
+        public DelegateCommand DeleteConditionCommand { get; private set; }
+
+        private void InitializeCommands()
+        {
+            DeleteConditionCommand = new DelegateCommand(DeleteCondition);
+        }
+
+        private void DeleteCondition()
+        {
+            var currentRule = NinjectKernel.StandardKernel.Get<RulesViewModel>().CurrentRule;
+            currentRule?.RemoveCondition(this);
+        }
 
         #endregion
 

@@ -132,7 +132,7 @@
             <Style TargetType="{x:Type ContentControl}">
                 <Setter Property="Content" x:Name="Fallback">
                     <Setter.Value>
-                        <TextBlock Text="{Binding State}"
+                        <TextBlock Text="{Binding Label}"
                                    Style="{StaticResource NormalTextStyle}" />
                     </Setter.Value>
                 </Setter>

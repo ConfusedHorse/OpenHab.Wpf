@@ -1,6 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Framework.UI.Input;
 using GalaSoft.MvvmLight;
+using Ninject;
+using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Models;
 
@@ -41,6 +45,23 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             ConfigDescriptions = trigger.ConfigDescriptions?.ToViewModels();
 
             _trigger = trigger;
+            InitializeCommands();
+        }
+
+        public TriggerViewModel(ItemViewModel itemViewModel)
+        {
+            var itemName = itemViewModel.Name;
+
+            Configuration = new
+            {
+                itemName = itemName
+            };
+            Id = Guid.NewGuid().ToString();
+            Label = string.Format(Properties.Resources.ItemStateUpdateTriggerDefaultLabel, itemName);
+            Description = string.Format(Properties.Resources.ItemStateUpdateTriggerDefaultDescription, itemName);
+            Type = "core.ItemStateUpdateTrigger";
+
+            InitializeCommands();
         }
 
         #region Properties
@@ -148,6 +169,23 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         #endregion
 
         #region Public Methods
+
+        #endregion
+
+        #region Commands
+
+        public DelegateCommand DeleteTriggerCommand { get; private set; }
+
+        private void InitializeCommands()
+        {
+            DeleteTriggerCommand = new DelegateCommand(DeleteAction);
+        }
+
+        private void DeleteAction()
+        {
+            var currentRule = NinjectKernel.StandardKernel.Get<RulesViewModel>().CurrentRule;
+            currentRule?.RemoveTrigger(this);
+        }
 
         #endregion
 
