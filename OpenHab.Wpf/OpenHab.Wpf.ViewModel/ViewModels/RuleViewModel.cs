@@ -70,6 +70,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             Actions = new ObservableCollection<ActionViewModel>();
             Name = $"{Properties.Resources.NewRule}_{DateTime.Now:yyyy_MM_dd_HH_mm_ss}";
             Enabled = false;
+            Status = StatusInfoViewModel.Default;
 
             IsRuleDummy = true;
             InitializeEventHandlers();

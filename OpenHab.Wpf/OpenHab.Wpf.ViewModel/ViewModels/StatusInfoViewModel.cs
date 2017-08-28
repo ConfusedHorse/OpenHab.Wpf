@@ -14,6 +14,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private StatusInfo _statusInfo;
 
         #endregion
+
         public StatusInfoViewModel(StatusInfo statusInfo)
         {
             Status = statusInfo.Status;
@@ -58,6 +59,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         #endregion
 
         #region Public Methods
+
+        public static StatusInfoViewModel Default => new StatusInfoViewModel(StatusInfo.Default);
 
         #endregion
 

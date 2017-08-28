@@ -1,11 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Framework.UI.Input;
 using GalaSoft.MvvmLight;
 using Ninject;
+using OpenHab.Wpf.CrossCutting.Context;
 using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Models;
+using Action = OpenHAB.NetRestApi.Models.Action;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels
 {
@@ -53,12 +56,13 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         {
             var itemName = itemViewModel.Name;
             var state = itemViewModel.State;
-
+            
             Configuration = new
             {
                 itemName = itemName,
                 command = state
             };
+            Id = Guid.NewGuid().ToString();
             Label = string.Format(Properties.Resources.ItemCommandActionDefaultLabel, itemName, state);
             Description = string.Format(Properties.Resources.ItemCommandActionDefaultDescription, itemName, state);
             Type = "core.ItemCommandAction";
