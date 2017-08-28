@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="Helper\EnumerableExtension.cs" />
     <Compile Include="Helper\FilterExtension.cs" />
+    <Compile Include="Helper\ModelFactory.cs" />
     <Compile Include="Helper\ViewModelExtensions.cs" />
     <Compile Include="Module\ViewModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

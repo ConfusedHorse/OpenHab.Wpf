@@ -81,7 +81,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                     FilteredRules.Remove(ruleViewModel);
                 }
 
-                AddRuleDummy();
+                RefreshRuleDummy();
                 CurrentRule = _rules?.FirstOrDefault();
             });
         }
@@ -92,9 +92,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _filteredRules = value;
-                RaisePropertyChanged();
                 CurrentRule = _rules?.FirstOrDefault();
-                AddRuleDummy();
+                RefreshRuleDummy();
+                RaisePropertyChanged();
             }
         }
 
@@ -106,6 +106,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 _currentRule = value;
                 if (value == null || value.IsRuleDummy)
                     CreateNewRule();
+
+                if (_currentRule == null)
+                    CurrentRule = _filteredRules?.FirstOrDefault();
 
                 RaisePropertyChanged();
             }
@@ -154,9 +157,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         #region Private Methods
 
-        private void AddRuleDummy()
+        private void RefreshRuleDummy()
         {
-            if (_filteredRules.FirstOrDefault(r => r.IsRuleDummy) != null) return;
+            if (_rules.FirstOrDefault(r => r.IsRuleDummy) != null) return;
 
             var ruleDummy = new RuleViewModel();
             Rules.Add(ruleDummy);
@@ -166,7 +169,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private void CreateNewRule()
         {
             if (_currentRule != null) CurrentRule.IsRuleDummy = false;
-            AddRuleDummy();
+            RefreshRuleDummy();
         }
 
         private void RestContextOnConnectionChanged(RestContext sender, ServerConnectionChangedEventArgs args)

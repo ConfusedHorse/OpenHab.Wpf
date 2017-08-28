@@ -178,11 +178,38 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Remove this action from the current rule ähnelt.
+        /// </summary>
+        public static string DeleteAction {
+            get {
+                return ResourceManager.GetString("DeleteAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Remove this condition from the current rule ähnelt.
+        /// </summary>
+        public static string DeleteCondition {
+            get {
+                return ResourceManager.GetString("DeleteCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Deletes this rule ähnelt.
         /// </summary>
         public static string DeleteRule {
             get {
                 return ResourceManager.GetString("DeleteRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Remove this trigger from the current rule ähnelt.
+        /// </summary>
+        public static string DeleteTrigger {
+            get {
+                return ResourceManager.GetString("DeleteTrigger", resourceCulture);
             }
         }
         
@@ -340,6 +367,15 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Save changes ähnelt.
+        /// </summary>
+        public static string SaveChanges {
+            get {
+                return ResourceManager.GetString("SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Please type in the address of the OpenHab server component you would like to connect to. ähnelt.
         /// </summary>
         public static string ServerAddressPrompt {
@@ -381,6 +417,15 @@ namespace OpenHab.Wpf.View.Properties {
         public static string Things {
             get {
                 return ResourceManager.GetString("Things", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die There are unsaved changes. Do you want to save before accessing another rule? ähnelt.
+        /// </summary>
+        public static string UnsavedChanges {
+            get {
+                return ResourceManager.GetString("UnsavedChanges", resourceCulture);
             }
         }
     }

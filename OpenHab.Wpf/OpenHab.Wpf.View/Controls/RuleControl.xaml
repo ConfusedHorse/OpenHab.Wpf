@@ -51,7 +51,9 @@
                         </Grid>
 
                         <Grid Row="1">
-                            <TextBlock Text="{Binding Description}"/>
+                            <TextBlock Style="{StaticResource NormalTextStyle}"
+                                       Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                       Text="{Binding Description}"/>
                         </Grid>
                     </Grid>
 

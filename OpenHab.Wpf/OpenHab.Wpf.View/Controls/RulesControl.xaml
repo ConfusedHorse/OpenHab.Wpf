@@ -42,7 +42,7 @@
                 <ColumnDefinition Width="6"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="6"/>
-                <ColumnDefinition Width="Auto" MinWidth="200"/>
+                <ColumnDefinition Width="Auto" MinWidth="300"/>
             </Grid.ColumnDefinitions>
 
             <Grid x:Name="LeftGrid"
@@ -100,7 +100,9 @@
                 <ListBox x:Name="Rules"
                          Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
                          ItemsSource="{Binding FilteredRules, Mode=TwoWay}"
-                         SelectedItem="{Binding CurrentRule, Mode=TwoWay}">
+                         SelectedItem="{Binding CurrentRule, Mode=TwoWay}"
+                         PreviewMouseDown="Rules_OnPreviewMouseDown"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <i:Interaction.Behaviors>
                         <extra:AnimatingItemsControlBehavior x:Name="RulesBehavior"/>
                     </i:Interaction.Behaviors>

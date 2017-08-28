@@ -102,6 +102,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ActionControl.xaml.cs">
+      <DependentUpon>ActionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RuleEditorControl.xaml.cs">
       <DependentUpon>RuleEditorControl.xaml</DependentUpon>
     </Compile>
@@ -163,6 +166,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\ActionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\RuleEditorControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

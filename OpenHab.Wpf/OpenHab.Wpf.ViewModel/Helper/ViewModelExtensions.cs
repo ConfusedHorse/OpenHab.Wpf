@@ -8,6 +8,8 @@ namespace OpenHab.Wpf.ViewModel.Helper
 {
     public static class ViewModelExtensions
     {
+        #region ToViewModel
+
         public static ObservableCollection<string> ToViewModels(this IEnumerable<string> list)
         {
             return new ObservableCollection<string>(list);
@@ -142,5 +144,101 @@ namespace OpenHab.Wpf.ViewModel.Helper
         {
             return new ObservableCollection<RuleViewModel>(rules.Select(r => r?.ToViewModel()));
         }
+
+        #endregion
+
+        #region FromViewModel
+
+        public static List<string> FromViewModels(this ObservableCollection<string> list)
+        {
+            return list.ToList();
+        }
+
+        public static Rule FromViewModel(this RuleViewModel ruleViewModel)
+        {
+            return ModelFactory.Create(ruleViewModel);
+        }
+
+        public static Action FromViewModel(this ActionViewModel action)
+        {
+            return ModelFactory.Create(action);
+        }
+
+        public static List<Action> FromViewModels(this ObservableCollection<ActionViewModel> actions)
+        {
+            return actions.Select(a => a?.FromViewModel()).ToList();
+        }
+
+        public static Trigger FromViewModel(this TriggerViewModel trigger)
+        {
+            return ModelFactory.Create(trigger);
+        }
+
+        public static List<Trigger> FromViewModels(this ObservableCollection<TriggerViewModel> triggers)
+        {
+            return triggers.Select(t => t?.FromViewModel()).ToList();
+        }
+
+        public static Condition FromViewModel(this ConditionViewModel condition)
+        {
+            return ModelFactory.Create(condition);
+        }
+
+        public static List<Condition> FromViewModels(this ObservableCollection<ConditionViewModel> conditions)
+        {
+            return conditions.Select(c => c?.FromViewModel()).ToList();
+        }
+
+        public static Output FromViewModel(this OutputViewModel output)
+        {
+            return ModelFactory.Create(output);
+        }
+
+        public static List<Output> FromViewModels(this ObservableCollection<OutputViewModel> outputs)
+        {
+            return outputs.Select(o => o?.FromViewModel()).ToList();
+        }
+
+        public static ConfigDescription FromViewModel(this ConfigDescriptionViewModel configDescription)
+        {
+            return ModelFactory.Create(configDescription);
+        }
+
+        public static List<ConfigDescription> FromViewModels(this ObservableCollection<ConfigDescriptionViewModel> configDescriptions)
+        {
+            return configDescriptions.Select(cd => cd?.FromViewModel()).ToList();
+        }
+
+        public static StatusInfo FromViewModel(this StatusInfoViewModel statusInfo)
+        {
+            return ModelFactory.Create(statusInfo);
+        }
+
+        public static List<StatusInfo> FromViewModels(this ObservableCollection<StatusInfoViewModel> statusInfos)
+        {
+            return statusInfos.Select(si => si?.FromViewModel()).ToList();
+        }
+
+        public static Option FromViewModel(this OptionViewModel option)
+        {
+            return ModelFactory.Create(option);
+        }
+
+        public static List<Option> FromViewModels(this ObservableCollection<OptionViewModel> options)
+        {
+            return options.Select(o => o?.FromViewModel()).ToList();
+        }
+
+        public static FilterCriteria FromViewModel(this FilterCriteriaViewModel filterCriteria)
+        {
+            return ModelFactory.Create(filterCriteria);
+        }
+
+        public static List<FilterCriteria> FromViewModels(this ObservableCollection<FilterCriteriaViewModel> filterCriterias)
+        {
+            return filterCriterias.Select(si => si?.FromViewModel()).ToList();
+        }
+
+        #endregion
     }
 }

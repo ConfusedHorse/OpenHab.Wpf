@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Framework.UI.Controls;
@@ -35,6 +36,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         private Rule _rule;
         private bool _isRuleDummy;
+        private bool _unsavedChanges;
 
         #endregion
 
@@ -57,6 +59,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             _rule = rule;
             InitializeEventHandlers();
             InitializeCommands();
+            UnsavedChanges = false;
         }
 
         public RuleViewModel()
@@ -71,6 +74,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             IsRuleDummy = true;
             InitializeEventHandlers();
             InitializeCommands();
+            UnsavedChanges = false;
         }
 
         public void Update(Rule rule)
@@ -90,6 +94,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             Status = rule.Status?.ToViewModel();
 
             _rule = rule;
+            UnsavedChanges = false;
         }
 
         #region Properties
@@ -161,6 +166,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             {
                 _uid = value;
                 RaisePropertyChanged();
+                DispatcherHelper.RunAsync(() => RunRuleCommand?.RaiseCanExecuteChanged());
                 RaisePropertyChanged(() => CanToggleRule);
             }
         }
@@ -171,6 +177,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _name = value;
+                UnsavedChanges = true;
                 RaisePropertyChanged();
             }
         }
@@ -181,6 +188,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _tags = value;
+                UnsavedChanges = true;
                 RaisePropertyChanged();
             }
         }
@@ -201,6 +209,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _description = value;
+                UnsavedChanges = true;
                 RaisePropertyChanged();
             }
         }
@@ -231,19 +240,23 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _isRuleDummy = value;
+                DispatcherHelper.RunAsync(() => DeleteRuleCommand?.RaiseCanExecuteChanged());
                 RaisePropertyChanged();
             }
         }
 
         public bool CanToggleRule => Uid != null;
 
-        #endregion
-
-        #region Commands
-        
-        public DelegateCommand<object> AddActionFromDragDataCommand { get; private set; }
-        public DelegateCommand RunRuleCommand { get; private set; }
-        public DelegateCommand DeleteRuleCommand { get; private set; }
+        public bool UnsavedChanges
+        {
+            get => _unsavedChanges;
+            set
+            {
+                _unsavedChanges = value;
+                DispatcherHelper.RunAsync(() => SaveRuleCommand?.RaiseCanExecuteChanged());
+                RaisePropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -258,6 +271,31 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 _rule.Enable();
             else
                 _rule.Disable();
+        }
+        
+        public void RemoveAction(ActionViewModel actionViewModel)
+        {
+            if (Actions.IsNullOrEmpty()) return;
+            Actions.Remove(actionViewModel);
+            UnsavedChanges = true;
+        }
+
+        public void SaveChangesAsync()
+        {
+            Task.Run(() =>
+            {
+                if (Uid == null)
+                {
+                    var result = this.FromViewModel()?.Create();
+                    if (result == null || result != string.Empty) return;
+
+                    var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
+                    rulesViewModel.RemovePhantomRule(this);
+                }
+                else this.FromViewModel()?.Update();
+            });
+
+            UnsavedChanges = false;
         }
 
         #endregion
@@ -283,11 +321,22 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         #region Commands
 
+        public DelegateCommand RunRuleCommand { get; private set; }
+        public DelegateCommand DeleteRuleCommand { get; private set; }
+        public DelegateCommand SaveRuleCommand { get; private set; }
+        public DelegateCommand<object> AddActionFromDragDataCommand { get; private set; }
+
         private void InitializeCommands()
         {
             RunRuleCommand = new DelegateCommand(RunRule, CanRunRule);
             DeleteRuleCommand = new DelegateCommand(DeleteRuleAsync, CanDeleteRule);
+            SaveRuleCommand = new DelegateCommand(SaveChangesAsync, CanSaveRule);
             AddActionFromDragDataCommand = new DelegateCommand<object>(AddActionFromDragData);
+        }
+
+        private bool CanSaveRule()
+        {
+            return UnsavedChanges;
         }
 
         private void RunRule()
@@ -343,6 +392,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             var itemCommandAction = itemViewModel.ToActionViewModel();
             var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
             var currentRule = rulesViewModel.CurrentRule;
+            currentRule.UnsavedChanges = true;
             DispatcherHelper.RunAsync(() => currentRule.Actions.Add(itemCommandAction));
         }
 

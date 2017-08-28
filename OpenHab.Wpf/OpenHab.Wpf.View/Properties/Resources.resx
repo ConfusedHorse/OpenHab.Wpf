@@ -225,4 +225,19 @@
   <data name="ConnectionOnline" xml:space="preserve">
     <value>The server is online</value>
   </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+  <data name="UnsavedChanges" xml:space="preserve">
+    <value>There are unsaved changes. Do you want to save before accessing another rule?</value>
+  </data>
+  <data name="DeleteAction" xml:space="preserve">
+    <value>Remove this action from the current rule</value>
+  </data>
+  <data name="DeleteCondition" xml:space="preserve">
+    <value>Remove this condition from the current rule</value>
+  </data>
+  <data name="DeleteTrigger" xml:space="preserve">
+    <value>Remove this trigger from the current rule</value>
+  </data>
 </root>

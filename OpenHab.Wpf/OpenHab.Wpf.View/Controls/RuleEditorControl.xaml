@@ -7,6 +7,8 @@
              xmlns:viewModels="clr-namespace:OpenHab.Wpf.ViewModel.ViewModels;assembly=OpenHab.Wpf.ViewModel"
              xmlns:extra="http://schemas.extra.com/ui"
              xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
+             xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
+             xmlns:metro="http://schemas.codeplex.com/elysium"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="1000"
              d:DataContext="{d:DesignInstance Type={x:Type viewModels:RuleViewModel}, 
@@ -29,51 +31,72 @@
 
             <Grid x:Name="RuleTextFields"
                   Row="0"
-                  Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
                   HorizontalAlignment="Left">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                    
+                <Grid Column="0"
+                        Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                        VerticalAlignment="Center">
+                    <metro:CommandButton Command="{Binding SaveRuleCommand}">
+                        <extra:Icon Style="{StaticResource BooksettingIconStyle}"
+                                    Size="Medium">
+                            <extra:Icon.ToolTip>
+                                <Grid>
+                                    <TextBlock Text="{x:Static p:Resources.SaveChanges}"/>
+                                </Grid>
+                            </extra:Icon.ToolTip>
+                        </extra:Icon>
+                    </metro:CommandButton>
+                </Grid>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+                <Grid Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0"
-                           Grid.Column="0"
-                           VerticalAlignment="Center"
-                           Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                           Style="{StaticResource NormalTextStyle}"
-                           Text="{x:Static p:Resources.Name}" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-                <extra:TextBoxExtended Grid.Row="0"
-                                       Grid.Column="1"
-                                       MinWidth="250"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
-                                       TextWrapping="Wrap"
-                                       Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                                       Text="{Binding Name}"
-                                       Watermark="{x:Static p:Resources.Name}" />
+                    <TextBlock Grid.Row="0"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                Style="{StaticResource NormalTextStyle}"
+                                Text="{x:Static p:Resources.Name}" />
 
-                <TextBlock Grid.Row="1"
-                           Grid.Column="0"
-                           VerticalAlignment="Center"
-                           Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                           Style="{StaticResource NormalTextStyle}"
-                           Text="{x:Static p:Resources.Description}" />
+                    <extra:TextBoxExtended Grid.Row="0"
+                                            Grid.Column="1"
+                                            MinWidth="250"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Left"
+                                            TextWrapping="Wrap"
+                                            Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                                            Watermark="{x:Static p:Resources.Name}" />
 
-                <extra:TextBoxExtended Grid.Row="1"
-                                       Grid.Column="1"
-                                       MinWidth="250"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
-                                       TextWrapping="Wrap"
-                                       Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                                       Text="{Binding Description}"
-                                       Watermark="{x:Static p:Resources.Description}" />
+                    <TextBlock Grid.Row="1"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                Style="{StaticResource NormalTextStyle}"
+                                Text="{x:Static p:Resources.Description}" />
+
+                    <extra:TextBoxExtended Grid.Row="1"
+                                            Grid.Column="1"
+                                            MinWidth="250"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Left"
+                                            TextWrapping="Wrap"
+                                            Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                            Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                                            Watermark="{x:Static p:Resources.Description}" />
+                </Grid>
             </Grid>
 
             <Grid x:Name="RuleComponents"
@@ -89,7 +112,7 @@
                 <Grid x:Name="TriggerGrid"
                       Column="0">
                     <ItemsControl x:Name="TriggerListBox"
-                             ItemsSource="{Binding Triggers}">
+                                  ItemsSource="{Binding Triggers}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type viewModels:ActionViewModel}">
                                 <Grid Background="{StaticResource AccentLevel5Brush}"
@@ -118,9 +141,8 @@
 
                 <Grid x:Name="ConditionGrid"
                       Column="2">
-
                     <ItemsControl x:Name="ConditionListBox"
-                             ItemsSource="{Binding Conditions}">
+                                  ItemsSource="{Binding Conditions}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type viewModels:ActionViewModel}">
                                 <Grid Background="{StaticResource AccentLevel5Brush}"
@@ -150,32 +172,16 @@
                               Style="{StaticResource VerticalGridSplitterStyle}" />
 
                 <Grid x:Name="ActionGrid"
-                      Column="4">
+                      Background="Transparent"
+                      Column="4"
+                      extra:DragCommand.Command="{Binding AddActionFromDragDataCommand}"
+                      extra:DragCommand.Format="RuleComponent_Action"
+                      AllowDrop="True">
                     <ItemsControl x:Name="ActionListBox"
-                             ItemsSource="{Binding Actions}"
-                             extra:DragCommand.Command="{Binding AddActionFromDragDataCommand}"
-                             extra:DragCommand.Format="RuleComponent"
-                             AllowDrop="True">
+                                  ItemsSource="{Binding Actions}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type viewModels:ActionViewModel}">
-                                <Grid Background="{StaticResource AccentLevel5Brush}"
-                                      Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock
-                                            Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                                            Style="{StaticResource HeaderTextStyle}"
-                                            Text="{Binding Label}" />
-                                        <TextBlock
-                                            Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                                            Style="{StaticResource NormalTextStyle}"
-                                            Text="{Binding Type}"
-                                            HorizontalAlignment="Right" />
-                                        <TextBlock
-                                            Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                                            Style="{StaticResource NormalTextStyle}"
-                                            Text="{Binding Description}" />
-                                    </StackPanel>
-                                </Grid>
+                                <controls:ActionControl DataContext="{Binding}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

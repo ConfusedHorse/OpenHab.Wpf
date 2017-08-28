@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
-using System.Dynamic;
 using System.Threading.Tasks;
+using Framework.UI.Input;
 using GalaSoft.MvvmLight;
+using Ninject;
+using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Models;
 
@@ -44,6 +46,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             ConfigDescriptions = action.ConfigDescriptions?.ToViewModels();
 
             _action = action;
+            InitializeCommands();
         }
 
         public ActionViewModel(ItemViewModel itemViewModel)
@@ -54,11 +57,13 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             Configuration = new
             {
                 itemName = itemName,
-                state = state
+                command = state
             };
             Label = string.Format(Properties.Resources.ItemCommandActionDefaultLabel, itemName, state);
             Description = string.Format(Properties.Resources.ItemCommandActionDefaultDescription, itemName, state);
             Type = "core.ItemCommandAction";
+
+            InitializeCommands();
         }
 
         #region Properties
@@ -176,6 +181,23 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         #endregion
 
         #region Public Methods
+
+        #endregion
+
+        #region Commands
+
+        public DelegateCommand DeleteActionCommand { get; private set; }
+
+        private void InitializeCommands()
+        {
+            DeleteActionCommand = new DelegateCommand(DeleteAction);
+        }
+
+        private void DeleteAction()
+        {
+            var currentRule = NinjectKernel.StandardKernel.Get<RulesViewModel>().CurrentRule;
+            currentRule?.RemoveAction(this);
+        }
 
         #endregion
 
