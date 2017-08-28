@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,7 +38,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _things = value;
-                FilteredThings = new ObservableCollection<ThingViewModel>(value);
+                FilteredThings = value != null
+                    ? new ObservableCollection<ThingViewModel>(value)
+                    : new ObservableCollection<ThingViewModel>();
                 RaisePropertyChanged();
             }
         }
@@ -139,7 +142,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         private void TerminateEventHandlers()
         {
-            var eventService = _restContext.Client.EventService;
+            var eventService = _restContext?.Client?.EventService;
+            if (eventService == null) return;
             Debug.WriteLine($"Terminating Event Handlers for {nameof(ThingsViewModel)}");
             
         }
@@ -150,7 +154,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             IsBusy = true;
 
             var things = await Task.Run(() => _restContext.Client.ThingService.GetThings());
-            var usefulThings = things.Where(t => t.Channels.Any());
+            var usefulThings = things?.Where(t => t.Channels.Any());
             
             Things = usefulThings?.ToViewModels();
 

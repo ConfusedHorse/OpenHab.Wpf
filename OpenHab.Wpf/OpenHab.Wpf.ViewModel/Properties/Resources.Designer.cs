@@ -95,5 +95,14 @@ namespace OpenHab.Wpf.ViewModel.Properties {
                 return ResourceManager.GetString("ItemCommandActionDefaultLabel", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die NewRule ähnelt.
+        /// </summary>
+        internal static string NewRule {
+            get {
+                return ResourceManager.GetString("NewRule", resourceCulture);
+            }
+        }
     }
 }

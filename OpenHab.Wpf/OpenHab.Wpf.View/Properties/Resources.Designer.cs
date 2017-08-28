@@ -61,6 +61,15 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die OpenHAB Wpf Rule Designer ähnelt.
+        /// </summary>
+        public static string ApplicationTitle {
+            get {
+                return ResourceManager.GetString("ApplicationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Brightness ähnelt.
         /// </summary>
         public static string Brightness {
@@ -84,6 +93,15 @@ namespace OpenHab.Wpf.View.Properties {
         public static string Color {
             get {
                 return ResourceManager.GetString("Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Connect ähnelt.
+        /// </summary>
+        public static string Connect {
+            get {
+                return ResourceManager.GetString("Connect", resourceCulture);
             }
         }
         
@@ -124,11 +142,38 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The server is online ähnelt.
+        /// </summary>
+        public static string ConnectionOnline {
+            get {
+                return ResourceManager.GetString("ConnectionOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Connect to another server. ähnelt.
+        /// </summary>
+        public static string ConnectToAnotherServer {
+            get {
+                return ResourceManager.GetString("ConnectToAnotherServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Connect to server ähnelt.
         /// </summary>
         public static string ConnectToServer {
             get {
                 return ResourceManager.GetString("ConnectToServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Create a new rule ähnelt.
+        /// </summary>
+        public static string CreateRule {
+            get {
+                return ResourceManager.GetString("CreateRule", resourceCulture);
             }
         }
         
@@ -228,6 +273,15 @@ namespace OpenHab.Wpf.View.Properties {
         public static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {}Connection has been terminated. Trying to reconnect... ({0}) ähnelt.
+        /// </summary>
+        public static string ReconnectionAttemptFormat {
+            get {
+                return ResourceManager.GetString("ReconnectionAttemptFormat", resourceCulture);
             }
         }
         

@@ -129,4 +129,7 @@
   <data name="ItemCommandActionDefaultLabel" xml:space="preserve">
     <value>Set {0} to {1}</value>
   </data>
+  <data name="NewRule" xml:space="preserve">
+    <value>NewRule</value>
+  </data>
 </root>

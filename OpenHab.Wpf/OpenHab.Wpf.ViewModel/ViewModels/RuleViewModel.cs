@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -33,6 +34,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private ObservableCollection<TriggerViewModel> _triggers;
 
         private Rule _rule;
+        private bool _isRuleDummy;
 
         #endregion
 
@@ -53,6 +55,20 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             Status = rule.Status?.ToViewModel();
 
             _rule = rule;
+            InitializeEventHandlers();
+            InitializeCommands();
+        }
+
+        public RuleViewModel()
+        {
+            //Create Dummy
+            Triggers = new ObservableCollection<TriggerViewModel>();
+            Conditions = new ObservableCollection<ConditionViewModel>();
+            Actions = new ObservableCollection<ActionViewModel>();
+            Name = $"{Properties.Resources.NewRule}_{DateTime.Now:yyyy_MM_dd_HH_mm_ss}";
+            Enabled = false;
+
+            IsRuleDummy = true;
             InitializeEventHandlers();
             InitializeCommands();
         }
@@ -145,6 +161,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             {
                 _uid = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged(() => CanToggleRule);
             }
         }
 
@@ -208,6 +225,18 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
+        public bool IsRuleDummy
+        {
+            get => _isRuleDummy;
+            set
+            {
+                _isRuleDummy = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool CanToggleRule => Uid != null;
+
         #endregion
 
         #region Commands
@@ -219,6 +248,17 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         #endregion
 
         #region Public Methods
+
+        public void ToggleRule(bool? ruleEnabled)
+        {
+            if (ruleEnabled != null && ruleEnabled != _enabled)
+                Enabled = (bool)ruleEnabled;
+
+            if (_enabled)
+                _rule.Enable();
+            else
+                _rule.Disable();
+        }
 
         #endregion
 
@@ -262,19 +302,27 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         private async void DeleteRuleAsync()
         {
-            var owner = Application.Current.MainWindow;
-            var result = await MessageDialog.ShowAsync(Properties.Resources.DeleteRuleHeader,
-                string.Format(Properties.Resources.DeleteRuleContent, Name ?? Uid), MessageBoxButton.YesNo,
-                owner: owner);
-            if (result == MessageBoxResult.Yes)
+            if (Uid == null)
             {
-                _rule.Delete();
+                var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
+                rulesViewModel.RemovePhantomRule(this);
+            }
+            else
+            {
+                var owner = Application.Current.MainWindow;
+                var result = await MessageDialog.ShowAsync(Properties.Resources.DeleteRuleHeader,
+                    string.Format(Properties.Resources.DeleteRuleContent, Name ?? Uid), MessageBoxButton.YesNo,
+                    owner: owner);
+                if (result == MessageBoxResult.Yes)
+                {
+                    _rule?.Delete();
+                }
             }
         }
 
         private bool CanDeleteRule()
         {
-            return Uid != null;
+            return !IsRuleDummy;
         }
 
         private static void AddActionFromDragData(object data)
@@ -286,17 +334,6 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                     break;
                 //TODO add other ModuleTypes here
             }
-        }
-
-        public void ToggleRule(bool? ruleEnabled)
-        {
-            if (ruleEnabled != null && ruleEnabled != _enabled)
-                Enabled = (bool)ruleEnabled;
-            
-            if (_enabled)
-                _rule.Enable();
-            else
-                _rule.Disable();
         }
 
         #endregion

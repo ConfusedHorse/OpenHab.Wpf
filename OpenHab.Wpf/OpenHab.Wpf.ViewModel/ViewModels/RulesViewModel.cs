@@ -42,7 +42,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _rules = value;
-                FilteredRules = new ObservableCollection<RuleViewModel>(value);
+                FilteredRules = value != null
+                    ? new ObservableCollection<RuleViewModel>(value)
+                    : new ObservableCollection<RuleViewModel>();
                 RaisePropertyChanged();
             }
         }
@@ -79,6 +81,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                     FilteredRules.Remove(ruleViewModel);
                 }
 
+                AddRuleDummy();
                 CurrentRule = _rules?.FirstOrDefault();
             });
         }
@@ -91,6 +94,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 _filteredRules = value;
                 RaisePropertyChanged();
                 CurrentRule = _rules?.FirstOrDefault();
+                AddRuleDummy();
             }
         }
 
@@ -100,6 +104,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _currentRule = value;
+                if (value == null || value.IsRuleDummy)
+                    CreateNewRule();
+
                 RaisePropertyChanged();
             }
         }
@@ -128,9 +135,39 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         #region Public Methods
 
+        public void RemovePhantomRule(RuleViewModel ruleViewModel)
+        {
+            if (Rules.IsNullOrEmpty()) return;
+
+            var rule = _rules.FirstOrDefault(r => r.Name == ruleViewModel.Name);
+            if (rule == null) return;
+            DispatcherHelper.RunAsync(() =>
+            {
+                Rules.Remove(rule);
+                FilteredRules.Remove(rule);
+            });
+
+            CurrentRule = _filteredRules?.FirstOrDefault();
+        }
+
         #endregion
 
         #region Private Methods
+
+        private void AddRuleDummy()
+        {
+            if (_filteredRules.FirstOrDefault(r => r.IsRuleDummy) != null) return;
+
+            var ruleDummy = new RuleViewModel();
+            Rules.Add(ruleDummy);
+            FilteredRules.Add(ruleDummy);
+        }
+
+        private void CreateNewRule()
+        {
+            if (_currentRule != null) CurrentRule.IsRuleDummy = false;
+            AddRuleDummy();
+        }
 
         private void RestContextOnConnectionChanged(RestContext sender, ServerConnectionChangedEventArgs args)
         {
@@ -161,7 +198,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         private void TerminateEventHandlers()
         {
-            var eventService = _restContext.Client.EventService;
+            var eventService = _restContext?.Client?.EventService;
+            if (eventService == null) return;
             eventService.RuleAdded -= EventServiceOnRuleAdded;
             eventService.RuleRemoved -= EventServiceOnRuleRemoved;
             Debug.WriteLine($"Terminating Event Handlers for {nameof(RulesViewModel)}");

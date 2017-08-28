@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using OpenHab.Wpf.View.Module;
 using OpenHab.Wpf.ViewModel.ViewModels;
 
 namespace OpenHab.Wpf.View.Controls

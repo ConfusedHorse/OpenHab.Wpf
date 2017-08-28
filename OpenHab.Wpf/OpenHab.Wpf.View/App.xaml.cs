@@ -1,4 +1,5 @@
-﻿using System.Windows.Threading;
+﻿using System.Linq;
+using System.Windows.Threading;
 
 namespace OpenHab.Wpf.View
 {
@@ -9,10 +10,14 @@ namespace OpenHab.Wpf.View
     {
         private void OpenHabWpf_OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            switch (e.Exception.GetType().ToString())
+            switch (e.Exception)
             {
-                case "NullReferenceException":
-                    //e.Handled = true;
+                case System.AggregateException ae:
+                    if (ae.InnerExceptions.FirstOrDefault(ie => ie.GetType().ToString() == "JsonReaderException") != null)
+                    {
+                        var mainWindow = (MainWindow) Current.MainWindow;
+                        View.MainWindow.PrepareContextAsync(mainWindow);
+                    }
                     break;
             }
         }

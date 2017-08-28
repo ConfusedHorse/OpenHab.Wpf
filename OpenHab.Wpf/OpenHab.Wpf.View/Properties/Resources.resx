@@ -207,4 +207,22 @@
   <data name="RuleToggleOn" xml:space="preserve">
     <value>This rule is currently disabled. Click to enable it.</value>
   </data>
+  <data name="CreateRule" xml:space="preserve">
+    <value>Create a new rule</value>
+  </data>
+  <data name="ApplicationTitle" xml:space="preserve">
+    <value>OpenHAB Wpf Rule Designer</value>
+  </data>
+  <data name="ReconnectionAttemptFormat" xml:space="preserve">
+    <value>{}Connection has been terminated. Trying to reconnect... ({0})</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="ConnectToAnotherServer" xml:space="preserve">
+    <value>Connect to another server.</value>
+  </data>
+  <data name="ConnectionOnline" xml:space="preserve">
+    <value>The server is online</value>
+  </data>
 </root>

@@ -7,16 +7,69 @@
         xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
         xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
         xmlns:extra="http://schemas.extra.com/ui"
+        xmlns:module="clr-namespace:OpenHab.Wpf.View.Module"
+        xmlns:params="http://schemas.codeplex.com/elysium/params"
+        xmlns:metro="http://schemas.codeplex.com/elysium"
         mc:Ignorable="d" 
-        d:DesignHeight="300" d:DesignWidth="300">
+        Title="{x:Static p:Resources.ApplicationTitle}"
+        d:DesignHeight="300" d:DesignWidth="300"
+        DataContext="{Binding ServerViewModel, 
+                              Source={x:Static module:ViewModelLocator.Instance}}">
+    <extra:Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/BaseResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </extra:Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto" MinHeight="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Row="0" x:Name="Options">
-            <!-- Options go here -->
+        <Grid Row="0" x:Name="Header">
+            
+            <Grid x:Name="ServerStatus" 
+                  HorizontalAlignment="Right">
+                <Grid x:Name="Refresh"
+                      Height="50"
+                      Background="Transparent"
+                      Visibility="{Binding Idle, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <extra:Icon VerticalAlignment="Center"
+                                    Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
+                                    Style="{StaticResource NetworkServerConnectingIconStyle}"
+                                    Size="Medium"
+                                    ToolTip="{x:Static p:Resources.ConnectionOnline}"/>
+                        <Button Content="{x:Static p:Resources.Connect}"
+                                ToolTip="{x:Static p:Resources.ConnectToAnotherServer}"
+                                Click="ConnectToServerButton_OnClick"
+                                VerticalAlignment="Center"
+                                Width="100"
+                                Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                    </StackPanel>
+                </Grid>
+                <Grid x:Name="AttemptingToReconnect"
+                      Height="50"
+                      Background="Transparent"
+                      Visibility="{Binding AttemptingToReconnect, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid.ToolTip>
+                        <TextBlock Text="{Binding ReconnectionAttempts, StringFormat={x:Static p:Resources.ReconnectionAttemptFormat}}"/>
+                    </Grid.ToolTip>
+                    <StackPanel Orientation="Horizontal">
+                        <extra:Icon VerticalAlignment="Center"
+                                    Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
+                                    Style="{StaticResource NetworkServerDisconnectIconStyle}"
+                                    Size="Medium"/>
+                        <metro:ProgressBar Orientation="Horizontal"
+                                           VerticalAlignment="Center"
+                                           Width="100"
+                                           State="Busy"
+                                           Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
         </Grid>
 
         <Grid Row="1" x:Name="Content">

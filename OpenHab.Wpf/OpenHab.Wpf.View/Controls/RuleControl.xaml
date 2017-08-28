@@ -30,81 +30,122 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+
+            <ControlTemplate x:Key="RuleTemplate">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Row="0" x:Name="Header">
+                            <TextBlock Style="{StaticResource HeaderTextStyle}"
+                                       Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                       Text="{Binding Name}"/>
+                        </Grid>
+
+                        <Grid Row="1">
+                            <TextBlock Text="{Binding Description}"/>
+                        </Grid>
+                    </Grid>
+
+                    <Grid x:Name="RuleOptionsGrid"
+                          Row="1"
+                          HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Column="0"
+                              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                            <metro:CommandButton Command="{Binding RunRuleCommand}">
+                                <extra:Icon VerticalAlignment="Top"
+                                            Style="{StaticResource ControlPlayIconStyle}"
+                                            Size="Medium">
+                                    <extra:Icon.ToolTip>
+                                        <Grid>
+                                            <TextBlock Text="{x:Static p:Resources.RunRule}"/>
+                                        </Grid>
+                                    </extra:Icon.ToolTip>
+                                </extra:Icon>
+                            </metro:CommandButton>
+                        </Grid>
+
+                        <Grid Column="1"
+                              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                            <metro:ToggleCommandButton x:Name="RuleToggleSwitch" 
+                                                       Style="{StaticResource TimerPlayTimerStopToggleCommandButtonStyle}"
+                                                       IsChecked="{Binding Enabled}"
+                                                       IsEnabled="{Binding CanToggleRule}"
+                                                       Checked="RuleToggleSwitch_OnChecked"
+                                                       Unchecked="RuleToggleSwitch_OnUnchecked"/>
+                        </Grid>
+
+                        <Grid Column="2"
+                              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                            <metro:CommandButton Command="{Binding DeleteRuleCommand}">
+                                <extra:Icon VerticalAlignment="Top"
+                                            Style="{StaticResource BookDeleteIconStyle}"
+                                            Size="Medium">
+                                    <extra:Icon.ToolTip>
+                                        <Grid>
+                                            <TextBlock Text="{x:Static p:Resources.DeleteRule}"/>
+                                        </Grid>
+                                    </extra:Icon.ToolTip>
+                                </extra:Icon>
+                            </metro:CommandButton>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </ControlTemplate>
+            
+            <ControlTemplate x:Key="NewRuleDummyTemplate">
+                <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch"
+                      ToolTip="{x:Static p:Resources.CreateRule}"
+                      Background="Transparent"
+                      Height="100">
+                    <extra:Icon VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource BookAddIconStyle}"
+                                Size="VeryLarge"/>
+                </Grid>
+            </ControlTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid HorizontalAlignment="Stretch">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        
-        <Grid Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Grid Row="0" x:Name="Header">
-                <TextBlock Style="{StaticResource HeaderTextStyle}"
-                           Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                           Text="{Binding Name}"/>
-            </Grid>
-
-            <Grid Row="1">
-                <TextBlock Text="{Binding Description}"/>
-            </Grid>
-        </Grid>
-        
-        <Grid x:Name="RuleOptionsGrid"
-              Row="1"
-              HorizontalAlignment="Right">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid Column="0"
-                  Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
-                <metro:CommandButton Command="{Binding RunRuleCommand}">
-                    <extra:Icon VerticalAlignment="Top"
-                                Style="{StaticResource ControlPlayIconStyle}"
-                                Size="Medium">
-                        <extra:Icon.ToolTip>
-                            <Grid>
-                                <TextBlock Text="{x:Static p:Resources.RunRule}"/>
-                            </Grid>
-                        </extra:Icon.ToolTip>
-                    </extra:Icon>
-                </metro:CommandButton>
-            </Grid>
-
-            <Grid Column="1"
-                  Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
-                <metro:ToggleCommandButton x:Name="RuleToggleSwitch" 
-                                           Style="{StaticResource TimerPlayTimerStopToggleCommandButtonStyle}"
-                                           IsChecked="{Binding Enabled}"
-                                           Checked="RuleToggleSwitch_OnChecked"
-                                           Unchecked="RuleToggleSwitch_OnUnchecked"/>
-            </Grid>
-
-            <Grid Column="2"
-                  Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
-                <metro:CommandButton Command="{Binding DeleteRuleCommand}">
-                    <extra:Icon VerticalAlignment="Top"
-                                Style="{StaticResource TrashIconStyle}"
-                                Size="Medium">
-                        <extra:Icon.ToolTip>
-                            <Grid>
-                                <TextBlock Text="{x:Static p:Resources.DeleteRule}"/>
-                            </Grid>
-                        </extra:Icon.ToolTip>
-                    </extra:Icon>
-                </metro:CommandButton>
-            </Grid>
-        </Grid>
-    </Grid>
+    <ContentControl x:Name="RuleGrid"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+        <ContentControl.Style>
+            <Style TargetType="{x:Type ContentControl}">
+                <Setter Property="Content" x:Name="Fallback">
+                    <Setter.Value>
+                        <TextBlock Text="{Binding State}"
+                                   Style="{StaticResource NormalTextStyle}" />
+                    </Setter.Value>
+                </Setter>
+                
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsRuleDummy}" Value="False">
+                        <Setter Property="Template" Value="{StaticResource RuleTemplate}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=IsRuleDummy}" Value="True">
+                        <Setter Property="Template" Value="{StaticResource NewRuleDummyTemplate}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ContentControl.Style>
+    </ContentControl>
 </UserControl>
 
 

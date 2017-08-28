@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using OpenHab.Wpf.CrossCutting.Events;
+using OpenHAB.NetRestApi.Models.Events;
 using OpenHAB.NetRestApi.RestApi;
+using OpenHAB.NetRestApi.Services;
 
 namespace OpenHab.Wpf.CrossCutting.Context
 {
@@ -42,8 +45,8 @@ namespace OpenHab.Wpf.CrossCutting.Context
                 Debug.WriteLine(_online ? "Connection has been established!" : "Connection has been terminated!");
                 ConnectionChanged?.Invoke(this, new ServerConnectionChangedEventArgs(_online, ServerAddress));
 
-                if (_online) Client.EventService.InitializeAsync();
-                else Client.EventService.TerminateAsync();
+                if (_online) Task.Run(() => Client.EventService.InitializeAsync());
+                else Client?.EventService.TerminateAsync();
             }
         }
 
@@ -52,6 +55,8 @@ namespace OpenHab.Wpf.CrossCutting.Context
         #region Events
 
         public event ServerConnectionChangedEventHandler ConnectionChanged;
+        public event AttemptedReconnectEventHandler AttemptedReconnect;
+        public event TerminatedUnexpectedlyEventHandler ConnectionTerminated;
 
         #endregion
 
@@ -62,12 +67,34 @@ namespace OpenHab.Wpf.CrossCutting.Context
             try
             {
                 Client = OpenHAB.NetRestApi.RestApi.OpenHab.CreateRestClient(checkAddress ?? ServerAddress);
+                var eventService = Client.EventService;
+                eventService.TerminatedUnexpectedly += HandleUnexpectedTermination;
+                eventService.AttemptedReconnect += OnAttemptedReconnect;
                 return true;
             }
             catch (ArgumentException)
             {
+                if (Client?.EventService == null) return false;
+                var eventService = Client.EventService;
+                eventService.TerminatedUnexpectedly -= HandleUnexpectedTermination;
+                eventService.AttemptedReconnect -= OnAttemptedReconnect;
                 return false;
             }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void HandleUnexpectedTermination(object sender, TerminatedUnexpectedlyEvent eventobject)
+        {
+            Online = false;
+            ConnectionTerminated?.Invoke(sender, eventobject);
+        }
+
+        private void OnAttemptedReconnect(EventService sender, AttemptedReconnectEvent eventobject)
+        {
+            AttemptedReconnect?.Invoke(sender, eventobject);
         }
 
         #endregion

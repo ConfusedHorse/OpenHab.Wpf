@@ -88,11 +88,12 @@
 
                 <Grid x:Name="TriggerGrid"
                       Column="0">
-                    <ListBox x:Name="TriggerListBox"
+                    <ItemsControl x:Name="TriggerListBox"
                              ItemsSource="{Binding Triggers}">
-                        <ListBox.ItemTemplate>
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type viewModels:ActionViewModel}">
-                                <Grid Background="{StaticResource AccentLevel5Brush}">
+                                <Grid Background="{StaticResource AccentLevel5Brush}"
+                                      Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock
                                             Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
@@ -108,8 +109,8 @@
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Grid>
 
                 <GridSplitter Grid.Column="1"
@@ -118,11 +119,12 @@
                 <Grid x:Name="ConditionGrid"
                       Column="2">
 
-                    <ListBox x:Name="ConditionListBox"
+                    <ItemsControl x:Name="ConditionListBox"
                              ItemsSource="{Binding Conditions}">
-                        <ListBox.ItemTemplate>
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type viewModels:ActionViewModel}">
-                                <Grid Background="{StaticResource AccentLevel5Brush}">
+                                <Grid Background="{StaticResource AccentLevel5Brush}"
+                                      Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock
                                             Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
@@ -140,8 +142,8 @@
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Grid>
 
                 <GridSplitter Grid.Column="3"
@@ -149,14 +151,15 @@
 
                 <Grid x:Name="ActionGrid"
                       Column="4">
-                    <ListBox x:Name="ActionListBox"
+                    <ItemsControl x:Name="ActionListBox"
                              ItemsSource="{Binding Actions}"
                              extra:DragCommand.Command="{Binding AddActionFromDragDataCommand}"
                              extra:DragCommand.Format="RuleComponent"
                              AllowDrop="True">
-                        <ListBox.ItemTemplate>
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type viewModels:ActionViewModel}">
-                                <Grid Background="{StaticResource AccentLevel5Brush}">
+                                <Grid Background="{StaticResource AccentLevel5Brush}"
+                                      Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock
                                             Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
@@ -174,8 +177,8 @@
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Grid>
             </Grid>
         </Grid>
