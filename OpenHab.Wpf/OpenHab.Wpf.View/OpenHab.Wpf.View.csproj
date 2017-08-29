@@ -106,8 +106,17 @@
     <Compile Include="Controls\ConditionControl.xaml.cs">
       <DependentUpon>ConditionControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RulesControl.xaml.cs">
+      <DependentUpon>RulesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TriggersControl.xaml.cs">
+      <DependentUpon>TriggersControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Custom\TimePicker.xaml.cs">
       <DependentUpon>TimePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ConditionsControl.xaml.cs">
+      <DependentUpon>ConditionsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TriggerControl.xaml.cs">
       <DependentUpon>TriggerControl.xaml</DependentUpon>
@@ -130,8 +139,8 @@
     <Compile Include="Controls\ThingControl.xaml.cs">
       <DependentUpon>ThingControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\RulesControl.xaml.cs">
-      <DependentUpon>RulesControl.xaml</DependentUpon>
+    <Compile Include="Controls\RuleDesignerControl.xaml.cs">
+      <DependentUpon>RuleDesignerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ThingsControl.xaml.cs">
       <DependentUpon>ThingsControl.xaml</DependentUpon>
@@ -182,9 +191,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\RulesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\TriggersControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Custom\TimePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ConditionsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\TriggerControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -214,7 +235,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\RulesControl.xaml">
+    <Page Include="Controls\RuleDesignerControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

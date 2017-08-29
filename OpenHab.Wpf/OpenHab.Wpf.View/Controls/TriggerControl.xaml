@@ -171,8 +171,7 @@
     </UserControl.Resources>
 
     <Grid x:Name="TriggerGrid"
-          Background="{StaticResource AccentLevel5Brush}"
-          Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}">
+          Background="{StaticResource AccentLevel5Brush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
@@ -245,8 +244,8 @@
 
                 <Grid x:Name="TriggerDeleteGrid"
                       Visibility="{Binding Path=AllowDeleteOperations, 
-                                   RelativeSource={RelativeSource FindAncestor, 
-                                                                  AncestorType={x:Type controls:TriggerControl}}, 
+                                           RelativeSource={RelativeSource FindAncestor, 
+                                                                          AncestorType={x:Type controls:TriggerControl}}, 
                                    Converter={StaticResource BooleanToVisibilityConverter}}">
                     <metro:CommandButton VerticalAlignment="Top"
                                          Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"

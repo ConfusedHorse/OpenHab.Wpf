@@ -30,7 +30,7 @@ namespace OpenHab.Wpf.View.Module
 
         //TODO ConditionsViewModel & ActionsViewModel
         //public ConditionsViewModel ConditionsViewModel => NinjectKernel.StandardKernel.Get<ConditionsViewModel>();
-        //public ActionsViewMode ActionsViewMode => NinjectKernel.StandardKernel.Get<ActionsViewMode>();
+        //public ActionsViewModel ActionsViewModel => NinjectKernel.StandardKernel.Get<ActionsViewModel>();
 
         public static void Cleanup()
         {

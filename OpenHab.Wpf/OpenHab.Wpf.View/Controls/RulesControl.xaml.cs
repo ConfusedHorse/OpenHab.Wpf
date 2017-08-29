@@ -16,13 +16,7 @@ namespace OpenHab.Wpf.View.Controls
         public RulesControl()
         {
             InitializeComponent();
-            ((INotifyCollectionChanged) Things.Items).CollectionChanged += ThingsChanged;
-            ((INotifyCollectionChanged) Rules.Items).CollectionChanged += RulesChanged;
-        }
-
-        private void ThingsChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            ThingsBehavior.AnimateIn();
+            ((INotifyCollectionChanged)Rules.Items).CollectionChanged += RulesChanged;
         }
 
         private void RulesChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -38,7 +32,7 @@ namespace OpenHab.Wpf.View.Controls
 
             var itemUnderMouse = GetListBoxItemUnderMouse(Rules);
             if (itemUnderMouse == null || itemUnderMouse.DataContext == currentRule) return;
-            
+
             e.Handled = true;
             var saveChanges = await MessageDialog.ShowAsync(Properties.Resources.SaveChanges,
                 Properties.Resources.UnsavedChanges, MessageBoxButton.YesNo, owner: Application.Current.MainWindow);

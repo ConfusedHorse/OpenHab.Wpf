@@ -11,7 +11,6 @@
              xmlns:extraFixed="clr-namespace:OpenHab.Wpf.View.Resources.Helpers.ElysiumDragFix"
              xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
              xmlns:extra="http://schemas.extra.com/ui"
-             MinHeight="20" MinWidth="250"
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="500"
              d:DataContext="{d:DesignInstance Type={x:Type viewModels:ItemViewModel}, 
@@ -149,8 +148,7 @@
             </ControlTemplate>
 
             <ControlTemplate x:Key="NumberControlTemplate">
-                <Grid
-                    Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
@@ -193,8 +191,8 @@
         </Grid.ColumnDefinitions>
 
         <ContentControl x:Name="ItemGrid"
-                        Grid.Column="0"
-                        HorizontalAlignment="Stretch">
+                        MinWidth="250"
+                        Grid.Column="0">
             <ContentControl.Style>
                 <Style TargetType="{x:Type ContentControl}">
                     <Setter Property="Content" x:Name="Fallback">

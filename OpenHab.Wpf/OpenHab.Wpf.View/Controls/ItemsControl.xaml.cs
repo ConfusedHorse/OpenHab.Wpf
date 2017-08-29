@@ -4,11 +4,13 @@ using System.Windows.Controls;
 namespace OpenHab.Wpf.View.Controls
 {
     /// <summary>
-    /// Interaktionslogik für ItemsControl.xaml
+    ///     Interaktionslogik für ItemsControl.xaml
     /// </summary>
     public partial class ItemsControl : UserControl
     {
-        public static readonly DependencyProperty AllowRuleOperationsProperty = DependencyProperty.Register("AllowDragOperations", typeof(bool), typeof(ItemsControl), new PropertyMetadata(default(bool)));
+        public static readonly DependencyProperty AllowRuleOperationsProperty =
+            DependencyProperty.Register("AllowDragOperations", typeof(bool), typeof(ItemsControl),
+                new PropertyMetadata(default(bool)));
 
         public ItemsControl()
         {

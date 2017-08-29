@@ -77,10 +77,10 @@
             
             <TabControl>
                 <TabItem Header="{x:Static p:Resources.Rules}">
-                    <controls:RulesControl/>
+                    <controls:RuleDesignerControl/>
                 </TabItem>
                 <TabItem Header="{x:Static p:Resources.Things}">
-                    <controls:ThingsControl/>
+                    <controls:ThingsControl Orientation="Horizontal"/>
                 </TabItem>
             </TabControl>
             

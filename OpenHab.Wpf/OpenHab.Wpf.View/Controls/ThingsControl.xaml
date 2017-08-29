@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:module="clr-namespace:OpenHab.Wpf.View.Module"
-             xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
              xmlns:viewModels="clr-namespace:OpenHab.Wpf.ViewModel.ViewModels;assembly=OpenHab.Wpf.ViewModel"
              xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
              xmlns:extra="http://schemas.extra.com/ui"
@@ -22,39 +21,65 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Grid Row="0" x:Name="Browser"
-              Width="200" HorizontalAlignment="Left"
-              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
-            <extra:TextBoxExtended Text="{Binding FilterCsv, UpdateSourceTrigger=PropertyChanged, Delay=150}"
-                                   Watermark="{x:Static p:Resources.StartTypeToBrowseForThings}"/>
-        </Grid>
-
-        <Grid Row="1">
+        <ScrollViewer>
+            <ScrollViewer.Style>
+                <Style TargetType="ScrollViewer">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Orientation, 
+                                                       RelativeSource={RelativeSource FindAncestor, 
+                                                                                   AncestorType={x:Type controls:ThingsControl}}}"
+                                     Value="Horizontal">
+                            <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+                            <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Orientation, 
+                                                       RelativeSource={RelativeSource FindAncestor, 
+                                                                                   AncestorType={x:Type controls:ThingsControl}}}"
+                                     Value="Vertical">
+                            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+                            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ScrollViewer.Style>
+            
             <ItemsControl x:Name="Things"
                           Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
                           ItemsSource="{Binding FilteredThings}">
                 <i:Interaction.Behaviors>
-                    <extra:AnimatingItemsControlBehavior x:Name="Behavior"/>
+                    <extra:AnimatingItemsControlBehavior x:Name="ThingsBehavior"/>
                 </i:Interaction.Behaviors>
-                
+
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModels:ThingViewModel}">
-                        <controls:ThingControl DataContext="{Binding}"/>
+                        <controls:ThingControl DataContext="{Binding}"
+                                               AllowDragOperations="{Binding Path=AllowDragOperations, 
+                                                                             RelativeSource={RelativeSource FindAncestor, 
+                                                                                                            AncestorType={x:Type controls:ThingsControl}}}"
+                                               Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
 
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+                <ItemsControl.Style>
+                    <Style TargetType="ItemsControl">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=Orientation, 
+                                                           RelativeSource={RelativeSource FindAncestor, 
+                                                                                          AncestorType={x:Type controls:ThingsControl}}}"
+                                         Value="Horizontal">
+                                <Setter Property="ItemsPanel">
+                                    <Setter.Value>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel/>
+                                        </ItemsPanelTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ItemsControl.Style>
             </ItemsControl>
-        </Grid>
+        </ScrollViewer>
     </Grid>
 </UserControl>
 
