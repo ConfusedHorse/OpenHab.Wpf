@@ -64,11 +64,11 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                                Style="{StaticResource NormalTextStyle}"
-                                Text="{x:Static p:Resources.Name}" />
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                               Style="{StaticResource NormalTextStyle}"
+                               Text="{x:Static p:Resources.Name}" />
 
                     <extra:TextBoxExtended Grid.Row="0"
                                             Grid.Column="1"
@@ -109,58 +109,112 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Grid x:Name="TriggerGrid"
-                      Background="Transparent"
-                      Column="0"
-                      extra:DragCommand.Command="{Binding AddTriggerFromDragDataCommand}"
-                      extra:DragCommand.Format="RuleComponent"
-                      AllowDrop="True">
-                    <ItemsControl x:Name="TriggerListBox"
-                                  ItemsSource="{Binding Triggers}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type viewModels:TriggerViewModel}">
-                                <controls:TriggerControl DataContext="{Binding}"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                <Grid Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <Grid x:Name="TriggerHeader"
+                          Row="0">
+                        <TextBlock Text="{x:Static p:Resources.Triggers}"
+                                   Style="{StaticResource HeaderTextStyle}"
+                                   VerticalAlignment="Center"
+                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="1" 
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+                        <Grid x:Name="TriggerGrid"
+                              Background="Transparent"
+                              extra:DragCommand.Command="{Binding AddTriggerFromDragDataCommand}"
+                              extra:DragCommand.Format="RuleComponent"
+                              AllowDrop="True">
+                            <ItemsControl x:Name="TriggerListBox"
+                                          ItemsSource="{Binding Triggers}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type viewModels:TriggerViewModel}">
+                                        <controls:TriggerControl DataContext="{Binding}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+                    </ScrollViewer>
                 </Grid>
 
                 <GridSplitter Grid.Column="1"
                               Style="{StaticResource VerticalGridSplitterStyle}" />
 
-                <Grid x:Name="ConditionGrid"
-                      Background="Transparent"
-                      Column="2"
-                      extra:DragCommand.Command="{Binding AddConditionFromDragDataCommand}"
-                      extra:DragCommand.Format="RuleComponent"
-                      AllowDrop="True">
-                    <ItemsControl x:Name="ConditionListBox"
-                                  ItemsSource="{Binding Conditions}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type viewModels:ConditionViewModel}">
-                                <controls:ConditionControl DataContext="{Binding}"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                <Grid Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="ConditionHeader"
+                          Row="0">
+                        <TextBlock Text="{x:Static p:Resources.Conditions}"
+                                   Style="{StaticResource HeaderTextStyle}"
+                                   VerticalAlignment="Center"
+                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="1" 
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+                        <Grid x:Name="ConditionGrid"
+                              Background="Transparent"
+                              extra:DragCommand.Command="{Binding AddConditionFromDragDataCommand}"
+                              extra:DragCommand.Format="RuleComponent"
+                              AllowDrop="True">
+                            <ItemsControl x:Name="ConditionListBox"
+                                          ItemsSource="{Binding Conditions}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type viewModels:ConditionViewModel}">
+                                        <controls:ConditionControl DataContext="{Binding}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+                    </ScrollViewer>
                 </Grid>
 
                 <GridSplitter Grid.Column="3"
                               Style="{StaticResource VerticalGridSplitterStyle}" />
 
-                <Grid x:Name="ActionGrid"
-                      Background="Transparent"
-                      Column="4"
-                      extra:DragCommand.Command="{Binding AddActionFromDragDataCommand}"
-                      extra:DragCommand.Format="RuleComponent"
-                      AllowDrop="True">
-                    <ItemsControl x:Name="ActionListBox"
-                                  ItemsSource="{Binding Actions}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type viewModels:ActionViewModel}">
-                                <controls:ActionControl DataContext="{Binding}"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                <Grid Column="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="ActionHeader"
+                          Row="0">
+                        <TextBlock Text="{x:Static p:Resources.Actions}"
+                                   Style="{StaticResource HeaderTextStyle}"
+                                   VerticalAlignment="Center"
+                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="1" 
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+                        <Grid x:Name="ActionGrid"
+                              Background="Transparent"
+                              extra:DragCommand.Command="{Binding AddActionFromDragDataCommand}"
+                              extra:DragCommand.Format="RuleComponent"
+                              AllowDrop="True">
+                            <ItemsControl x:Name="ActionListBox"
+                                          ItemsSource="{Binding Actions}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type viewModels:ActionViewModel}">
+                                        <controls:ActionControl DataContext="{Binding}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+                    </ScrollViewer>
                 </Grid>
             </Grid>
         </Grid>

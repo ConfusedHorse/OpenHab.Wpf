@@ -229,7 +229,7 @@
     <value>Save changes</value>
   </data>
   <data name="UnsavedChanges" xml:space="preserve">
-    <value>There are unsaved changes. Do you want to save before accessing another rule?</value>
+    <value>There are unsaved changes. Do you want to save them before proceeding?</value>
   </data>
   <data name="DeleteAction" xml:space="preserve">
     <value>Remove this action from the current rule</value>
@@ -239,5 +239,14 @@
   </data>
   <data name="DeleteTrigger" xml:space="preserve">
     <value>Remove this trigger from the current rule</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Conditions" xml:space="preserve">
+    <value>Conditions</value>
+  </data>
+  <data name="Triggers" xml:space="preserve">
+    <value>Triggers</value>
   </data>
 </root>

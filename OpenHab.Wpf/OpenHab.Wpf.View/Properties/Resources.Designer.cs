@@ -61,6 +61,15 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Actions ähnelt.
+        /// </summary>
+        public static string Actions {
+            get {
+                return ResourceManager.GetString("Actions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die OpenHAB Wpf Rule Designer ähnelt.
         /// </summary>
         public static string ApplicationTitle {
@@ -93,6 +102,15 @@ namespace OpenHab.Wpf.View.Properties {
         public static string Color {
             get {
                 return ResourceManager.GetString("Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Conditions ähnelt.
+        /// </summary>
+        public static string Conditions {
+            get {
+                return ResourceManager.GetString("Conditions", resourceCulture);
             }
         }
         
@@ -421,7 +439,16 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die There are unsaved changes. Do you want to save before accessing another rule? ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Triggers ähnelt.
+        /// </summary>
+        public static string Triggers {
+            get {
+                return ResourceManager.GetString("Triggers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die There are unsaved changes. Do you want to save them before proceeding? ähnelt.
         /// </summary>
         public static string UnsavedChanges {
             get {

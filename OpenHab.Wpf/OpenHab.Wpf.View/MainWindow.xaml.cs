@@ -1,8 +1,12 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
+using System.Windows;
+using Framework.UI.Controls;
 using GalaSoft.MvvmLight.Threading;
 using OpenHab.Wpf.View.Dialogue;
 using OpenHab.Wpf.View.Module;
 using OpenHAB.NetRestApi.Models.Events;
+using Window = System.Windows.Window;
 
 namespace OpenHab.Wpf.View
 {
@@ -14,6 +18,7 @@ namespace OpenHab.Wpf.View
         public MainWindow()
         {
             Loaded += MainWindow_OnLoaded;
+            Closing += OnClosing;
             InitializeComponent();
         }
 
@@ -51,6 +56,25 @@ namespace OpenHab.Wpf.View
         private void ConnectToServerButton_OnClick(object sender, RoutedEventArgs e)
         {
             PrepareContextAsync(this, true);
+        }
+
+        private static async void OnClosing(object sender, CancelEventArgs cancelEventArgs)
+        {
+            var rulesViewModel = ViewModelLocator.Instance.RulesViewModel;
+            var currentRule = rulesViewModel.CurrentRule;
+            if (currentRule == null || !currentRule.UnsavedChanges) return;
+            cancelEventArgs.Cancel = true;
+
+            var saveChanges = await MessageDialog.ShowAsync(Properties.Resources.SaveChanges,
+                Properties.Resources.UnsavedChanges, MessageBoxButton.YesNoCancel);
+
+            if (saveChanges == MessageBoxResult.Yes)
+                await Task.Run(() => currentRule.SaveChangesAsync());
+            if (saveChanges == MessageBoxResult.Cancel)
+                return;
+
+            currentRule.UnsavedChanges = false;
+            Application.Current.MainWindow.Close();
         }
     }
 }

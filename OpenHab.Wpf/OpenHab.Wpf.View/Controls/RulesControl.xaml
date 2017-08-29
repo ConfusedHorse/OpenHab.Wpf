@@ -47,20 +47,23 @@
 
             <Grid x:Name="LeftGrid"
                   Column="0">
-                <ItemsControl x:Name="Things"
-                              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
-                              ItemsSource="{Binding ThingsViewModel.FilteredThings, Source={x:Static module:ViewModelLocator.Instance}}">
-                    <i:Interaction.Behaviors>
-                        <extra:AnimatingItemsControlBehavior x:Name="ThingsBehavior"/>
-                    </i:Interaction.Behaviors>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="Things"
+                                  Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
+                                  ItemsSource="{Binding ThingsViewModel.FilteredThings, Source={x:Static module:ViewModelLocator.Instance}}">
+                        <i:Interaction.Behaviors>
+                            <extra:AnimatingItemsControlBehavior x:Name="ThingsBehavior"/>
+                        </i:Interaction.Behaviors>
 
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type viewModels:ThingViewModel}">
-                            <controls:ThingControl DataContext="{Binding}"
-                                                   AllowRuleOperations="True"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type viewModels:ThingViewModel}">
+                                <controls:ThingControl DataContext="{Binding}"
+                                                       AllowRuleOperations="True"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
             </Grid>
 
             <GridSplitter Grid.Column="1" 
