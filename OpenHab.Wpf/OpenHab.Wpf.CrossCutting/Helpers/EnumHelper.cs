@@ -13,6 +13,7 @@ namespace OpenHab.Wpf.CrossCutting.Helpers
         {
             return ParseEnum<T>(value);
         }
+
         public static T ToEnum<T>(this string value, T defaultValue) where T : struct
         {
             return string.IsNullOrEmpty(value)

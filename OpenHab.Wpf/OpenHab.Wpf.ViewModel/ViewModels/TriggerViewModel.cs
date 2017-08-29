@@ -64,6 +64,23 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             InitializeCommands();
         }
 
+        /// <summary>
+        /// this is only meant to be invoked by <see cref="TimerViewModel"/>
+        /// in case of ModuleType timer.DayOfWeekCondition
+        /// </summary>
+        /// <param name="condition"></param>
+        protected TriggerViewModel(Condition condition)
+        {
+        }
+
+        /// <summary>
+        /// this is only meant to be invoked by <see cref="TimerViewModel"/>
+        /// in case of ModuleType timer.DayOfWeekCondition
+        /// </summary>
+        protected TriggerViewModel()
+        {
+        }
+
         #region Properties
 
         public string Id

@@ -37,7 +37,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModels:ItemViewModel}">
                         <controls:ItemControl DataContext="{Binding}"
-                                              AllowRuleOperations="{Binding Path=AllowRuleOperations, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:ItemsControl}}}" />
+                                              AllowDragOperations="{Binding Path=AllowRuleOperations, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:ItemsControl}}}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
 

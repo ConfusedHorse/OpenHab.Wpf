@@ -24,5 +24,11 @@ namespace OpenHab.Wpf.ViewModel.Helper
         {
             return !self.Any();
         }
+
+        [DebuggerStepThrough]
+        public static T[] EnumToArray<T>()
+        {
+            return (T[])Enum.GetValues(typeof(T));
+        }
     }
 }

@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="OpenHab.Wpf.View.Controls.Custom.TimePicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls.Custom"
+             xmlns:extra="http://schemas.extra.com/ui"
+             xmlns:validation="clr-namespace:OpenHab.Wpf.View.Resources.Helpers.Validation"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid x:Name="LayoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="55" />
+            <ColumnDefinition Width="55" />
+            <ColumnDefinition Width="55" />
+        </Grid.ColumnDefinitions>
+
+        <extra:DoubleUpDown x:Name="HoursTextBox"
+                            Grid.Column="0"
+                            AllowSpin="True"
+                            ShowButtonSpinner="True"
+                            Minimum="0"
+                            Increment="{Binding Increment, 
+                                                RelativeSource={RelativeSource FindAncestor, 
+                                                                               AncestorType={x:Type controls:TimePicker}}}"
+                            Maximum="23"
+                            SelectAllOnGotFocus="True"
+                            Watermark="hh"
+                            LostFocus="Hours_OnLostFocus"
+                            MouseWheel="Hours_OnMouseWheel"
+                            HorizontalContentAlignment="Center">
+            <extra:DoubleUpDown.Value>
+                <Binding Path="Hours"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnDataErrors="True"
+                         NotifyOnValidationError="True"
+                         RelativeSource="{RelativeSource FindAncestor, 
+                                                         AncestorType={x:Type controls:TimePicker}}">
+                    <Binding.ValidationRules>
+                        <validation:HourValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </extra:DoubleUpDown.Value>
+        </extra:DoubleUpDown>
+
+        <extra:DoubleUpDown x:Name="MinutesTextBox"
+                            Grid.Column="1"
+                            AllowSpin="True"
+                            ShowButtonSpinner="True"
+                            Minimum="0"
+                            Increment="{Binding Increment, 
+                                                RelativeSource={RelativeSource FindAncestor, 
+                                                                               AncestorType={x:Type controls:TimePicker}}}"
+                            Maximum="59"
+                            SelectAllOnGotFocus="True"
+                            Watermark="mm"
+                            LostFocus="Minutes_OnLostFocus"
+                            MouseWheel="Minutes_OnMouseWheel"
+                            HorizontalContentAlignment="Center">
+            <extra:DoubleUpDown.Value>
+                <Binding Path="Minutes"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnDataErrors="True"
+                         NotifyOnValidationError="True"
+                         RelativeSource="{RelativeSource FindAncestor, 
+                                                         AncestorType={x:Type controls:TimePicker}}">
+                    <Binding.ValidationRules>
+                        <validation:MinSecValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </extra:DoubleUpDown.Value>
+        </extra:DoubleUpDown>
+
+        <extra:DoubleUpDown x:Name="SecondsTextBox"
+                            Grid.Column="2"
+                            AllowSpin="True"
+                            ShowButtonSpinner="True"
+                            Minimum="0"
+                            Increment="{Binding Increment, 
+                                                RelativeSource={RelativeSource FindAncestor, 
+                                                                               AncestorType={x:Type controls:TimePicker}}}"
+                            Maximum="59"
+                            SelectAllOnGotFocus="True"
+                            Watermark="ss"
+                            LostFocus="Seconds_OnLostFocus"
+                            MouseWheel="Seconds_OnMouseWheel"
+                            HorizontalContentAlignment="Center">
+            <extra:DoubleUpDown.Value>
+                <Binding Path="Seconds"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnDataErrors="True"
+                         NotifyOnValidationError="True"
+                         RelativeSource="{RelativeSource FindAncestor, 
+                                                         AncestorType={x:Type controls:TimePicker}}">
+                    <Binding.ValidationRules>
+                        <validation:MinSecValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </extra:DoubleUpDown.Value>
+        </extra:DoubleUpDown>
+    </Grid>
+</UserControl>

@@ -71,5 +71,15 @@ namespace OpenHab.Wpf.ViewModel.Helper
             var tagsBrowseValue = c.Tags != null ? string.Join(string.Empty, c.Tags) : string.Empty;
             return $"{c.Label}{c.Label}{c.Type}{c.Uid}{c.Description}{tagsBrowseValue}";
         }
+
+        public static ObservableCollection<TriggerViewModel> FilterBy(this ObservableCollection<TriggerViewModel> self,
+            string filterCsv)
+        {
+            var filteredTriggers = string.IsNullOrEmpty(filterCsv)
+                ? self
+                : self.Where(t => CreateBrowseValue(t).Search(filterCsv));
+
+            return new ObservableCollection<TriggerViewModel>(filteredTriggers);
+        }
     }
 }

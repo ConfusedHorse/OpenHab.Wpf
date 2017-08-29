@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -56,26 +55,6 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
-        private void UpdateFilteredThingsAsync()
-        {
-            DispatcherHelper.RunAsync(() =>
-            {
-                var updatedThings = _things.FilterBy(_filterCsv);
-                var thingsToBeAdded = updatedThings.Where(ut => !_filteredThings.Contains(ut)).ToArray();
-                var thingsToBeRemoved = _filteredThings.Where(ft => !updatedThings.Contains(ft)).ToArray();
-
-                foreach (var thingViewModel in thingsToBeAdded)
-                {
-                    FilteredThings.Add(thingViewModel);
-                }
-
-                foreach (var thingViewModel in thingsToBeRemoved)
-                {
-                    FilteredThings.Remove(thingViewModel);
-                }
-            });
-        }
-
         public ObservableCollection<ThingViewModel> FilteredThings
         {
             get => _filteredThings;
@@ -113,6 +92,26 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         #endregion
 
         #region Private Methods
+
+        private void UpdateFilteredThingsAsync()
+        {
+            DispatcherHelper.RunAsync(() =>
+            {
+                var updatedThings = _things.FilterBy(_filterCsv);
+                var thingsToBeAdded = updatedThings.Where(ut => !_filteredThings.Contains(ut)).ToArray();
+                var thingsToBeRemoved = _filteredThings.Where(ft => !updatedThings.Contains(ft)).ToArray();
+
+                foreach (var thingViewModel in thingsToBeAdded)
+                {
+                    FilteredThings.Add(thingViewModel);
+                }
+
+                foreach (var thingViewModel in thingsToBeRemoved)
+                {
+                    FilteredThings.Remove(thingViewModel);
+                }
+            });
+        }
 
         private void RestContextOnConnectionChanged(RestContext sender, ServerConnectionChangedEventArgs args)
         {

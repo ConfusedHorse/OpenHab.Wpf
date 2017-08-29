@@ -135,7 +135,10 @@
                                           ItemsSource="{Binding Triggers}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type viewModels:TriggerViewModel}">
-                                        <controls:TriggerControl DataContext="{Binding}"/>
+                                        <controls:TriggerControl DataContext="{Binding}"
+                                                                 AllowDragOperations="False"
+                                                                 AllowDeleteOperations="True"
+                                                                 Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -172,7 +175,8 @@
                                           ItemsSource="{Binding Conditions}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type viewModels:ConditionViewModel}">
-                                        <controls:ConditionControl DataContext="{Binding}"/>
+                                        <controls:ConditionControl DataContext="{Binding}"
+                                                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -209,7 +213,8 @@
                                           ItemsSource="{Binding Actions}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type viewModels:ActionViewModel}">
-                                        <controls:ActionControl DataContext="{Binding}"/>
+                                        <controls:ActionControl DataContext="{Binding}"
+                                                                Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

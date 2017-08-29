@@ -18,9 +18,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-          Background="{StaticResource AccentLevel5Brush}">
-
+    <Grid Background="{StaticResource AccentLevel5Brush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -39,10 +37,14 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModels:ItemViewModel}">
                         <controls:ItemControl DataContext="{Binding}"
-                                              AllowRuleOperations="{Binding Path=AllowRuleOperations, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:ThingControl}}}"/>
+                                              AllowDragOperations="{Binding Path=AllowDragOperations, 
+                                                                            RelativeSource={RelativeSource FindAncestor, 
+                                                                                                           AncestorType={x:Type controls:ThingControl}}}"
+                                              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Grid>
     </Grid>
 </UserControl>
+ 

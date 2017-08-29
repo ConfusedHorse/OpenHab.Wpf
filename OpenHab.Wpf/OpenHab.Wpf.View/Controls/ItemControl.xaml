@@ -219,9 +219,12 @@
             </ContentControl.Style>
         </ContentControl>
 
-        <Grid x:Name="DragGrid"
+        <Grid x:Name="ItemDragGrid"
               Grid.Column="1"
-              Visibility="{Binding Path=AllowRuleOperations, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:ItemControl}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+              Visibility="{Binding Path=AllowDragOperations, 
+                                   RelativeSource={RelativeSource FindAncestor, 
+                                                                  AncestorType={x:Type controls:ItemControl}}, 
+                                   Converter={StaticResource BooleanToVisibilityConverter}}"
               extraFixed:DragManager.Data="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}}"
               extraFixed:DragManager.Effects="Copy"
               extraFixed:DragManager.Format="RuleComponent"
@@ -243,8 +246,9 @@
                     <extra:Icon.ToolTip>
                         <Grid>
                             <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{x:Static p:Resources.DragItemToAddAsTrigger}"/>
+                                <TextBlock Text="{x:Static p:Resources.DragItemToAddAsCondition}"/>
                                 <TextBlock Text="{x:Static p:Resources.DragItemToAddAsAction}"/>
-                                <TextBlock Text="{x:Static p:Resources.RightClickItemForMoreOptions}"/>
                             </StackPanel>
                         </Grid>
                     </extra:Icon.ToolTip>

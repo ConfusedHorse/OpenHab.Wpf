@@ -20,8 +20,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ControlTemplate x:Key="CoreItemCommandControlTemplate">
-                <Grid Background="{StaticResource AccentLevel5Brush}"
-                      Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                     <StackPanel Orientation="Vertical">
                         <TextBlock
                             Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
@@ -43,7 +42,7 @@
     </UserControl.Resources>
 
     <Grid x:Name="ActionGrid"
-          Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}">
+          Background="{StaticResource AccentLevel5Brush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
@@ -73,7 +72,7 @@
         <Grid x:Name="ActionDeleteGrid"
               Grid.Column="1">
             <metro:CommandButton VerticalAlignment="Top"
-                                 Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
+                                 Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                                  Command="{Binding DeleteActionCommand}">
                 <extra:Icon Style="{StaticResource Delete1IconStyle}"
                             Size="Medium">

@@ -8,7 +8,7 @@ namespace OpenHab.Wpf.View.Controls
     /// </summary>
     public partial class ItemsControl : UserControl
     {
-        public static readonly DependencyProperty AllowRuleOperationsProperty = DependencyProperty.Register("AllowRuleOperations", typeof(bool), typeof(ItemsControl), new PropertyMetadata(default(bool)));
+        public static readonly DependencyProperty AllowRuleOperationsProperty = DependencyProperty.Register("AllowDragOperations", typeof(bool), typeof(ItemsControl), new PropertyMetadata(default(bool)));
 
         public ItemsControl()
         {

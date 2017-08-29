@@ -59,7 +59,8 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type viewModels:ThingViewModel}">
                                 <controls:ThingControl DataContext="{Binding}"
-                                                       AllowRuleOperations="True"/>
+                                                       AllowDragOperations="True"
+                                                       Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -79,10 +80,71 @@
                 
                 <Grid x:Name="TopMiddleGrid"
                       Row="0">
-                    <!--TODO place ModuleTypesControl here-->
-                    <TextBlock Text="ModuleTypesControl goes here"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="6"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                      VerticalScrollBarVisibility="Disabled">
+                            <ItemsControl x:Name="Tools"
+                                          Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
+                                          ItemsSource="{Binding TriggersViewModel.FilteredTriggers, Source={x:Static module:ViewModelLocator.Instance}}">
+                                <!--<i:Interaction.Behaviors>
+                                    <extra:AnimatingItemsControlBehavior x:Name="TriggersBehavior"/>
+                                </i:Interaction.Behaviors>-->
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type viewModels:TriggersViewModel}">
+                                        <controls:TriggerControl DataContext="{Binding}"
+                                                                 AllowDragOperations="True"
+                                                                 AllowDeleteOperations="False"
+                                                                 Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+
+                    <GridSplitter Grid.Column="1" 
+                                  Style="{StaticResource VerticalGridSplitterStyle}"/>
+
+                    <Grid Column="2">
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                      VerticalScrollBarVisibility="Disabled">
+                            <TextBlock Text="Conditions go here. (not implemented yet)"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                            <!--<ItemsControl x:Name="Conditions"
+                                          Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
+                                          ItemsSource="{Binding ConditionsViewModel.FilteredThings, Source={x:Static module:ViewModelLocator.Instance}}">
+                                <i:Interaction.Behaviors>
+                                    <extra:AnimatingItemsControlBehavior x:Name="ConditionBehavior"/>
+                                </i:Interaction.Behaviors>
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type viewModels:ConditionViewModel}">
+                                        <controls:ConditionControl DataContext="{Binding}"
+                                                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>-->
+                        </ScrollViewer>
+                    </Grid>
                 </Grid>
 
                 <GridSplitter Grid.Row="1" 
@@ -122,6 +184,7 @@
                         <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="{x:Type ListBoxItem}">
                             <Setter Property="extra:ListBoxItemAttached.IsDeselectionEnabled" Value="False"/>
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
                         </Style>
                     </ListBox.ItemContainerStyle>
                 </ListBox>

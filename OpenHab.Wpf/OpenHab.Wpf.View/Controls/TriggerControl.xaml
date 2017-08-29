@@ -8,6 +8,9 @@
              xmlns:params="http://schemas.codeplex.com/elysium/params"
              xmlns:extra="http://schemas.extra.com/ui"
              xmlns:metro="http://schemas.codeplex.com/elysium"
+             xmlns:custom="clr-namespace:OpenHab.Wpf.View.Controls.Custom"
+             xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
+             xmlns:elysiumDragFix="clr-namespace:OpenHab.Wpf.View.Resources.Helpers.ElysiumDragFix"
              MinHeight="20" MinWidth="250"
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="200"
@@ -19,9 +22,114 @@
                 <ResourceDictionary Source="../Resources/BaseResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <ControlTemplate x:Key="TimerViewModelControlTemplate">
+                <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                      d:DataContext="{d:DesignInstance Type={x:Type viewModels:TimerViewModel}, 
+                                                       IsDesignTimeCreatable=False}"
+                      HorizontalAlignment="Left">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Row="0"
+                          HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource NormalTextStyle}"
+                                       Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                       Text="{x:Static p:Resources.Start}"
+                                       VerticalAlignment="Center" />
+
+                            <custom:TimePicker VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                               Hours="{Binding StartHours, Mode=TwoWay}"
+                                               Minutes="{Binding StartMinutes, Mode=TwoWay}"
+                                               Seconds="{Binding StartSeconds, Mode=TwoWay}" />
+
+                            <TextBlock Style="{StaticResource NormalTextStyle}"
+                                       Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                       Text="{x:Static p:Resources.End}"
+                                       VerticalAlignment="Center" />
+
+                            <custom:TimePicker VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                               Hours="{Binding EndHours, Mode=TwoWay}"
+                                               Minutes="{Binding EndMinutes, Mode=TwoWay}"
+                                               Seconds="{Binding EndSeconds, Mode=TwoWay}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Row="1"
+                          HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource NormalTextStyle}"
+                                       Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                       Text="{x:Static p:Resources.Repetitive}"
+                                       VerticalAlignment="Center" />
+                            <extra:DoubleUpDown x:Name="Repeat"
+                                                AllowSpin="True"
+                                                Increment="1"
+                                                Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                                Minimum="0"
+                                                ShowButtonSpinner="True"
+                                                Value="{Binding RepeatValue}" />
+                            <ComboBox Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                      ItemsSource="{Binding TimeDimensions, Mode=OneWay}"
+                                      SelectedItem="{Binding TimeDimension}"
+                                      Width="80">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding}"
+                                                       Style="{StaticResource NormalTextStyle}" />
+                                            <TextBlock Text="s">
+                                                <TextBlock.Style>
+                                                    <Style BasedOn="{StaticResource NormalTextStyle}"
+                                                           TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=Value, ElementName=Repeat}"
+                                                                         Value="1">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Row="2"
+                          HorizontalAlignment="Right">
+                        <StackPanel Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                    Orientation="Horizontal">
+                            <ToggleButton Content="{x:Static p:Resources.Monday}"
+                                          IsChecked="{Binding Monday, Mode=TwoWay}" />
+                            <ToggleButton Content="{x:Static p:Resources.Tuesday}"
+                                          IsChecked="{Binding Tuesday, Mode=TwoWay}" />
+                            <ToggleButton Content="{x:Static p:Resources.Wednesday}"
+                                          IsChecked="{Binding Wednesday, Mode=TwoWay}" />
+                            <ToggleButton Content="{x:Static p:Resources.Thursday}"
+                                          IsChecked="{Binding Thursday, Mode=TwoWay}" />
+                            <ToggleButton Content="{x:Static p:Resources.Friday}"
+                                          IsChecked="{Binding Friday, Mode=TwoWay}" />
+                            <ToggleButton Content="{x:Static p:Resources.Saturday}"
+                                          IsChecked="{Binding Saturday, Mode=TwoWay}" />
+                            <ToggleButton Content="{x:Static p:Resources.Sunday}"
+                                          IsChecked="{Binding Sunday, Mode=TwoWay}" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </ControlTemplate>
+
             <ControlTemplate x:Key="ItemStateUpdateControlTemplate">
-                <Grid Background="{StaticResource AccentLevel5Brush}"
-                      Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                     <StackPanel Orientation="Vertical">
                         <TextBlock
                             Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
@@ -41,8 +149,7 @@
             </ControlTemplate>
 
             <ControlTemplate x:Key="TimeOfDayTriggerControlTemplate">
-                <Grid Background="{StaticResource AccentLevel5Brush}"
-                      Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                     <StackPanel Orientation="Vertical">
                         <TextBlock
                             Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
@@ -64,6 +171,7 @@
     </UserControl.Resources>
 
     <Grid x:Name="TriggerGrid"
+          Background="{StaticResource AccentLevel5Brush}"
           Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -71,8 +179,7 @@
         </Grid.ColumnDefinitions>
 
         <ContentControl x:Name="TriggerContentGrid"
-                        Grid.Column="0"
-                        HorizontalAlignment="Stretch">
+                        Grid.Column="0">
             <ContentControl.Style>
                 <Style TargetType="{x:Type ContentControl}">
                     <Setter Property="Content" x:Name="Fallback">
@@ -82,6 +189,12 @@
                         </Setter.Value>
                     </Setter>
                     <Style.Triggers>
+                        <!-- custom tool view types -->
+                        <DataTrigger Binding="{Binding Path=Type}" Value="TimerViewModel">
+                            <Setter Property="Template" Value="{StaticResource TimerViewModelControlTemplate}" />
+                        </DataTrigger>
+
+                        <!-- server side module types -->
                         <DataTrigger Binding="{Binding Path=Type}" Value="core.ItemStateUpdateTrigger">
                             <Setter Property="Template" Value="{StaticResource ItemStateUpdateControlTemplate}" />
                         </DataTrigger>
@@ -94,22 +207,63 @@
             </ContentControl.Style>
         </ContentControl>
 
-        <Grid x:Name="TriggerDeleteGrid"
-              Grid.Column="1">
-            <metro:CommandButton VerticalAlignment="Top"
-                                 Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
-                                 Command="{Binding DeleteTriggerCommand}">
-                <extra:Icon Style="{StaticResource Delete1IconStyle}"
-                            Size="Medium">
-                    <extra:Icon.ToolTip>
-                        <Grid>
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Text="{x:Static p:Resources.DeleteTrigger}"/>
-                            </StackPanel>
-                        </Grid>
-                    </extra:Icon.ToolTip>
-                </extra:Icon>
-            </metro:CommandButton>
+        <Grid x:Name="TriggerOptionsGrid"
+              Column="1">
+            <StackPanel Orientation="Vertical">
+                <Grid x:Name="TriggerDragGrid"
+                      Visibility="{Binding Path=AllowDragOperations, 
+                                   RelativeSource={RelativeSource FindAncestor, 
+                                                                  AncestorType={x:Type controls:TriggerControl}}, 
+                                   Converter={StaticResource BooleanToVisibilityConverter}}"
+                      elysiumDragFix:DragManager.Data="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}}"
+                      elysiumDragFix:DragManager.Effects="Copy"
+                      elysiumDragFix:DragManager.Format="RuleComponent"
+                      elysiumDragFix:DragManager.IsEnabled="True">
+                    <elysiumDragFix:DragManager.ContentTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:TriggerViewModel}">
+                            <Border Style="{StaticResource DragBorderStyle}">
+                                <controls:TriggerControl DataContext="{Binding}"/>
+                            </Border>
+                        </DataTemplate>
+                    </elysiumDragFix:DragManager.ContentTemplate>
+
+                    <Grid x:Name="DragGridVisual">
+                        <extra:Icon VerticalAlignment="Top"
+                                    Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                    Style="{StaticResource TouchIconStyle}"
+                                    Size="Large">
+                            <extra:Icon.ToolTip>
+                                <Grid>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{x:Static p:Resources.DragThisToAddAsAnything}" />
+                                    </StackPanel>
+                                </Grid>
+                            </extra:Icon.ToolTip>
+                        </extra:Icon>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="TriggerDeleteGrid"
+                      Visibility="{Binding Path=AllowDeleteOperations, 
+                                   RelativeSource={RelativeSource FindAncestor, 
+                                                                  AncestorType={x:Type controls:TriggerControl}}, 
+                                   Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <metro:CommandButton VerticalAlignment="Top"
+                                         Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                         Command="{Binding DeleteTriggerCommand}">
+                        <extra:Icon Style="{StaticResource Delete1IconStyle}"
+                                    Size="Medium">
+                            <extra:Icon.ToolTip>
+                                <Grid>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{x:Static p:Resources.DeleteTrigger}" />
+                                    </StackPanel>
+                                </Grid>
+                            </extra:Icon.ToolTip>
+                        </extra:Icon>
+                    </metro:CommandButton>
+                </Grid>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

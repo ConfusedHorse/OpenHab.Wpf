@@ -26,6 +26,11 @@ namespace OpenHab.Wpf.View.Module
         public ItemsViewModel ItemsViewModel => NinjectKernel.StandardKernel.Get<ItemsViewModel>();
         public ThingsViewModel ThingsViewModel => NinjectKernel.StandardKernel.Get<ThingsViewModel>();
         public RulesViewModel RulesViewModel => NinjectKernel.StandardKernel.Get<RulesViewModel>();
+        public TriggersViewModel TriggersViewModel => NinjectKernel.StandardKernel.Get<TriggersViewModel>();
+
+        //TODO ConditionsViewModel & ActionsViewModel
+        //public ConditionsViewModel ConditionsViewModel => NinjectKernel.StandardKernel.Get<ConditionsViewModel>();
+        //public ActionsViewMode ActionsViewMode => NinjectKernel.StandardKernel.Get<ActionsViewMode>();
 
         public static void Cleanup()
         {

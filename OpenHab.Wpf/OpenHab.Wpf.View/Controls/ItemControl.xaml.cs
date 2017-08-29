@@ -14,9 +14,12 @@ namespace OpenHab.Wpf.View.Controls
     /// </summary>
     public partial class ItemControl : UserControl
     {
+        public static readonly DependencyProperty AllowDragOperationsProperty =
+            DependencyProperty.Register("AllowDragOperations", typeof(bool), typeof(ItemControl),
+                new PropertyMetadata(default(bool)));
+
         private DispatcherTimer _delayDispatcherTimer;
         private string _latestStateCausedByUserInteraction;
-        public static readonly DependencyProperty AllowRuleOperationsProperty = DependencyProperty.Register("AllowRuleOperations", typeof(bool), typeof(ItemControl), new PropertyMetadata(default(bool)));
 
         public ItemControl()
         {
@@ -24,10 +27,10 @@ namespace OpenHab.Wpf.View.Controls
             Loaded += OnLoaded;
         }
 
-        public bool AllowRuleOperations
+        public bool AllowDragOperations
         {
-            get => (bool) GetValue(AllowRuleOperationsProperty);
-            set => SetValue(AllowRuleOperationsProperty, value);
+            get => (bool) GetValue(AllowDragOperationsProperty);
+            set => SetValue(AllowDragOperationsProperty, value);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
@@ -39,7 +42,7 @@ namespace OpenHab.Wpf.View.Controls
         private void UpdateState(object sender, EventArgs eventArgs)
         {
             _delayDispatcherTimer.Stop();
-            var target = (ItemViewModel)DataContext;
+            var target = (ItemViewModel) DataContext;
             target.SendCommandAsync(_latestStateCausedByUserInteraction);
         }
 
@@ -62,7 +65,7 @@ namespace OpenHab.Wpf.View.Controls
 
         private void DimmerSliderValueChangedByUserInteraction(object sender)
         {
-            var source = (Slider)sender;
+            var source = (Slider) sender;
             //if (!source.IsKeyboardFocused) return;
             _latestStateCausedByUserInteraction = Convert.ToInt32(source.Value).ToString();
             _delayDispatcherTimer.Start();
@@ -119,11 +122,11 @@ namespace OpenHab.Wpf.View.Controls
 
         private void ColorHueSliderValueChangedByUserInteraction(object sender, int index)
         {
-            var source = (Slider)sender;
+            var source = (Slider) sender;
             //if (!source.IsKeyboardFocused) return;
 
-            var target = (ItemViewModel)DataContext;
-            var values = target.State?.Split(',') ?? new[] { "0", "0", "0" };
+            var target = (ItemViewModel) DataContext;
+            var values = target.State?.Split(',') ?? new[] {"0", "0", "0"};
             values[index] = Convert.ToInt32(source.Value).ToString();
 
             _latestStateCausedByUserInteraction = string.Join(",", values);
@@ -133,7 +136,7 @@ namespace OpenHab.Wpf.View.Controls
         #endregion
 
         #region Number
-        
+
         private void NumberTextBox_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter && e.Key != Key.Tab) return;
@@ -142,7 +145,7 @@ namespace OpenHab.Wpf.View.Controls
 
         private void NumberTextBoxValueChangedByUserInteraction(object sender)
         {
-            var source = (TextBox)sender;
+            var source = (TextBox) sender;
             if (!source.IsKeyboardFocused) return;
 
             var errors = Validation.GetErrors(source);
