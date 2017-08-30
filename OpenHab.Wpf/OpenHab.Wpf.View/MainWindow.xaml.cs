@@ -1,6 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using Elysium;
+using Elysium.Controls;
+using Framework.UI;
 using Framework.UI.Controls;
 using GalaSoft.MvvmLight.Threading;
 using OpenHab.Wpf.View.Dialogue;
@@ -75,6 +79,27 @@ namespace OpenHab.Wpf.View
 
             currentRule.UnsavedChanges = false;
             Application.Current.MainWindow.Close();
+        }
+
+        private void ExpandOptions(object sender, RoutedEventArgs e)
+        {
+            SettingsFlyout.IsExpanded = true;
+        }
+
+        private void SetDarkTheme(object sender, RoutedEventArgs e)
+        {
+            var openHabWpf = Application.Current as ElysiumApplication;
+            if (openHabWpf == null) return;
+
+            openHabWpf.Theme = Theme.Dark;
+        }
+
+        private void SetLightTheme(object sender, RoutedEventArgs e)
+        {
+            var openHabWpf = Application.Current as ElysiumApplication;
+            if (openHabWpf == null) return;
+
+            openHabWpf.Theme = Theme.Light;
         }
     }
 }

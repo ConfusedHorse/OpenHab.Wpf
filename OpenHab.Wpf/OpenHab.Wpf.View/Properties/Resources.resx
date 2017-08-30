@@ -318,4 +318,10 @@
   <data name="StartRange" xml:space="preserve">
     <value>From</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Dark Theme</value>
+  </data>
 </root>

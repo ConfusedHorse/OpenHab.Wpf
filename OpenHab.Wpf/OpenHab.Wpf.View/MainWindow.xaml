@@ -10,18 +10,74 @@
         xmlns:module="clr-namespace:OpenHab.Wpf.View.Module"
         xmlns:params="http://schemas.codeplex.com/elysium/params"
         xmlns:metro="http://schemas.codeplex.com/elysium"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d" 
         Title="{x:Static p:Resources.ApplicationTitle}"
         d:DesignHeight="300" d:DesignWidth="300"
         DataContext="{Binding ServerViewModel, 
-                              Source={x:Static module:ViewModelLocator.Instance}}">
+                              Source={x:Static module:ViewModelLocator.Instance}}"
+        HasDropShadow="False">
     <extra:Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/BaseResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate x:Key="SettingsHeaderTemplate">
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 20 0 0">
+                    <extra:Icon Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                Size="Medium"
+                                Style="{StaticResource Settings1IconStyle}"/>
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" 
+                               Text="{x:Static p:Resources.Settings}"/>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="SettingsContentTemplate">
+                <ItemsControl MinWidth="400">
+                    <i:Interaction.Behaviors>
+                        <extra:AnimatingItemsControlBehavior/>
+                    </i:Interaction.Behaviors>
+                    
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                            </Grid>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Style="{StaticResource NormalTextStyle}" 
+                               Text="{x:Static p:Resources.DarkTheme}"
+                               Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                    <metro:ToggleSwitch Grid.Row="0"
+                                        Grid.Column="1"
+                                        Checked="SetDarkTheme"
+                                        Unchecked="SetLightTheme"
+                                        Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                </ItemsControl>
+            </DataTemplate>
         </ResourceDictionary>
     </extra:Window.Resources>
+
+    <extra:Window.ForegroundContent>
+        <Expander x:Name="SettingsFlyout" 
+                  Grid.RowSpan="2"
+                  ContentTemplate="{StaticResource SettingsContentTemplate}" 
+                  ExpandDirection="Right"
+                  HeaderTemplate="{StaticResource SettingsHeaderTemplate}"
+                  Style="{StaticResource FlyoutExpanderStyle}"/>
+    </extra:Window.ForegroundContent>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="50"/>
@@ -29,6 +85,21 @@
         </Grid.RowDefinitions>
 
         <Grid Row="0" x:Name="Header">
+            <Grid x:Name="Options"
+                  HorizontalAlignment="Left"
+                  Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                <metro:CommandButton Click="ExpandOptions">
+                    <extra:Icon VerticalAlignment="Top"
+                                Style="{StaticResource Settings1IconStyle}"
+                                Size="Medium">
+                        <extra:Icon.ToolTip>
+                            <Grid>
+                                <TextBlock Text="{x:Static p:Resources.Settings}"/>
+                            </Grid>
+                        </extra:Icon.ToolTip>
+                    </extra:Icon>
+                </metro:CommandButton>
+            </Grid>
             
             <Grid x:Name="ServerStatus" 
                   HorizontalAlignment="Right">
@@ -72,9 +143,8 @@
             </Grid>
         </Grid>
 
-        <Grid Row="1" x:Name="Content">
-            <!-- Content goes here -->
-            
+        <Grid x:Name="Content"
+              Row="1">
             <TabControl>
                 <TabItem Header="{x:Static p:Resources.Rules}">
                     <controls:RuleDesignerControl/>
@@ -83,8 +153,6 @@
                     <controls:ThingsControl Orientation="Horizontal"/>
                 </TabItem>
             </TabControl>
-            
-            <!--TODO-->
         </Grid>
     </Grid>
 </extra:Window>

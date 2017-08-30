@@ -196,6 +196,15 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Dark Theme ähnelt.
+        /// </summary>
+        public static string DarkTheme {
+            get {
+                return ResourceManager.GetString("DarkTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Weekdays ähnelt.
         /// </summary>
         public static string DayOfWeek {
@@ -534,6 +543,15 @@ namespace OpenHab.Wpf.View.Properties {
         public static string ServerAddressPrompt {
             get {
                 return ResourceManager.GetString("ServerAddressPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Settings ähnelt.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         

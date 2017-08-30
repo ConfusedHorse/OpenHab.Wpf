@@ -21,8 +21,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
-          Background="{StaticResource BackgroundBrush}">
+    <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
