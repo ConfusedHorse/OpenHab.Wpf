@@ -115,7 +115,8 @@
                       HorizontalAlignment="Stretch"
                       ToolTip="{x:Static p:Resources.CreateRule}"
                       Background="Transparent"
-                      Height="100">
+                      Height="100"
+                      MouseLeftButtonUp="Dummy_OnMouseLeftButtonUp">
                     <extra:Icon VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                                 Style="{StaticResource BookAddIconStyle}"

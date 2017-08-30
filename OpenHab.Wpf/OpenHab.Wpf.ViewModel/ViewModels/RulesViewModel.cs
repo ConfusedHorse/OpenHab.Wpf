@@ -57,6 +57,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 _filterCsv = value;
 
                 NinjectKernel.StandardKernel.Get<ThingsViewModel>().FilterCsv = value;
+                NinjectKernel.StandardKernel.Get<TriggersViewModel>().FilterCsv = value;
 
                 UpdateFilteredThingsAsync();
                 RaisePropertyChanged();
@@ -80,8 +81,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 {
                     FilteredRules.Remove(ruleViewModel);
                 }
-
-                RefreshRuleDummy();
+;
                 CurrentRule = _rules?.FirstOrDefault();
             });
         }
@@ -104,10 +104,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _currentRule = value;
-                if (value == null || value.IsRuleDummy)
-                    CreateNewRule();
 
-                if (_currentRule == null)
+                if (_currentRule == null && _filteredRules.Any())
                     CurrentRule = _filteredRules?.FirstOrDefault();
 
                 RaisePropertyChanged();
@@ -166,7 +164,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             FilteredRules.Add(ruleDummy);
         }
 
-        private void CreateNewRule()
+        public void CreateNewRule()
         {
             if (_currentRule != null) CurrentRule.IsRuleDummy = false;
             RefreshRuleDummy();

@@ -29,7 +29,7 @@
                                                        RelativeSource={RelativeSource FindAncestor, 
                                                                                    AncestorType={x:Type controls:ThingsControl}}}"
                                      Value="Horizontal">
-                            <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+                            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
                             <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=Orientation, 

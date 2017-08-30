@@ -34,7 +34,7 @@ namespace OpenHab.Wpf.ViewModel.Helper
         {
             var filteredRules = string.IsNullOrEmpty(filterCsv)
                 ? self
-                : self.Where(r => CreateBrowseValue(r).Search(filterCsv));
+                : self.Where(r => CreateBrowseValue(r).Search(filterCsv) || r.IsRuleDummy);
 
             return new ObservableCollection<RuleViewModel>(filteredRules);
         }

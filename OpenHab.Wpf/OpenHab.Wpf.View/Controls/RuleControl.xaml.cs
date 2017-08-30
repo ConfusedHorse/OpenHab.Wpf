@@ -32,5 +32,12 @@ namespace OpenHab.Wpf.View.Controls
             var rule = DataContext as RuleViewModel;
             rule?.ToggleRule(enabled);
         }
+
+        private void Dummy_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var rulesViewModel = ViewModelLocator.Instance.RulesViewModel;
+            if (rulesViewModel.CurrentRule.IsRuleDummy)
+                rulesViewModel.CreateNewRule();
+        }
     }
 }
