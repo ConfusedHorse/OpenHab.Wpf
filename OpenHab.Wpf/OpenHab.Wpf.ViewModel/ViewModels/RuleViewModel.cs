@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Framework;
 using Framework.UI.Controls;
 using Framework.UI.Input;
 using GalaSoft.MvvmLight;
@@ -348,24 +349,72 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             RunRuleCommand = new DelegateCommand(RunRule, CanRunRule);
             DeleteRuleCommand = new DelegateCommand(DeleteRuleAsync, CanDeleteRule);
             SaveRuleCommand = new DelegateCommand(SaveChangesAsync, CanSaveRule);
-            AddTriggerFromDragDataCommand = new DelegateCommand<object>(AddTriggerFromDragData);
-            AddConditionFromDragDataCommand = new DelegateCommand<object>(AddConditionFromDragData);
-            AddActionFromDragDataCommand = new DelegateCommand<object>(AddActionFromDragData);
+            AddTriggerFromDragDataCommand = new DelegateCommand<object>(AddTriggerFromDragData, CanExecuteDropTrigger);
+            AddConditionFromDragDataCommand = new DelegateCommand<object>(AddConditionFromDragData, CanExecuteDropCondition);
+            AddActionFromDragDataCommand = new DelegateCommand<object>(AddActionFromDragData, CanExecuteDropAction);
         }
+
+        #region Validation
 
         private bool CanSaveRule()
         {
             return UnsavedChanges;
         }
 
-        private void RunRule()
-        {
-            _rule.Run();
-        }
-
         private bool CanRunRule()
         {
             return Uid != null;
+        }
+
+        private bool CanDeleteRule()
+        {
+            return !IsRuleDummy;
+        }
+
+        private static bool CanExecuteDropTrigger(object data)
+        {
+            switch (data)
+            {
+                case ItemViewModel _:
+                    return true;
+                case TimerViewModel _:
+                    return true;
+                //TODO add other operations here
+            }
+            return false;
+        }
+
+        private static bool CanExecuteDropCondition(object data)
+        {
+            switch (data)
+            {
+                case ItemViewModel _:
+                    return true;
+                case TimerViewModel _:
+                    return true;
+                //TODO add other operations here
+            }
+            return false;
+        }
+
+        private static bool CanExecuteDropAction(object data)
+        {
+            switch (data)
+            {
+                case ItemViewModel _:
+                    return true;
+                //TODO add other operations here
+            }
+            return false;
+        }
+
+        #endregion
+
+        #region Actions
+
+        private void RunRule()
+        {
+            _rule.Run();
         }
 
         private async void DeleteRuleAsync()
@@ -388,11 +437,6 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
-        private bool CanDeleteRule()
-        {
-            return !IsRuleDummy;
-        }
-
         private static void AddTriggerFromDragData(object data)
         {
             switch (data)
@@ -400,17 +444,11 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 case ItemViewModel i:
                     AddTriggerFromItem(i);
                     break;
-                //TODO add other ModuleTypes here
+                case TimerViewModel t:
+                    AddTriggersAndConditionsFromTimer(t);
+                    break;
+                    //TODO add other ModuleTypes here
             }
-        }
-
-        private static void AddTriggerFromItem(ItemViewModel itemViewModel)
-        {
-            var itemStateUpdateTrigger = itemViewModel.ToTriggerViewModel();
-            var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
-            var currentRule = rulesViewModel.CurrentRule;
-            currentRule.UnsavedChanges = true;
-            DispatcherHelper.RunAsync(() => currentRule.Triggers.Add(itemStateUpdateTrigger));
         }
 
         private static void AddConditionFromDragData(object data)
@@ -420,17 +458,11 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 case ItemViewModel i:
                     AddConditionFromItem(i);
                     break;
+                case TimerViewModel t:
+                    AddTriggersAndConditionsFromTimer(t);
+                    break;
                 //TODO add other ModuleTypes here
             }
-        }
-
-        private static void AddConditionFromItem(ItemViewModel itemViewModel)
-        {
-            var itemStateCondition = itemViewModel.ToConditionViewModel();
-            var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
-            var currentRule = rulesViewModel.CurrentRule;
-            currentRule.UnsavedChanges = true;
-            DispatcherHelper.RunAsync(() => currentRule.Conditions.Add(itemStateCondition));
         }
 
         private static void AddActionFromDragData(object data)
@@ -444,6 +476,46 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
+        #endregion
+
+        #region Apply Rule Components
+
+        private static void AddTriggerFromItem(ItemViewModel itemViewModel)
+        {
+            var itemStateUpdateTrigger = itemViewModel.ToTriggerViewModel();
+            var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
+            var currentRule = rulesViewModel.CurrentRule;
+            currentRule.UnsavedChanges = true;
+            DispatcherHelper.RunAsync(() => currentRule.Triggers.Add(itemStateUpdateTrigger));
+        }
+
+        private static void AddConditionFromItem(ItemViewModel itemViewModel)
+        {
+            var itemStateCondition = itemViewModel.ToConditionViewModel();
+            var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
+            var currentRule = rulesViewModel.CurrentRule;
+            currentRule.UnsavedChanges = true;
+            DispatcherHelper.RunAsync(() => currentRule.Conditions.Add(itemStateCondition));
+        }
+
+        private static void AddTriggersAndConditionsFromTimer(TimerViewModel timerViewModel)
+        {
+            var timedTriggers = timerViewModel.ToTriggerViewModels();
+            var timedConditions = timerViewModel.ToConditionViewModels();
+            var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
+            var currentRule = rulesViewModel.CurrentRule;
+            if (timedTriggers.Any())
+            {
+                currentRule.UnsavedChanges = true;
+                DispatcherHelper.RunAsync(() => currentRule.Triggers.AddRange(timedTriggers));
+            }
+            if (timedConditions.Any())
+            {
+                currentRule.UnsavedChanges = true;
+                DispatcherHelper.RunAsync(() => currentRule.Conditions.AddRange(timedConditions));
+            }
+        }
+
         private static void AddActionFromItem(ItemViewModel itemViewModel)
         {
             var itemCommandAction = itemViewModel.ToActionViewModel();
@@ -452,6 +524,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             currentRule.UnsavedChanges = true;
             DispatcherHelper.RunAsync(() => currentRule.Actions.Add(itemCommandAction));
         }
+
+        #endregion
 
         #endregion
 

@@ -36,10 +36,21 @@
                     <Grid Row="0"
                           HorizontalAlignment="Right">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource NormalTextStyle}"
-                                       Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                                       Text="{x:Static p:Resources.Start}"
-                                       VerticalAlignment="Center" />
+                            <TextBlock Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                       VerticalAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style BasedOn="{StaticResource NormalTextStyle}" TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Range}" Value="False">
+                                                <Setter Property="Text" Value="{x:Static p:Resources.Start}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Range}" Value="True">
+                                                <Setter Property="Text" Value="{x:Static p:Resources.StartRange}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
 
                             <custom:TimePicker VerticalAlignment="Center"
                                                HorizontalAlignment="Left"
@@ -48,13 +59,13 @@
                                                Minutes="{Binding StartMinutes, Mode=TwoWay}"
                                                Seconds="{Binding StartSeconds, Mode=TwoWay}" />
 
-                            <TextBlock Style="{StaticResource NormalTextStyle}"
-                                       Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                                       Text="{x:Static p:Resources.End}"
-                                       VerticalAlignment="Center" />
+                            <metro:ToggleSwitch x:Name="ToggleRange" 
+                                                ToolTip="{x:Static p:Resources.Range}"
+                                                IsChecked="{Binding Range, Mode=TwoWay}" />
 
                             <custom:TimePicker VerticalAlignment="Center"
                                                HorizontalAlignment="Left"
+                                               IsEnabled="{Binding Range}"
                                                Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                                                Hours="{Binding EndHours, Mode=TwoWay}"
                                                Minutes="{Binding EndMinutes, Mode=TwoWay}"

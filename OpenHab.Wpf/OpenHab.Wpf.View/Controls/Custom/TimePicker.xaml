@@ -20,9 +20,7 @@
                             AllowSpin="True"
                             ShowButtonSpinner="True"
                             Minimum="0"
-                            Increment="{Binding Increment, 
-                                                RelativeSource={RelativeSource FindAncestor, 
-                                                                               AncestorType={x:Type controls:TimePicker}}}"
+                            Increment="1"
                             Maximum="23"
                             SelectAllOnGotFocus="True"
                             Watermark="hh"

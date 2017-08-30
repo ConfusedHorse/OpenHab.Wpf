@@ -61,6 +61,24 @@ namespace OpenHab.Wpf.ViewModel.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rule action will only be performed on the following days of week:  ähnelt.
+        /// </summary>
+        internal static string DaysOfWeekDescription {
+            get {
+                return ResourceManager.GetString("DaysOfWeekDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Days of week ({0}) ähnelt.
+        /// </summary>
+        internal static string DaysOfWeekLabel {
+            get {
+                return ResourceManager.GetString("DaysOfWeekLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Do you really want to delete this rule? ({0}) ähnelt.
         /// </summary>
         internal static string DeleteRuleContent {
@@ -138,6 +156,42 @@ namespace OpenHab.Wpf.ViewModel.Properties {
         internal static string NewRule {
             get {
                 return ResourceManager.GetString("NewRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Triggers the rule when the time is {0} ähnelt.
+        /// </summary>
+        internal static string TimeOfDayDescription {
+            get {
+                return ResourceManager.GetString("TimeOfDayDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Time is {0} ähnelt.
+        /// </summary>
+        internal static string TimeOfDayLabel {
+            get {
+                return ResourceManager.GetString("TimeOfDayLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rule action will only be performed when it&apos;s within the ranges of the time period between {0} and {1} ähnelt.
+        /// </summary>
+        internal static string TimeRangeDescription {
+            get {
+                return ResourceManager.GetString("TimeRangeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {0} - {1} ähnelt.
+        /// </summary>
+        internal static string TimeRangeLabel {
+            get {
+                return ResourceManager.GetString("TimeRangeLabel", resourceCulture);
             }
         }
     }

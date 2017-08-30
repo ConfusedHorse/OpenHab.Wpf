@@ -68,6 +68,11 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             InitializeCommands();
         }
 
+        internal ConditionViewModel()
+        {
+            InitializeCommands();
+        }
+
         #region Properties
 
         public string Id

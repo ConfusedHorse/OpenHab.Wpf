@@ -20,7 +20,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ControlTemplate x:Key="ItemStateConditionControlTemplate">
-                <Grid>
+                <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                     <StackPanel Orientation="Vertical">
                         <TextBlock
                             Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
@@ -40,7 +40,7 @@
             </ControlTemplate>
 
             <ControlTemplate x:Key="DayOfWeekConditionControlTemplate">
-                <Grid>
+                <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                     <StackPanel Orientation="Vertical">
                         <TextBlock
                             Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
@@ -60,7 +60,7 @@
             </ControlTemplate>
 
             <ControlTemplate x:Key="ScriptConditionControlTemplate">
-                <Grid>
+                <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                     <StackPanel Orientation="Vertical">
                         <TextBlock
                             Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"

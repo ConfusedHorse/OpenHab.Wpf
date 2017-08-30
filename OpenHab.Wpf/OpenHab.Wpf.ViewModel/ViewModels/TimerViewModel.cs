@@ -1,4 +1,6 @@
-﻿using OpenHab.Wpf.ViewModel.Enums;
+﻿using System;
+using System.Collections.Generic;
+using OpenHab.Wpf.ViewModel.Enums;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Models;
 
@@ -9,9 +11,12 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
     ///     timer.TimeOfDayTrigger
     ///     timer.GenericCronTrigger
     ///     timer.DayOfWeekCondition
+    ///     script.ScriptCondition
     /// </summary>
     public class TimerViewModel : TriggerViewModel
     {
+        #region Fields
+
         private int _startSeconds;
         private int _startMinutes;
         private int _startHours;
@@ -29,10 +34,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private int _endSeconds;
         private int _endMinutes;
         private int _endHours;
-
-        #region Fields
-
-
+        private bool _range;
 
         #endregion
 
@@ -57,11 +59,6 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                     //interpret days
                     break;
             }
-        }
-
-        public TimerViewModel(ItemViewModel itemViewModel) : base(itemViewModel)
-        {
-            //not supported
         }
 
         public TimerViewModel()
@@ -130,6 +127,16 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _endSeconds = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool Range
+        {
+            get => _range;
+            set
+            {
+                _range = value;
                 RaisePropertyChanged();
             }
         }
@@ -225,6 +232,118 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         }
 
         public TimeDimension[] TimeDimensions => EnumerableExtensions.EnumToArray<TimeDimension>();
+
+        #endregion
+
+        #region Public Methods
+        public TriggerViewModel[] GenerateTriggers()
+        {
+            var triggers = new List<TriggerViewModel>();
+            var timeOfDayTrigger = CreateTimeOfDayTrigger();
+            var cronTrigger = CreateCronTrigger();
+            if (timeOfDayTrigger != null) triggers.Add(timeOfDayTrigger);
+            if (cronTrigger != null) triggers.Add(cronTrigger);
+            return triggers.ToArray();
+        }
+
+        public ConditionViewModel[] GenerateConditions()
+        {
+            var conditions = new List<ConditionViewModel>();
+            var dayOfWeekCondition = CreateDayOfWeekCondition();
+            var timeRangeScriptCondition = CreateTimeRangeScriptCondition();
+            if (dayOfWeekCondition != null) conditions.Add(dayOfWeekCondition);
+            if (timeRangeScriptCondition != null) conditions.Add(timeRangeScriptCondition);
+            return conditions.ToArray();
+        }
+
+        #endregion
+
+        #region PrivateMethods
+
+        private TriggerViewModel CreateTimeOfDayTrigger()
+        {
+            var start = new TimeSpan(0, StartHours, StartMinutes, StartSeconds);
+
+            var configuration = new
+            {
+                time = start.ToString()
+            };
+
+            return new TriggerViewModel
+            {
+                Id = Guid.NewGuid().ToString(),
+                Label = string.Format(Properties.Resources.TimeOfDayLabel, start),
+                Description = string.Format(Properties.Resources.TimeOfDayDescription, start),
+                Configuration = configuration,
+                Type = "timer.TimeOfDayTrigger"
+            };
+        }
+
+        private TriggerViewModel CreateCronTrigger()
+        {
+            //TODO implement timer.GenericCronTrigger here
+            return null;
+        }
+
+        private ConditionViewModel CreateDayOfWeekCondition()
+        {
+            if (Monday && Tuesday && Wednesday && Thursday && Friday && Saturday && Sunday
+                || !Monday && !Tuesday && !Wednesday && !Thursday && !Friday && !Saturday && !Sunday)
+            {
+                return null;
+            }
+
+            var listOfDays = new List<string>();
+            if (Monday) listOfDays.Add("MON");
+            if (Tuesday) listOfDays.Add("TUE");
+            if (Wednesday) listOfDays.Add("WED");
+            if (Thursday) listOfDays.Add("THU");
+            if (Friday) listOfDays.Add("FRI");
+            if (Saturday) listOfDays.Add("SAT");
+            if (Sunday) listOfDays.Add("SUN");
+
+            var configuration = new
+            {
+                days = listOfDays.ToArray()
+            };
+
+            return new ConditionViewModel
+            {
+                Id = Guid.NewGuid().ToString(),
+                Label = string.Format(Properties.Resources.DaysOfWeekLabel, listOfDays.Count),
+                Description = $"{Properties.Resources.DaysOfWeekDescription}{string.Join(", ", listOfDays)}",
+                Configuration = configuration,
+                Type = "timer.DayOfWeekCondition"
+            };
+        }
+
+        private ConditionViewModel CreateTimeRangeScriptCondition()
+        {
+            if (!Range) return null;
+
+            var start = new TimeSpan(0, StartHours, StartMinutes, StartSeconds);
+            var end = new TimeSpan(0, EndHours, EndMinutes, EndSeconds);
+            var ss = start.Add(TimeSpan.FromSeconds(-1));
+            var se = end.Add(TimeSpan.FromSeconds(1));
+
+            var script =
+                $"((new Date()) >= ((new Date()).setHours({ss.Hours}, {ss.Minutes}, {ss.Seconds}))) || (new Date()) < ((new Date()).setHours({se.Hours}, {se.Minutes}, {se.Seconds}))";
+
+            var configuration = new
+            {
+                type = "application/javascript",
+                script = script
+            };
+
+            return new ConditionViewModel
+            {
+                Id = Guid.NewGuid().ToString(),
+                Label = string.Format(Properties.Resources.TimeRangeLabel, start, end),
+                Description = string.Format(Properties.Resources.TimeRangeDescription, start, end),
+                Configuration = configuration,
+                Type = "script.ScriptCondition"
+            };
+        }
 
         #endregion
     }

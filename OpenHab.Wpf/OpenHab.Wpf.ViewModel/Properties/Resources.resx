@@ -144,4 +144,22 @@
   <data name="NewRule" xml:space="preserve">
     <value>NewRule</value>
   </data>
+  <data name="DaysOfWeekLabel" xml:space="preserve">
+    <value>Days of week ({0})</value>
+  </data>
+  <data name="DaysOfWeekDescription" xml:space="preserve">
+    <value>Rule action will only be performed on the following days of week: </value>
+  </data>
+  <data name="TimeRangeDescription" xml:space="preserve">
+    <value>Rule action will only be performed when it's within the ranges of the time period between {0} and {1}</value>
+  </data>
+  <data name="TimeRangeLabel" xml:space="preserve">
+    <value>{0} - {1}</value>
+  </data>
+  <data name="TimeOfDayDescription" xml:space="preserve">
+    <value>Triggers the rule when the time is {0}</value>
+  </data>
+  <data name="TimeOfDayLabel" xml:space="preserve">
+    <value>Time is {0}</value>
+  </data>
 </root>

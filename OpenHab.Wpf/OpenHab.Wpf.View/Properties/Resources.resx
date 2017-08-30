@@ -283,7 +283,7 @@
     <value>To</value>
   </data>
   <data name="Start" xml:space="preserve">
-    <value>From</value>
+    <value>At</value>
   </data>
   <data name="Hour" xml:space="preserve">
     <value>Hour</value>
@@ -311,5 +311,11 @@
   </data>
   <data name="DragThisToAddAsAnything" xml:space="preserve">
     <value>Drag object over any section to create according triggers and conditions</value>
+  </data>
+  <data name="Range" xml:space="preserve">
+    <value>Toggle to enable defining a period of time</value>
+  </data>
+  <data name="StartRange" xml:space="preserve">
+    <value>From</value>
   </data>
 </root>

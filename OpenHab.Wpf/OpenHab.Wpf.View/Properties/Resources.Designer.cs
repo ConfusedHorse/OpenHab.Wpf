@@ -421,6 +421,15 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Toggle to enable defining a period of time ähnelt.
+        /// </summary>
+        public static string Range {
+            get {
+                return ResourceManager.GetString("Range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die {}Connection has been terminated. Trying to reconnect... ({0}) ähnelt.
         /// </summary>
         public static string ReconnectionAttemptFormat {
@@ -538,11 +547,20 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die From ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die At ähnelt.
         /// </summary>
         public static string Start {
             get {
                 return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die From ähnelt.
+        /// </summary>
+        public static string StartRange {
+            get {
+                return ResourceManager.GetString("StartRange", resourceCulture);
             }
         }
         

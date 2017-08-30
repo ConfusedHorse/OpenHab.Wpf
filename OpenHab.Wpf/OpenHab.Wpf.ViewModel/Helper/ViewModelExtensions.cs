@@ -110,9 +110,19 @@ namespace OpenHab.Wpf.ViewModel.Helper
             return new TriggerViewModel(itemViewModel);
         }
 
+        public static TriggerViewModel[] ToTriggerViewModels(this TimerViewModel timerViewModel)
+        {
+            return timerViewModel.GenerateTriggers();
+        }
+
         public static ConditionViewModel ToConditionViewModel(this ItemViewModel itemViewModel)
         {
             return new ConditionViewModel(itemViewModel);
+        }
+
+        public static ConditionViewModel[] ToConditionViewModels(this TimerViewModel timerViewModel)
+        {
+            return timerViewModel.GenerateConditions();
         }
 
         public static ActionViewModel ToActionViewModel(this ItemViewModel itemViewModel)
