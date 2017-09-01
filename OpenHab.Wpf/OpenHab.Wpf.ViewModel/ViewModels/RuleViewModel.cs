@@ -414,7 +414,14 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         private void RunRule()
         {
-            _rule.Run();
+            if (_enabled)
+                _rule.Run();
+            else
+            {
+                _rule.Enable();
+                _rule.Run();
+                _rule.Disable();
+            }
         }
 
         private async void DeleteRuleAsync()
