@@ -129,10 +129,6 @@
       <Project>{807fef64-bbc1-40be-84aa-6138d7b4fc04}</Project>
       <Name>OpenHAB.NetRestApi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OpenHab.Wpf.Business\OpenHab.Wpf.Business.csproj">
-      <Project>{ff76d60c-a837-4772-9e29-019ae40ca839}</Project>
-      <Name>OpenHab.Wpf.Business</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OpenHab.Wpf.CrossCutting\OpenHab.Wpf.CrossCutting.csproj">
       <Project>{a6f273b2-b74a-4636-a32c-6e77b9e440af}</Project>
       <Name>OpenHab.Wpf.CrossCutting</Name>
