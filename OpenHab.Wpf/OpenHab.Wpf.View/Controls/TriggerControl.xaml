@@ -84,7 +84,7 @@
                                                 AllowSpin="True"
                                                 Increment="1"
                                                 Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                                                Minimum="0"
+                                                Minimum="1"
                                                 ShowButtonSpinner="True"
                                                 Value="{Binding RepeatValue}" />
                             <ComboBox Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"

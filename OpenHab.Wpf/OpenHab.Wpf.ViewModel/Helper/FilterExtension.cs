@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using OpenHab.Wpf.CrossCutting.Helpers;
 using OpenHab.Wpf.ViewModel.ViewModels;
@@ -17,9 +18,16 @@ namespace OpenHab.Wpf.ViewModel.Helper
             return new ObservableCollection<ThingViewModel>(filteredThings);
         }
 
+        public static bool FilterBy(this ThingViewModel self, string filterCsv)
+        {
+            return CreateBrowseValue(self).Search(filterCsv);
+        }
+
         private static string CreateBrowseValue(ThingViewModel t)
         {
-            var channelsBrowseValue = string.Join(string.Empty, t.LinkedItems.Select(CreateBrowseValue));
+            var channelsBrowseValue = t.LinkedItems != null
+                ? string.Join(string.Empty, t.LinkedItems.Select(CreateBrowseValue))
+                : string.Empty;
             return $"{t.Uid}{t.ThingTypeUid}{t.Label}{t.Location}{channelsBrowseValue}";
         }
 

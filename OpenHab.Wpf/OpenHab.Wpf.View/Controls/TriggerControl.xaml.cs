@@ -1,5 +1,10 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using Ninject;
+using OpenHab.Wpf.CrossCutting.Module;
+using OpenHab.Wpf.ViewModel.ViewModels;
 
 namespace OpenHab.Wpf.View.Controls
 {

@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Framework.UI.Controls;
 using OpenHab.Wpf.View.Module;
+using OpenHab.Wpf.ViewModel.Helper;
 
 namespace OpenHab.Wpf.View.Controls
 {
@@ -29,6 +30,9 @@ namespace OpenHab.Wpf.View.Controls
             var rulesViewModel = ViewModelLocator.Instance.RulesViewModel;
             var currentRule = rulesViewModel.CurrentRule;
             if (currentRule == null || !currentRule.UnsavedChanges) return;
+            if (currentRule.Triggers.IsNullOrEmpty() 
+                && currentRule.Conditions.IsNullOrEmpty() 
+                && currentRule.Actions.IsNullOrEmpty()) return;
 
             var itemUnderMouse = GetListBoxItemUnderMouse(Rules);
             if (itemUnderMouse == null || itemUnderMouse.DataContext == currentRule) return;

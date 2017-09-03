@@ -32,19 +32,19 @@
                   Row="0"
                   HorizontalAlignment="Left">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                    
+
                 <Grid Column="0"
-                        Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                        VerticalAlignment="Center">
+                      Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                      VerticalAlignment="Center">
                     <metro:CommandButton Command="{Binding SaveRuleCommand}">
                         <extra:Icon Style="{StaticResource BooksettingIconStyle}"
                                     Size="Medium">
                             <extra:Icon.ToolTip>
                                 <Grid>
-                                    <TextBlock Text="{x:Static p:Resources.SaveChanges}"/>
+                                    <TextBlock Text="{x:Static p:Resources.SaveChanges}" />
                                 </Grid>
                             </extra:Icon.ToolTip>
                         </extra:Icon>
@@ -70,31 +70,31 @@
                                Text="{x:Static p:Resources.Name}" />
 
                     <extra:TextBoxExtended Grid.Row="0"
-                                            Grid.Column="1"
-                                            MinWidth="250"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"
-                                            TextWrapping="Wrap"
-                                            Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                                            Watermark="{x:Static p:Resources.Name}" />
+                                           Grid.Column="1"
+                                           MinWidth="250"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           TextWrapping="Wrap"
+                                           Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                           Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                                           Watermark="{x:Static p:Resources.Name}" />
 
                     <TextBlock Grid.Row="1"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                                Style="{StaticResource NormalTextStyle}"
-                                Text="{x:Static p:Resources.Description}" />
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                               Style="{StaticResource NormalTextStyle}"
+                               Text="{x:Static p:Resources.Description}" />
 
                     <extra:TextBoxExtended Grid.Row="1"
-                                            Grid.Column="1"
-                                            MinWidth="250"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"
-                                            TextWrapping="Wrap"
-                                            Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                                            Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
-                                            Watermark="{x:Static p:Resources.Description}" />
+                                           Grid.Column="1"
+                                           MinWidth="250"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           TextWrapping="Wrap"
+                                           Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                           Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                                           Watermark="{x:Static p:Resources.Description}" />
                 </Grid>
             </Grid>
 
@@ -113,16 +113,16 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    
+
                     <Grid x:Name="TriggerHeader"
                           Row="0">
                         <TextBlock Text="{x:Static p:Resources.Triggers}"
                                    Style="{StaticResource HeaderTextStyle}"
                                    VerticalAlignment="Center"
-                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}" />
                     </Grid>
 
-                    <ScrollViewer Grid.Row="1" 
+                    <ScrollViewer Grid.Row="1"
                                   HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="TriggerGrid"
@@ -137,7 +137,7 @@
                                         <controls:TriggerControl DataContext="{Binding}"
                                                                  AllowDragOperations="False"
                                                                  AllowDeleteOperations="True"
-                                                                 Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                                                                 Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}" />
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -159,10 +159,10 @@
                         <TextBlock Text="{x:Static p:Resources.Conditions}"
                                    Style="{StaticResource HeaderTextStyle}"
                                    VerticalAlignment="Center"
-                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}" />
                     </Grid>
 
-                    <ScrollViewer Grid.Row="1" 
+                    <ScrollViewer Grid.Row="1"
                                   HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="ConditionGrid"
@@ -175,7 +175,7 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type viewModels:ConditionViewModel}">
                                         <controls:ConditionControl DataContext="{Binding}"
-                                                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                                                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}" />
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -197,10 +197,10 @@
                         <TextBlock Text="{x:Static p:Resources.Actions}"
                                    Style="{StaticResource HeaderTextStyle}"
                                    VerticalAlignment="Center"
-                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                                   Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}" />
                     </Grid>
 
-                    <ScrollViewer Grid.Row="1" 
+                    <ScrollViewer Grid.Row="1"
                                   HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="ActionGrid"
@@ -213,7 +213,7 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type viewModels:ActionViewModel}">
                                         <controls:ActionControl DataContext="{Binding}"
-                                                                Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                                                                Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}" />
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

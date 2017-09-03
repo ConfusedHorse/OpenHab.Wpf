@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +11,7 @@ using GalaSoft.MvvmLight.Threading;
 using Ninject;
 using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.ViewModel.Helper;
+using OpenHab.Wpf.ViewModel.Properties;
 using OpenHAB.NetRestApi.Models;
 using OpenHAB.NetRestApi.Models.Events;
 
@@ -69,7 +69,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             Triggers = new ObservableCollection<TriggerViewModel>();
             Conditions = new ObservableCollection<ConditionViewModel>();
             Actions = new ObservableCollection<ActionViewModel>();
-            Name = $"{Properties.Resources.NewRule}_{DateTime.Now:yyyy_MM_dd_HH_mm_ss}";
+            Name = $"{Resources.NewRule}_{DateTime.Now:yyyy_MM_dd_HH_mm_ss}";
             Enabled = false;
             Status = StatusInfoViewModel.Default;
 
@@ -267,28 +267,28 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         public void ToggleRule(bool? ruleEnabled)
         {
             if (ruleEnabled != null && ruleEnabled != _enabled)
-                Enabled = (bool)ruleEnabled;
+                Enabled = (bool) ruleEnabled;
 
             if (_enabled)
                 _rule.Enable();
             else
                 _rule.Disable();
         }
-        
+
         public void RemoveAction(ActionViewModel actionViewModel)
         {
             if (Actions.IsNullOrEmpty()) return;
             Actions.Remove(actionViewModel);
             UnsavedChanges = true;
         }
-        
+
         public void RemoveTrigger(TriggerViewModel triggerViewModel)
         {
             if (Triggers.IsNullOrEmpty()) return;
             Triggers.Remove(triggerViewModel);
             UnsavedChanges = true;
         }
-        
+
         public void RemoveCondition(ConditionViewModel conditionViewModel)
         {
             if (Conditions.IsNullOrEmpty()) return;
@@ -308,7 +308,10 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                     var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
                     rulesViewModel.RemovePhantomRule(this);
                 }
-                else this.FromViewModel()?.Update();
+                else
+                {
+                    this.FromViewModel()?.Update();
+                }
             });
 
             UnsavedChanges = false;
@@ -350,7 +353,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             DeleteRuleCommand = new DelegateCommand(DeleteRuleAsync, CanDeleteRule);
             SaveRuleCommand = new DelegateCommand(SaveChangesAsync, CanSaveRule);
             AddTriggerFromDragDataCommand = new DelegateCommand<object>(AddTriggerFromDragData, CanExecuteDropTrigger);
-            AddConditionFromDragDataCommand = new DelegateCommand<object>(AddConditionFromDragData, CanExecuteDropCondition);
+            AddConditionFromDragDataCommand =
+                new DelegateCommand<object>(AddConditionFromDragData, CanExecuteDropCondition);
             AddActionFromDragDataCommand = new DelegateCommand<object>(AddActionFromDragData, CanExecuteDropAction);
         }
 
@@ -415,7 +419,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private void RunRule()
         {
             if (_enabled)
+            {
                 _rule.Run();
+            }
             else
             {
                 _rule.Enable();
@@ -426,7 +432,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         private async void DeleteRuleAsync()
         {
-            if (Uid == null)
+            if (Uid == null || Triggers.IsNullOrEmpty() && Conditions.IsNullOrEmpty() && Actions.IsNullOrEmpty())
             {
                 var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
                 rulesViewModel.RemovePhantomRule(this);
@@ -434,18 +440,17 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             else
             {
                 var owner = Application.Current.MainWindow;
-                var result = await MessageDialog.ShowAsync(Properties.Resources.DeleteRuleHeader,
-                    string.Format(Properties.Resources.DeleteRuleContent, Name ?? Uid), MessageBoxButton.YesNo,
+                var result = await MessageDialog.ShowAsync(Resources.DeleteRuleHeader,
+                    string.Format(Resources.DeleteRuleContent, Name ?? Uid), MessageBoxButton.YesNo,
                     owner: owner);
                 if (result == MessageBoxResult.Yes)
-                {
                     _rule?.Delete();
-                }
             }
         }
 
         private static void AddTriggerFromDragData(object data)
         {
+            HandleDummyAsRule();
             switch (data)
             {
                 case ItemViewModel i:
@@ -454,12 +459,13 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 case TimerViewModel t:
                     AddTriggersAndConditionsFromTimer(t);
                     break;
-                    //TODO add other ModuleTypes here
+                //TODO add other ModuleTypes here
             }
         }
 
         private static void AddConditionFromDragData(object data)
         {
+            HandleDummyAsRule();
             switch (data)
             {
                 case ItemViewModel i:
@@ -474,6 +480,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         private static void AddActionFromDragData(object data)
         {
+            HandleDummyAsRule();
             switch (data)
             {
                 case ItemViewModel i:
@@ -481,6 +488,17 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                     break;
                 //TODO add other ModuleTypes here
             }
+        }
+
+        #endregion
+
+        #region Other
+        
+        private static void HandleDummyAsRule()
+        {
+            var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
+            if (rulesViewModel.CurrentRule.IsRuleDummy)
+                rulesViewModel.CreateNewRule();
         }
 
         #endregion

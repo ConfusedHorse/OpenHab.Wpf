@@ -236,6 +236,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         #endregion
 
         #region Public Methods
+
         public TriggerViewModel[] GenerateTriggers()
         {
             var triggers = new List<TriggerViewModel>();

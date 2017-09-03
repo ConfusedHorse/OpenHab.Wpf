@@ -162,6 +162,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             var ruleDummy = new RuleViewModel();
             Rules.Add(ruleDummy);
             FilteredRules.Add(ruleDummy);
+
+            if (_rules.Count == 1 && CurrentRule == null)
+                CurrentRule = ruleDummy;
         }
 
         public void CreateNewRule()
@@ -238,7 +241,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             IsBusy = true;
 
             var rules = await Task.Run(() => _restContext.Client.RuleService.GetRules());
-            Rules = rules?.ToViewModels();
+            var usefulRules = rules?.ToViewModels();
+            if (usefulRules != null) Rules = usefulRules;
+            else RefreshRuleDummy();
 
             IsBusy = false;
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using GalaSoft.MvvmLight.Threading;
 using OpenHab.Wpf.CrossCutting.Context;
 using OpenHab.Wpf.CrossCutting.Events;
 using OpenHab.Wpf.ViewModel.Helper;
+using OpenHAB.NetRestApi.Models.Events;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels
 {
@@ -134,9 +136,10 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private void InitializeEventHandlers()
         {
             var eventService = _restContext.Client.EventService;
+            eventService.ThingAdded += EventServiceOnThingAdded;
+            eventService.ThingRemoved += EventServiceOnThingRemoved;
             //TODO implement event handlers
             Debug.WriteLine($"Initializing Event Handlers for {nameof(ThingsViewModel)}");
-            
         }
 
         private void TerminateEventHandlers()
@@ -144,18 +147,43 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             var eventService = _restContext?.Client?.EventService;
             if (eventService == null) return;
             Debug.WriteLine($"Terminating Event Handlers for {nameof(ThingsViewModel)}");
-            
         }
-        
+
+        private void EventServiceOnThingAdded(object sender, ThingAddedEvent eventObject)
+        {
+            //if (Things.IsNullOrEmpty()) return;
+
+            var thing = eventObject.Thing.ToViewModel();
+            DispatcherHelper.RunAsync(() =>
+            {
+                Things.Add(thing);
+                if (thing.FilterBy(_filterCsv))
+                    FilteredThings.Add(thing);
+            });
+        }
+
+        private void EventServiceOnThingRemoved(object sender, ThingRemovedEvent eventObject)
+        {
+            if (Things.IsNullOrEmpty()) return;
+
+            var thing = _things.FirstOrDefault(r => r.Uid == eventObject.Thing.Uid);
+            if (thing == null) return;
+            DispatcherHelper.RunAsync(() =>
+            {
+                Things.Remove(thing);
+                FilteredThings.Remove(thing);
+            });
+        }
+
         private async void RefreshThingsAsync()
         {
             if (IsBusy) return;
             IsBusy = true;
 
             var things = await Task.Run(() => _restContext.Client.ThingService.GetThings());
-            var usefulThings = things?.Where(t => t.Channels.Any());
+            var usefulThings = things?.Where(t => t.Channels.Any()).ToViewModels();
             
-            Things = usefulThings?.ToViewModels();
+            if (usefulThings != null) Things = usefulThings;
 
             IsBusy = false;
         }
