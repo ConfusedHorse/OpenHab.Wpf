@@ -55,8 +55,23 @@
                 <Style TargetType="{x:Type ContentControl}">
                     <Setter Property="Content" x:Name="Fallback">
                         <Setter.Value>
-                            <TextBlock Text="{Binding Type}"
-                                       Style="{StaticResource NormalTextStyle}" />
+                            <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock
+                                        Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                        Style="{StaticResource HeaderTextStyle}"
+                                        Text="{Binding Label}" />
+                                    <TextBlock
+                                        Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                        Style="{StaticResource NormalTextStyle}"
+                                        Text="{Binding Type}"
+                                        HorizontalAlignment="Right" />
+                                    <TextBlock
+                                        Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                        Style="{StaticResource NormalTextStyle}"
+                                        Text="{Binding Description}" />
+                                </StackPanel>
+                            </Grid>
                         </Setter.Value>
                     </Setter>
                     <Style.Triggers>
