@@ -50,8 +50,8 @@
                                         Orientation="Vertical"/>
             </Grid>
 
-            <GridSplitter Grid.Column="1" 
-                          Style="{StaticResource VerticalGridSplitterStyle}"/>
+            <!--<GridSplitter Grid.Column="1" 
+                          Style="{StaticResource VerticalGridSplitterStyle}"/>-->
             
             <Grid x:Name="CenterGrid"
                   Column="2">
@@ -64,9 +64,9 @@
                 <Grid x:Name="TopMiddleGrid"
                       Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="6"/>
-                        <ColumnDefinition Width="*"/><!--<ColumnDefinition Width="Auto"/>-->
+                        <ColumnDefinition Width="Auto"/><!--<ColumnDefinition Width="Auto"/>-->
                     </Grid.ColumnDefinitions>
 
                     <Grid Column="0">
@@ -74,21 +74,21 @@
                                                   AllowDeleteOperations="False"/>
                     </Grid>
 
-                    <GridSplitter Grid.Column="1" 
-                                  Style="{StaticResource VerticalGridSplitterStyle}"/>
+                    <!--<GridSplitter Grid.Column="1" 
+                                  Style="{StaticResource VerticalGridSplitterStyle}"/>-->
 
-                    <Grid Column="2">
+                    <!--<Grid Column="2">
                         <TextBlock Text="Conditions go here. (not implemented yet)"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"/>
                         
-                        <!--<controls:ConditionsControl AllowDragOperations="True" 
-                                                        AllowDeleteOperations="False"/>-->
-                    </Grid>
+                        <controls:ConditionsControl AllowDragOperations="True" 
+                                                        AllowDeleteOperations="False"/>
+                    </Grid>-->
                 </Grid>
 
-                <GridSplitter Grid.Row="1" 
-                              Style="{StaticResource HorizontalGridSplitterStyle}"/>
+                <!--<GridSplitter Grid.Row="1" 
+                              Style="{StaticResource HorizontalGridSplitterStyle}"/>-->
 
                 <Grid x:Name="BottonMiddleGrid"
                       Row="2">
@@ -97,8 +97,8 @@
                 
             </Grid>
 
-            <GridSplitter Grid.Column="3" 
-                          Style="{StaticResource VerticalGridSplitterStyle}"/>
+            <!--<GridSplitter Grid.Column="3" 
+                          Style="{StaticResource VerticalGridSplitterStyle}"/>-->
 
             <Grid x:Name="RightGrid"
                   Column="4">

@@ -9,6 +9,7 @@
              xmlns:params="http://schemas.codeplex.com/elysium/params"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:extra="http://schemas.extra.com/ui"
+             xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding RulesViewModel, 
@@ -21,30 +22,48 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <ListBox x:Name="Rules"
-                 ItemsSource="{Binding FilteredRules, Mode=TwoWay}"
-                 SelectedItem="{Binding CurrentRule, Mode=TwoWay}"
-                 PreviewMouseDown="Rules_OnPreviewMouseDown"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <i:Interaction.Behaviors>
-                <extra:AnimatingItemsControlBehavior x:Name="RulesBehavior"/>
-            </i:Interaction.Behaviors>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type viewModels:RuleViewModel}">
-                    <Grid>
-                        <controls:RuleControl DataContext="{Binding}"/>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+        <!--<Grid x:Name="ConditionHeader"
+              Row="0">
+            <TextBlock Text="{x:Static p:Resources.Rules}"
+                       Style="{StaticResource HeaderTextStyle}"
+                       VerticalAlignment="Center"
+                       Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}" />
+        </Grid>-->
+        
+        <Grid x:Name="RulesGrid"
+              Background="{StaticResource AccentLevel5Brush}"
+              Row="1">
+            <ListBox x:Name="Rules"
+                     ItemsSource="{Binding FilteredRules, Mode=TwoWay}"
+                     SelectedItem="{Binding CurrentRule, Mode=TwoWay}"
+                     PreviewMouseDown="Rules_OnPreviewMouseDown"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <i:Interaction.Behaviors>
+                    <extra:AnimatingItemsControlBehavior x:Name="RulesBehavior"/>
+                </i:Interaction.Behaviors>
 
-            <ListBox.ItemContainerStyle>
-                <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="extra:ListBoxItemAttached.IsDeselectionEnabled" Value="False"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
-                </Style>
-            </ListBox.ItemContainerStyle>
-        </ListBox>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewModels:RuleViewModel}">
+                        <Grid>
+                            <controls:RuleControl DataContext="{Binding}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+                <ListBox.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="extra:ListBoxItemAttached.IsDeselectionEnabled" Value="False"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Background" Value="{StaticResource AccentLevel5Brush}"/>
+                        <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </Grid>
     </Grid>
 </UserControl>

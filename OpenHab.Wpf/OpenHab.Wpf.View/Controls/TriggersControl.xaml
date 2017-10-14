@@ -18,11 +18,12 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+    
+    <Grid Background="{StaticResource AccentLevel5Brush}">
+        <ScrollViewer Background="Transparent" 
+                      HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Disabled">
             <ItemsControl x:Name="Triggers"
-                          Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
                           ItemsSource="{Binding FilteredTriggers}">
                 <!--<i:Interaction.Behaviors>
                     <extra:AnimatingItemsControlBehavior x:Name="TriggersBehavior"/>
