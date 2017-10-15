@@ -42,6 +42,7 @@ namespace OpenHab.Wpf.View.Controls
                 Properties.Resources.UnsavedChanges, MessageBoxButton.YesNo, owner: Application.Current.MainWindow);
 
             if (saveChanges == MessageBoxResult.Yes) currentRule.SaveChangesAsync();
+            else currentRule.UnsavedChanges = false;
 
             itemUnderMouse.IsSelected = true;
         }
