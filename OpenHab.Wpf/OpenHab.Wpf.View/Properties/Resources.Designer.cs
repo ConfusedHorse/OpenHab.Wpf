@@ -412,6 +412,15 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die No rule selected ähnelt.
+        /// </summary>
+        public static string NoRuleSelected {
+            get {
+                return ResourceManager.GetString("NoRuleSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Please type in a valid IP address. (e.g.: 192.168.1.1) ähnelt.
         /// </summary>
         public static string NotAValidIpAddress {
@@ -453,6 +462,15 @@ namespace OpenHab.Wpf.View.Properties {
         public static string Repetitive {
             get {
                 return ResourceManager.GetString("Repetitive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rule Editor ({0}) ähnelt.
+        /// </summary>
+        public static string RuleEditor {
+            get {
+                return ResourceManager.GetString("RuleEditor", resourceCulture);
             }
         }
         
@@ -633,6 +651,15 @@ namespace OpenHab.Wpf.View.Properties {
         public static string TimeOfDay {
             get {
                 return ResourceManager.GetString("TimeOfDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tools ähnelt.
+        /// </summary>
+        public static string Tools {
+            get {
+                return ResourceManager.GetString("Tools", resourceCulture);
             }
         }
         

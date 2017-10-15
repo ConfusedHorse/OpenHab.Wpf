@@ -21,49 +21,35 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
-        <!--<Grid x:Name="ConditionHeader"
-              Row="0">
-            <TextBlock Text="{x:Static p:Resources.Rules}"
-                       Style="{StaticResource HeaderTextStyle}"
-                       VerticalAlignment="Center"
-                       Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}" />
-        </Grid>-->
-        
-        <Grid x:Name="RulesGrid"
-              Background="{StaticResource AccentLevel5Brush}"
-              Row="1">
-            <ListBox x:Name="Rules"
-                     ItemsSource="{Binding FilteredRules, Mode=TwoWay}"
-                     SelectedItem="{Binding CurrentRule, Mode=TwoWay}"
-                     PreviewMouseDown="Rules_OnPreviewMouseDown"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <i:Interaction.Behaviors>
-                    <extra:AnimatingItemsControlBehavior x:Name="RulesBehavior"/>
-                </i:Interaction.Behaviors>
+    <Grid x:Name="RulesGrid"
+          Background="{StaticResource AccentLevel5Brush}"
+          Row="1">
+        <ListBox x:Name="Rules"
+                 ItemsSource="{Binding FilteredRules, Mode=TwoWay}"
+                 SelectedItem="{Binding CurrentRule, Mode=TwoWay}"
+                 PreviewMouseDown="Rules_OnPreviewMouseDown"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <i:Interaction.Behaviors>
+                <extra:AnimatingItemsControlBehavior x:Name="RulesBehavior"/>
+            </i:Interaction.Behaviors>
 
-                <ListBox.ItemTemplate>
-                    <DataTemplate DataType="{x:Type viewModels:RuleViewModel}">
-                        <Grid>
-                            <controls:RuleControl DataContext="{Binding}"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type viewModels:RuleViewModel}">
+                    <Grid>
+                        <controls:RuleControl DataContext="{Binding}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
 
-                <ListBox.ItemContainerStyle>
-                    <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="{x:Type ListBoxItem}">
-                        <Setter Property="extra:ListBoxItemAttached.IsDeselectionEnabled" Value="False"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        <Setter Property="Background" Value="{StaticResource AccentLevel5Brush}"/>
-                        <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-            </ListBox>
-        </Grid>
+            <ListBox.ItemContainerStyle>
+                <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="extra:ListBoxItemAttached.IsDeselectionEnabled" Value="False"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Background" Value="{StaticResource AccentLevel5Brush}"/>
+                    <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
     </Grid>
 </UserControl>
