@@ -12,6 +12,7 @@ using Ninject;
 using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHab.Wpf.ViewModel.Properties;
+using OpenHab.Wpf.ViewModel.ViewModels.Custom;
 using OpenHAB.NetRestApi.Models;
 using OpenHAB.NetRestApi.Models.Events;
 
@@ -381,7 +382,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             {
                 case ItemViewModel _:
                     return true;
-                case TimerViewModel _:
+                case TimeCombinedViewModel _:
+                    return true;
+                case TimeOfDayViewModel _:
                     return true;
                 //TODO add other operations here
             }
@@ -394,7 +397,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             {
                 case ItemViewModel _:
                     return true;
-                case TimerViewModel _:
+                case TimeCombinedViewModel _:
                     return true;
                 //TODO add other operations here
             }
@@ -456,8 +459,11 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 case ItemViewModel i:
                     AddTriggerFromItem(i);
                     break;
-                case TimerViewModel t:
-                    AddTriggersAndConditionsFromTimer(t);
+                case TimeCombinedViewModel tc:
+                    AddTriggersAndConditionsFromTimer(tc);
+                    break;
+                case TimeOfDayViewModel tod:
+                    AddTriggerFromTrigger(tod);
                     break;
                 //TODO add other ModuleTypes here
             }
@@ -471,7 +477,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 case ItemViewModel i:
                     AddConditionFromItem(i);
                     break;
-                case TimerViewModel t:
+                case TimeCombinedViewModel t:
                     AddTriggersAndConditionsFromTimer(t);
                     break;
                 //TODO add other ModuleTypes here
@@ -514,6 +520,15 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             DispatcherHelper.RunAsync(() => currentRule.Triggers.Add(itemStateUpdateTrigger));
         }
 
+        private static void AddTriggerFromTrigger(TimeOfDayViewModel timeOfDayViewModel)
+        {
+            var timeOfDayTrigger = timeOfDayViewModel.ToTriggerViewModel();
+            var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
+            var currentRule = rulesViewModel.CurrentRule;
+            currentRule.UnsavedChanges = true;
+            DispatcherHelper.RunAsync(() => currentRule.Triggers.Add(timeOfDayTrigger));
+        }
+
         private static void AddConditionFromItem(ItemViewModel itemViewModel)
         {
             var itemStateCondition = itemViewModel.ToConditionViewModel();
@@ -523,10 +538,10 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             DispatcherHelper.RunAsync(() => currentRule.Conditions.Add(itemStateCondition));
         }
 
-        private static void AddTriggersAndConditionsFromTimer(TimerViewModel timerViewModel)
+        private static void AddTriggersAndConditionsFromTimer(TimeCombinedViewModel timeViewModel)
         {
-            var timedTriggers = timerViewModel.ToTriggerViewModels();
-            var timedConditions = timerViewModel.ToConditionViewModels();
+            var timedTriggers = timeViewModel.ToTriggerViewModels();
+            var timedConditions = timeViewModel.ToConditionViewModels();
             var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
             var currentRule = rulesViewModel.CurrentRule;
             if (timedTriggers.Any())

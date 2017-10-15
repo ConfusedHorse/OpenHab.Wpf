@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using OpenHab.Wpf.ViewModel.ViewModels;
+using OpenHab.Wpf.ViewModel.ViewModels.Custom;
 using OpenHAB.NetRestApi.Models;
 
 namespace OpenHab.Wpf.ViewModel.Helper
@@ -110,9 +111,14 @@ namespace OpenHab.Wpf.ViewModel.Helper
             return new TriggerViewModel(itemViewModel);
         }
 
-        public static TriggerViewModel[] ToTriggerViewModels(this TimerViewModel timerViewModel)
+        public static TimeOfDayViewModel ToTriggerViewModel(this TimeOfDayViewModel timeOfDayViewModel)
         {
-            return timerViewModel.GenerateTriggers();
+            return timeOfDayViewModel.GenerateTrigger();
+        }
+
+        public static TriggerViewModel[] ToTriggerViewModels(this TimeCombinedViewModel timeCombinedViewModel)
+        {
+            return timeCombinedViewModel.GenerateTriggers();
         }
 
         public static ConditionViewModel ToConditionViewModel(this ItemViewModel itemViewModel)
@@ -120,9 +126,9 @@ namespace OpenHab.Wpf.ViewModel.Helper
             return new ConditionViewModel(itemViewModel);
         }
 
-        public static ConditionViewModel[] ToConditionViewModels(this TimerViewModel timerViewModel)
+        public static ConditionViewModel[] ToConditionViewModels(this TimeCombinedViewModel timeViewModel)
         {
-            return timerViewModel.GenerateConditions();
+            return timeViewModel.GenerateConditions();
         }
 
         public static ActionViewModel ToActionViewModel(this ItemViewModel itemViewModel)
@@ -136,8 +142,18 @@ namespace OpenHab.Wpf.ViewModel.Helper
         }
 
         public static TriggerViewModel ToViewModel(this Trigger trigger)
-        {
-            return new TriggerViewModel(trigger);
+        {switch (trigger.Type)
+            {
+                case "timer.TimeOfDayTrigger": return new TimeOfDayViewModel(trigger);
+                case "jsr223.ScriptedTrigger": return new TriggerViewModel(trigger);
+                case "timer.GenericCronTrigger": return new TriggerViewModel(trigger);
+                case "core.ItemCommandTrigger": return new TriggerViewModel(trigger); //handled by TriggerViewModel.TriggerSource
+                case "core.GenericEventTrigger": return new TriggerViewModel(trigger);
+                case "core.ItemStateUpdateTrigger": return new TriggerViewModel(trigger); //handled by TriggerViewModel.TriggerSource
+                case "core.ItemStateChangeTrigger": return new TriggerViewModel(trigger); //handled by TriggerViewModel.TriggerSource
+                case "core.ChannelEventTrigger": return new TriggerViewModel(trigger);
+                default: return new TriggerViewModel(trigger);
+            }
         }
 
         public static ObservableCollection<TriggerViewModel> ToViewModels(this IEnumerable<Trigger> triggers)

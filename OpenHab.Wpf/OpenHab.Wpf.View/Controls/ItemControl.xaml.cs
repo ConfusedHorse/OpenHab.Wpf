@@ -5,8 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Ninject;
-using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.ViewModel.ViewModels;
 
 namespace OpenHab.Wpf.View.Controls

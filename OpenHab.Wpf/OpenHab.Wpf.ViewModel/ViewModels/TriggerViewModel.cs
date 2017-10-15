@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading.Tasks;
+using Framework.UI;
 using Framework.UI.Input;
 using GalaSoft.MvvmLight;
 using Ninject;
+using OpenHab.Wpf.CrossCutting.Context;
 using OpenHab.Wpf.CrossCutting.Module;
+using OpenHab.Wpf.ViewModel.Enums;
 using OpenHab.Wpf.ViewModel.Helper;
+using OpenHab.Wpf.ViewModel.ViewModels.Custom;
 using OpenHAB.NetRestApi.Models;
+using OpenHAB.NetRestApi.Services;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels
 {
@@ -26,6 +32,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private string _id;
 
         private readonly Trigger _trigger;
+        private object _triggerSource;
 
         #endregion
 
@@ -45,6 +52,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             ConfigDescriptions = trigger.ConfigDescriptions?.ToViewModels();
 
             _trigger = trigger;
+            InitializeTriggerSource(trigger);
             InitializeCommands();
         }
 
@@ -61,11 +69,12 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             Description = string.Format(Properties.Resources.ItemStateUpdateTriggerDefaultDescription, itemName);
             Type = "core.ItemStateUpdateTrigger";
 
+            InitializeTriggerSource(itemViewModel);
             InitializeCommands();
         }
 
         /// <summary>
-        /// this is only meant to be invoked by <see cref="TimerViewModel"/>
+        /// this is only meant to be invoked by <see cref="TimeCombinedViewModel"/>
         /// </summary>
         /// <param name="condition"></param>
         protected TriggerViewModel(Condition condition)
@@ -74,7 +83,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         }
 
         /// <summary>
-        /// this is only meant to be invoked by <see cref="TimerViewModel"/>
+        /// this is only meant to be invoked by <see cref="TimeCombinedViewModel"/>
         /// </summary>
         internal TriggerViewModel()
         {
@@ -183,6 +192,16 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
+        public object TriggerSource
+        {
+            get => _triggerSource;
+            set
+            {
+                _triggerSource = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -207,6 +226,58 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         #endregion
 
         #region Private Methods
+
+        private void InitializeTriggerSource(Trigger trigger)
+        {
+            switch (trigger.Type)
+            {
+                case "timer.TimeOfDayTrigger":
+                    break;
+                case "jsr223.ScriptedTrigger":
+                    break;
+                case "timer.GenericCronTrigger":
+                    break;
+                case "core.ItemCommandTrigger":
+                    InitializeTriggerSourceFromItemTrigger(trigger);
+                    break;
+                case "core.GenericEventTrigger":
+                    break;
+                case "core.ItemStateUpdateTrigger":
+                    InitializeTriggerSourceFromItemTrigger(trigger);
+                    break;
+                case "core.ItemStateChangeTrigger":
+                    InitializeTriggerSourceFromItemTrigger(trigger);
+                    break;
+                case "core.ChannelEventTrigger":
+                    break;
+            }
+        }
+
+        private void InitializeTriggerSourceFromItemTrigger(Trigger trigger)
+        {
+            dynamic configuration = trigger.Configuration;
+            string itemName = configuration.itemName;
+            if (itemName == null) return;
+            var item = NinjectKernel.StandardKernel.Get<RestContext>().Client
+                .ItemService.GetItem(itemName);
+            var itemViewModel = new ItemViewModel(item, Synchronize.Disabled);
+            InitializeTriggerSource(itemViewModel);
+        }
+
+        private void InitializeTriggerSource(ItemViewModel itemViewModel)
+        {
+            var proxy = itemViewModel;
+            if (itemViewModel.Direction != Synchronize.Disabled)
+            { // is item from thing
+                proxy = itemViewModel.GetProxy(Synchronize.Disabled);
+            }
+
+            TriggerSource = proxy;
+            proxy.PropertyChanged += (sender, args) =>
+            {
+                
+            };
+        }
 
         private async void LoadModuleTypeInformationAsync()
         {

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using OpenHab.Wpf.CrossCutting.Helpers;
+using OpenHab.Wpf.ViewModel.Enums;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Constants;
 using OpenHAB.NetRestApi.Models;
@@ -25,10 +26,11 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private WidgetType _type;
         
         private Item _item;
+        private Synchronize _direction;
 
         #endregion
 
-        public ItemViewModel(Item item)
+        public ItemViewModel(Item item, Synchronize direction = Synchronize.Twoway)
         {
             Type = item.Type.ToEnum(WidgetType.Text);
             Name = item.Name;
@@ -42,6 +44,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             StateDescription = item.StateDescription?.ToViewModel();
 
             _item = item;
+            Direction = direction;
             InitializeEventHandlers();
         }
 
@@ -156,6 +159,16 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
+        public Synchronize Direction
+        {
+            get => _direction;
+            set
+            {
+                _direction = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -163,6 +176,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         public async void SendCommandAsync(string newState)
         {
             State = newState;
+            if (Direction == Synchronize.OneWay || Direction == Synchronize.Disabled) return;
             await Task.Run(() => _item.SendCommand(_state));
         }
 
@@ -182,6 +196,11 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             _item = item;
         }
 
+        public ItemViewModel GetProxy(Synchronize direction = Synchronize.Twoway)
+        {
+            return new ItemViewModel(_item, direction);
+        }
+
         #endregion
 
         #region Private Methods
@@ -198,11 +217,13 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         private void OnUpdated(object sender, ItemUpdatedEvent eventObject)
         {
+            if (Direction == Synchronize.OneWayToSource || Direction == Synchronize.Disabled) return;
             Update(eventObject.NewItem);
         }
 
         private void OnStateChanged(object sender, ItemStateChangedEvent eventObject)
         {
+            if (Direction == Synchronize.OneWayToSource || Direction == Synchronize.Disabled) return;
             State = eventObject.StateValue;
         }
 

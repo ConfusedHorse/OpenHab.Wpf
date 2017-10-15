@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Threading;
 using OpenHab.Wpf.CrossCutting.Context;
 using OpenHab.Wpf.ViewModel.Helper;
+using OpenHab.Wpf.ViewModel.ViewModels.Custom;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels
 {
@@ -108,7 +109,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             //TODO add all custom ModuleTypes here
             var triggers = new ObservableCollection<TriggerViewModel>
             {
-                TimerViewModel.Default
+                TimeCombinedViewModel.Default,
+                TimeOfDayViewModel.Default
             };
 
             Triggers = triggers;

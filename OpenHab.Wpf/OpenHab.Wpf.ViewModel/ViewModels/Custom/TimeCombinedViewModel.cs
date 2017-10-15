@@ -4,7 +4,7 @@ using OpenHab.Wpf.ViewModel.Enums;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Models;
 
-namespace OpenHab.Wpf.ViewModel.ViewModels
+namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
 {
     /// <summary>
     /// This is a combination of the following ModuleTypes:
@@ -13,7 +13,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
     ///     timer.DayOfWeekCondition
     ///     script.ScriptCondition
     /// </summary>
-    public class TimerViewModel : TriggerViewModel
+    public class TimeCombinedViewModel : TriggerViewModel
     {
         #region Fields
 
@@ -38,7 +38,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         #endregion
 
-        public TimerViewModel(Trigger trigger) : base(trigger)
+        public TimeCombinedViewModel(Trigger trigger) : base(trigger)
         {
             switch (trigger.Type ?? trigger.Uid)
             {
@@ -51,7 +51,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
-        public TimerViewModel(Condition condition) : base(condition)
+        public TimeCombinedViewModel(Condition condition) : base(condition)
         {
             switch (condition.Type ?? condition.Uid)
             {
@@ -61,13 +61,13 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
-        public TimerViewModel()
+        public TimeCombinedViewModel()
         {
-            Type = "TimerViewModel";
+            Type = "TimeCombinedViewModel";
             //default
         }
 
-        public static TimerViewModel Default => new TimerViewModel();
+        public static TimeCombinedViewModel Default => new TimeCombinedViewModel();
 
         #region Properties
 
@@ -261,22 +261,15 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         #region PrivateMethods
 
-        private TriggerViewModel CreateTimeOfDayTrigger()
+        private TimeOfDayViewModel CreateTimeOfDayTrigger()
         {
-            var start = new TimeSpan(0, StartHours, StartMinutes, StartSeconds);
-
-            var configuration = new
-            {
-                time = start.ToString()
-            };
-
-            return new TriggerViewModel
+            return new TimeOfDayViewModel
             {
                 Id = Guid.NewGuid().ToString(),
-                Label = string.Format(Properties.Resources.TimeOfDayLabel, start),
-                Description = string.Format(Properties.Resources.TimeOfDayDescription, start),
-                Configuration = configuration,
-                Type = "timer.TimeOfDayTrigger"
+
+                Hours = _startHours,
+                Minutes = _startMinutes,
+                Seconds = _startSeconds
             };
         }
 
