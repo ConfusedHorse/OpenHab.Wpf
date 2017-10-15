@@ -129,6 +129,7 @@
                         <Grid x:Name="TriggerGrid"
                               extra:DragCommand.Command="{Binding AddTriggerFromDragDataCommand}"
                               extra:DragCommand.Format="RuleComponent"
+                              Background="Transparent"
                               AllowDrop="True">
                             <ItemsControl x:Name="TriggerListBox"
                                           ItemsSource="{Binding Triggers}">
@@ -169,6 +170,7 @@
                         <Grid x:Name="ConditionGrid"
                               extra:DragCommand.Command="{Binding AddConditionFromDragDataCommand}"
                               extra:DragCommand.Format="RuleComponent"
+                              Background="Transparent"
                               AllowDrop="True">
                             <ItemsControl x:Name="ConditionListBox"
                                           ItemsSource="{Binding Conditions}">
@@ -207,6 +209,7 @@
                         <Grid x:Name="ActionGrid"
                               extra:DragCommand.Command="{Binding AddActionFromDragDataCommand}"
                               extra:DragCommand.Format="RuleComponent"
+                              Background="Transparent"
                               AllowDrop="True">
                             <ItemsControl x:Name="ActionListBox"
                                           ItemsSource="{Binding Actions}">
