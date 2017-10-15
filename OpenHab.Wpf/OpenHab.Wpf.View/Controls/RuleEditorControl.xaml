@@ -123,10 +123,10 @@
                     </Grid>
 
                     <ScrollViewer Grid.Row="1"
+                                  Background="{StaticResource AccentLevel5Brush}"
                                   HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="TriggerGrid"
-                              Background="{StaticResource AccentLevel5Brush}"
                               extra:DragCommand.Command="{Binding AddTriggerFromDragDataCommand}"
                               extra:DragCommand.Format="RuleComponent"
                               AllowDrop="True">
@@ -163,10 +163,10 @@
                     </Grid>
 
                     <ScrollViewer Grid.Row="1"
+                                  Background="{StaticResource AccentLevel5Brush}"
                                   HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="ConditionGrid"
-                              Background="{StaticResource AccentLevel5Brush}"
                               extra:DragCommand.Command="{Binding AddConditionFromDragDataCommand}"
                               extra:DragCommand.Format="RuleComponent"
                               AllowDrop="True">
@@ -201,10 +201,10 @@
                     </Grid>
 
                     <ScrollViewer Grid.Row="1"
+                                  Background="{StaticResource AccentLevel5Brush}"
                                   HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="ActionGrid"
-                              Background="{StaticResource AccentLevel5Brush}"
                               extra:DragCommand.Command="{Binding AddActionFromDragDataCommand}"
                               extra:DragCommand.Format="RuleComponent"
                               AllowDrop="True">

@@ -21,8 +21,7 @@
     </UserControl.Resources>
 
     <Grid x:Name="RulesGrid"
-          Background="{StaticResource AccentLevel5Brush}"
-          Row="1">
+          Background="{StaticResource AccentLevel5Brush}">
         <ListBox x:Name="Rules"
                  ItemsSource="{Binding FilteredRules, Mode=TwoWay}"
                  SelectedItem="{Binding CurrentRule, Mode=TwoWay}"

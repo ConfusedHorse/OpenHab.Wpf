@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using Framework.UI.Controls;
 using GalaSoft.MvvmLight.Threading;
 using OpenHab.Wpf.View.Dialogue;
@@ -24,6 +25,8 @@ namespace OpenHab.Wpf.View
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+            Icon = (DrawingImage)FindResource("OpenBookDrawingImage");
+            
             DispatcherHelper.Initialize();
             PrepareContextAsync(this);
         }

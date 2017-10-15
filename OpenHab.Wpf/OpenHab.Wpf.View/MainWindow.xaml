@@ -22,6 +22,13 @@
                 <ResourceDictionary Source="../Resources/BaseResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <DrawingImage x:Key="OpenBookDrawingImage">
+                <DrawingImage.Drawing>
+                    <GeometryDrawing Brush="{StaticResource LowlightBrush}"
+                                     Geometry="{StaticResource OpenBookGeometry}"/>
+                </DrawingImage.Drawing>
+            </DrawingImage>
+
             <DataTemplate x:Key="SettingsHeaderTemplate">
                 <StackPanel Orientation="Horizontal"
                             Margin="0 20 0 0">
@@ -114,6 +121,7 @@
         </Grid>
 
         <Grid x:Name="Content"
+              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
               Row="1">
             <TabControl IsEnabled="{Binding Idle, Source={x:Static module:ViewModelLocator.ThingsViewModel}}">
                 <TabItem Header="{x:Static p:Resources.Rules}">
