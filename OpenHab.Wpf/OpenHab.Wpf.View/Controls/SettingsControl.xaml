@@ -37,7 +37,8 @@
                    Style="{StaticResource NormalTextStyle}" 
                    Text="{x:Static p:Resources.DarkTheme}"
                    Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
-        <metro:ToggleSwitch Grid.Row="0"
+        <metro:ToggleSwitch x:Name="ThemeToggle" 
+                            Grid.Row="0"
                             Grid.Column="1"
                             Checked="SetDarkTheme"
                             Unchecked="SetLightTheme"

@@ -8,6 +8,7 @@ using System.Windows.Markup;
 using Elysium;
 using Framework.UI;
 using Framework.UI.Controls;
+using OpenHab.Wpf.View.Module;
 
 namespace OpenHab.Wpf.View.Controls
 {
@@ -26,7 +27,31 @@ namespace OpenHab.Wpf.View.Controls
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
+            InitializeThemeOptions();
             InitializeLanguageOptions();
+        }
+
+        private void InitializeThemeOptions()
+        {
+            ThemeToggle.IsChecked = ViewModelLocator.Settings.Theme == Theme.Dark.ToString();
+        }
+
+        private void SetDarkTheme(object sender, RoutedEventArgs e)
+        {
+            var openHabWpf = Application.Current as ElysiumApplication;
+            if (openHabWpf == null) return;
+
+            openHabWpf.Theme = Theme.Dark;
+            ViewModelLocator.Settings.Theme = Theme.Dark.ToString();
+        }
+
+        private void SetLightTheme(object sender, RoutedEventArgs e)
+        {
+            var openHabWpf = Application.Current as ElysiumApplication;
+            if (openHabWpf == null) return;
+
+            openHabWpf.Theme = Theme.Light;
+            ViewModelLocator.Settings.Theme = Theme.Light.ToString();
         }
 
         private void InitializeLanguageOptions()
@@ -47,22 +72,6 @@ namespace OpenHab.Wpf.View.Controls
                 LanguageComboBox.SelectedItem = selection;
 
             _languageLoaded = true;
-        }
-
-        private void SetDarkTheme(object sender, RoutedEventArgs e)
-        {
-            var openHabWpf = Application.Current as ElysiumApplication;
-            if (openHabWpf == null) return;
-
-            openHabWpf.Theme = Theme.Dark;
-        }
-
-        private void SetLightTheme(object sender, RoutedEventArgs e)
-        {
-            var openHabWpf = Application.Current as ElysiumApplication;
-            if (openHabWpf == null) return;
-
-            openHabWpf.Theme = Theme.Light;
         }
 
         private async void LanguageComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

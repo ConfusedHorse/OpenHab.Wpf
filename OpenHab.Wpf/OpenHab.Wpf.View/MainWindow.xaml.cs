@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using Elysium;
+using Framework.UI;
 using Framework.UI.Controls;
 using GalaSoft.MvvmLight.Threading;
 using OpenHab.Wpf.View.Dialogue;
@@ -19,14 +21,19 @@ namespace OpenHab.Wpf.View
         public MainWindow()
         {
             Loaded += MainWindow_OnLoaded;
-            Closing += OnClosing;
+            Closing += MainWindow_OnClosing;
             InitializeComponent();
         }
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             Icon = (DrawingImage)FindResource("OpenBookDrawingImage");
-            
+            var openHabWpf = Application.Current as ElysiumApplication;
+            if (openHabWpf != null)
+                openHabWpf.Theme = ViewModelLocator.Settings.Theme == Theme.Dark.ToString() 
+                    ? Theme.Dark 
+                    : Theme.Light;
+
             DispatcherHelper.Initialize();
             PrepareContextAsync(this);
         }
@@ -61,8 +68,10 @@ namespace OpenHab.Wpf.View
             PrepareContextAsync(this, true);
         }
 
-        private static async void OnClosing(object sender, CancelEventArgs cancelEventArgs)
+        private static async void MainWindow_OnClosing(object sender, CancelEventArgs cancelEventArgs)
         {
+            ViewModelLocator.Settings.Save();
+
             var rulesViewModel = ViewModelLocator.RulesViewModel;
             var currentRule = rulesViewModel.CurrentRule;
             if (currentRule == null || !currentRule.UnsavedChanges) return;
