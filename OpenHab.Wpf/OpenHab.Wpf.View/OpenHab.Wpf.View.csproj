@@ -114,6 +114,9 @@
     <Compile Include="Controls\RulesControl.xaml.cs">
       <DependentUpon>RulesControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SettingsControl.xaml.cs">
+      <DependentUpon>SettingsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TriggersControl.xaml.cs">
       <DependentUpon>TriggersControl.xaml</DependentUpon>
     </Compile>
@@ -200,6 +203,10 @@
     <Page Include="Controls\RulesControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\SettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\TriggersControl.xaml">
       <Generator>MSBuild:Compile</Generator>

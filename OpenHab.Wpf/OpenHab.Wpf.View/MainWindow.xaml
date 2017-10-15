@@ -35,36 +35,7 @@
             </DataTemplate>
 
             <DataTemplate x:Key="SettingsContentTemplate">
-                <ItemsControl MinWidth="400">
-                    <i:Interaction.Behaviors>
-                        <extra:AnimatingItemsControlBehavior/>
-                    </i:Interaction.Behaviors>
-                    
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                            </Grid>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-
-                    <TextBlock Grid.Row="0"
-                               Grid.Column="0"
-                               Style="{StaticResource NormalTextStyle}" 
-                               Text="{x:Static p:Resources.DarkTheme}"
-                               Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
-                    <metro:ToggleSwitch Grid.Row="0"
-                                        Grid.Column="1"
-                                        Checked="SetDarkTheme"
-                                        Unchecked="SetLightTheme"
-                                        Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
-                </ItemsControl>
+                <controls:SettingsControl/>
             </DataTemplate>
         </ResourceDictionary>
     </extra:Window.Resources>

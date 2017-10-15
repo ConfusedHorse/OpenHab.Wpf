@@ -7,7 +7,7 @@
         xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:extra="http://schemas.extra.com/ui"
         StartupUri="MainWindow.xaml"
-        ShutdownMode="OnMainWindowClose"
+        ShutdownMode="OnLastWindowClose"
         DispatcherUnhandledException="OpenHabWpf_OnDispatcherUnhandledException">
     <extra:ElysiumApplication.Resources>
         <ResourceDictionary />

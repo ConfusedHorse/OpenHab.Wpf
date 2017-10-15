@@ -304,6 +304,15 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die English ähnelt.
+        /// </summary>
+        public static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Field must not be empty. Please enter a numeric value ähnelt.
         /// </summary>
         public static string FieldMustNotBeEmpty {
@@ -318,6 +327,15 @@ namespace OpenHab.Wpf.View.Properties {
         public static string Friday {
             get {
                 return ResourceManager.GetString("Friday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die German ähnelt.
+        /// </summary>
+        public static string German {
+            get {
+                return ResourceManager.GetString("German", resourceCulture);
             }
         }
         
@@ -367,6 +385,15 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Language ähnelt.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Minute ähnelt.
         /// </summary>
         public static string Minute {
@@ -390,6 +417,15 @@ namespace OpenHab.Wpf.View.Properties {
         public static string Monday {
             get {
                 return ResourceManager.GetString("Monday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die To apply the selected changes the window must be reloaded. Do you want to proceed? ähnelt.
+        /// </summary>
+        public static string MustReloadForNewCulture {
+            get {
+                return ResourceManager.GetString("MustReloadForNewCulture", resourceCulture);
             }
         }
         
@@ -453,6 +489,15 @@ namespace OpenHab.Wpf.View.Properties {
         public static string ReconnectionAttemptFormat {
             get {
                 return ResourceManager.GetString("ReconnectionAttemptFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Apply language selection ähnelt.
+        /// </summary>
+        public static string ReloadWithNewCulture {
+            get {
+                return ResourceManager.GetString("ReloadWithNewCulture", resourceCulture);
             }
         }
         
@@ -552,6 +597,15 @@ namespace OpenHab.Wpf.View.Properties {
         public static string Seconds {
             get {
                 return ResourceManager.GetString("Seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Select language... ähnelt.
+        /// </summary>
+        public static string SelectLanguage {
+            get {
+                return ResourceManager.GetString("SelectLanguage", resourceCulture);
             }
         }
         
