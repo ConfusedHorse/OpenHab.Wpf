@@ -27,7 +27,7 @@ namespace OpenHab.Wpf.View.Controls
 
         private async void Rules_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            var rulesViewModel = ViewModelLocator.Instance.RulesViewModel;
+            var rulesViewModel = ViewModelLocator.RulesViewModel;
             var currentRule = rulesViewModel.CurrentRule;
             if (currentRule == null || !currentRule.UnsavedChanges) return;
             if (currentRule.Triggers.IsNullOrEmpty() 

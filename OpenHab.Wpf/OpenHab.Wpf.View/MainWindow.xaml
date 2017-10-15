@@ -14,8 +14,7 @@
         mc:Ignorable="d" 
         Title="{x:Static p:Resources.ApplicationTitle}"
         d:DesignHeight="300" d:DesignWidth="300"
-        DataContext="{Binding ServerViewModel, 
-                              Source={x:Static module:ViewModelLocator.Instance}}"
+        DataContext="{Binding Source={x:Static module:ViewModelLocator.ServerViewModel}}"
         HasDropShadow="False">
     <extra:Window.Resources>
         <ResourceDictionary>
@@ -116,8 +115,7 @@
 
         <Grid x:Name="Content"
               Row="1">
-            <TabControl IsEnabled="{Binding ThingsViewModel.Idle, 
-                                            Source={x:Static module:ViewModelLocator.Instance}}">
+            <TabControl IsEnabled="{Binding Idle, Source={x:Static module:ViewModelLocator.ThingsViewModel}}">
                 <TabItem Header="{x:Static p:Resources.Rules}">
                     <controls:RuleDesignerControl/>
                 </TabItem>

@@ -15,13 +15,13 @@ namespace OpenHab.Wpf.View.Dialogue
 
         private void ServerAddressDialogue_OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (!ViewModelLocator.Instance.ServerViewModel.ConnectionEstablished)
-                ViewModelLocator.Instance.ServerViewModel.InvalidateConnection();
+            if (!ViewModelLocator.ServerViewModel.ConnectionEstablished)
+                ViewModelLocator.ServerViewModel.InvalidateConnection();
         }
 
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ViewModelLocator.Instance.ServerViewModel.SaveIpAddress();
+            ViewModelLocator.ServerViewModel.SaveIpAddress();
             DialogResult = true;
         }
 

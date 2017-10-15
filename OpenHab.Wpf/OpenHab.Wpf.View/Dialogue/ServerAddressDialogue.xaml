@@ -11,8 +11,7 @@
         xmlns:params="http://schemas.codeplex.com/elysium/params"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        DataContext="{Binding ServerViewModel, 
-                              Source={x:Static module:ViewModelLocator.Instance}}"
+        DataContext="{Binding Source={x:Static module:ViewModelLocator.ServerViewModel}}"
         d:DesignHeight="200" d:DesignWidth="350"
         Loaded="ServerAddressDialogue_OnLoaded"
         Title="{x:Static p:Resources.ConnectToServer}">

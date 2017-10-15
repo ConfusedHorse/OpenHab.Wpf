@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Ninject;
+﻿using Ninject;
 using OpenHab.Wpf.CrossCutting.Module;
 using OpenHab.Wpf.ViewModel.ViewModels;
 
@@ -7,34 +6,14 @@ namespace OpenHab.Wpf.View.Module
 {
     public class ViewModelLocator
     {
-        #region Singleton
-
-        private static ViewModelLocator _instance;
-
-        public static ViewModelLocator Instance
-        {
-            get
-            {
-                if (LicenseManager.UsageMode == LicenseUsageMode.Designtime) return null;
-                return _instance ?? (_instance = new ViewModelLocator());
-            }
-        }
-
-        #endregion Singleton
-
-        public ServerViewModel ServerViewModel => NinjectKernel.StandardKernel.Get<ServerViewModel>();
-        public ItemsViewModel ItemsViewModel => NinjectKernel.StandardKernel.Get<ItemsViewModel>();
-        public ThingsViewModel ThingsViewModel => NinjectKernel.StandardKernel.Get<ThingsViewModel>();
-        public RulesViewModel RulesViewModel => NinjectKernel.StandardKernel.Get<RulesViewModel>();
-        public TriggersViewModel TriggersViewModel => NinjectKernel.StandardKernel.Get<TriggersViewModel>();
+        public static ServerViewModel ServerViewModel => NinjectKernel.StandardKernel.Get<ServerViewModel>();
+        public static ItemsViewModel ItemsViewModel => NinjectKernel.StandardKernel.Get<ItemsViewModel>();
+        public static ThingsViewModel ThingsViewModel => NinjectKernel.StandardKernel.Get<ThingsViewModel>();
+        public static RulesViewModel RulesViewModel => NinjectKernel.StandardKernel.Get<RulesViewModel>();
+        public static TriggersViewModel TriggersViewModel => NinjectKernel.StandardKernel.Get<TriggersViewModel>();
 
         //TODO ConditionsViewModel & ActionsViewModel
-        //public ConditionsViewModel ConditionsViewModel => NinjectKernel.StandardKernel.Get<ConditionsViewModel>();
-        //public ActionsViewModel ActionsViewModel => NinjectKernel.StandardKernel.Get<ActionsViewModel>();
-
-        public static void Cleanup()
-        {
-
-        }
+        //public static ConditionsViewModel ConditionsViewModel => NinjectKernel.StandardKernel.Get<ConditionsViewModel>();
+        //public static ActionsViewModel ActionsViewModel => NinjectKernel.StandardKernel.Get<ActionsViewModel>();
     }
 }

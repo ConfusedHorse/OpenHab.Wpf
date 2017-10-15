@@ -30,7 +30,7 @@ namespace OpenHab.Wpf.View
 
         internal static async void PrepareContextAsync(Window owner, bool blockAutoconnect = false)
         {
-            var serverViewModel = ViewModelLocator.Instance.ServerViewModel;
+            var serverViewModel = ViewModelLocator.ServerViewModel;
             serverViewModel.RestContext.ConnectionTerminated += RestContextOnConnectionTerminated;
 
             while (true)
@@ -49,7 +49,7 @@ namespace OpenHab.Wpf.View
 
         private static void RestContextOnConnectionTerminated(object sender, TerminatedUnexpectedlyEvent eventObject)
         {
-            ViewModelLocator.Instance.ServerViewModel.IpAddressIsValid = false;
+            ViewModelLocator.ServerViewModel.IpAddressIsValid = false;
             DispatcherHelper.RunAsync(() => PrepareContextAsync(Application.Current.MainWindow));
         }
 
@@ -60,7 +60,7 @@ namespace OpenHab.Wpf.View
 
         private static async void OnClosing(object sender, CancelEventArgs cancelEventArgs)
         {
-            var rulesViewModel = ViewModelLocator.Instance.RulesViewModel;
+            var rulesViewModel = ViewModelLocator.RulesViewModel;
             var currentRule = rulesViewModel.CurrentRule;
             if (currentRule == null || !currentRule.UnsavedChanges) return;
             cancelEventArgs.Cancel = true;

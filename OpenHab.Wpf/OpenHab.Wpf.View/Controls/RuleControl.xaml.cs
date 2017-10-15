@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using OpenHab.Wpf.View.Module;
@@ -35,7 +34,7 @@ namespace OpenHab.Wpf.View.Controls
 
         private void Dummy_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            var rulesViewModel = ViewModelLocator.Instance.RulesViewModel;
+            var rulesViewModel = ViewModelLocator.RulesViewModel;
             if (rulesViewModel.CurrentRule.IsRuleDummy)
                 rulesViewModel.CreateNewRule();
         }

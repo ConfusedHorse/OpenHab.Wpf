@@ -10,8 +10,7 @@
              xmlns:params="http://schemas.codeplex.com/elysium/params"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="500"
-             DataContext="{Binding RulesViewModel, 
-                                   Source={x:Static module:ViewModelLocator.Instance}}">
+             DataContext="{Binding Source={x:Static module:ViewModelLocator.RulesViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -9,8 +9,7 @@
              xmlns:params="http://schemas.codeplex.com/elysium/params"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{Binding TriggersViewModel, 
-                                   Source={x:Static module:ViewModelLocator.Instance}}">
+             DataContext="{Binding Source={x:Static module:ViewModelLocator.TriggersViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
