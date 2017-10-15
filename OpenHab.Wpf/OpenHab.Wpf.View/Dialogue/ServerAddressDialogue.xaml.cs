@@ -15,7 +15,8 @@ namespace OpenHab.Wpf.View.Dialogue
 
         private void ServerAddressDialogue_OnLoaded(object sender, RoutedEventArgs e)
         {
-            ViewModelLocator.Instance.ServerViewModel.InvalidateConnection();
+            if (!ViewModelLocator.Instance.ServerViewModel.ConnectionEstablished)
+                ViewModelLocator.Instance.ServerViewModel.InvalidateConnection();
         }
 
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
