@@ -84,8 +84,10 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             {
                 _isBusy = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged(() => Idle);
             }
         }
+        public bool Idle => !IsBusy;
 
         #endregion
 
