@@ -351,4 +351,7 @@
   <data name="ReloadWithNewCulture" xml:space="preserve">
     <value>Sprachauswahl übernehmen</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
 </root>

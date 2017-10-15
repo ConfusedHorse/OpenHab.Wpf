@@ -13,21 +13,27 @@ namespace OpenHab.Wpf.View.Dialogue
             InitializeComponent();
         }
 
+        private void ServerAddressDialogue_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            ViewModelLocator.Instance.ServerViewModel.InvalidateConnection();
+        }
+
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
             ViewModelLocator.Instance.ServerViewModel.SaveIpAddress();
             DialogResult = true;
         }
 
+        private void CancelButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+            Close();
+        }
+
         private void CloseApplicationButton_OnClick(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
             Application.Current.Shutdown();
-        }
-
-        private void ServerAddressDialogue_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            ViewModelLocator.Instance.ServerViewModel.InvalidateConnection();
         }
     }
 }

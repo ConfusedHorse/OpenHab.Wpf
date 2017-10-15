@@ -24,7 +24,7 @@
         </ResourceDictionary>
     </controls:OverlayWindow.Resources>
 
-    <Grid Width="300">
+    <Grid Width="400">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -120,6 +120,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0"
@@ -129,6 +130,12 @@
                     HorizontalAlignment="Left" />
 
             <Button Grid.Column="1"
+                    Content="{x:Static p:Resources.Cancel}"
+                    IsEnabled="{Binding ConnectionEstablished}"
+                    Click="CancelButton_OnClick"
+                    HorizontalAlignment="Center" />
+
+            <Button Grid.Column="2"
                     Content="{x:Static p:Resources.CloseApplication}"
                     Click="CloseApplicationButton_OnClick"
                     HorizontalAlignment="Right" />
