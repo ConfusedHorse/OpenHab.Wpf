@@ -49,6 +49,24 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             InitializeEventHandlers();
         }
 
+        internal ItemViewModel(ItemViewModel itemViewModel, Synchronize direction = Synchronize.Twoway)
+        {
+            Type = itemViewModel.Type;
+            Name = itemViewModel.Name;
+            Label = itemViewModel.Label;
+            Category = itemViewModel.Category;
+            Tags = itemViewModel.Tags?.ToViewModels();
+            GroupNames = itemViewModel.GroupNames?.ToViewModels();
+            Link = itemViewModel.Link;
+            State = itemViewModel.State;
+            TransformedState = itemViewModel.TransformedState;
+            StateDescription = itemViewModel.StateDescription;
+
+            _item = itemViewModel._item;
+            Direction = direction;
+            InitializeEventHandlers();
+        }
+
         #region Properties
         
         public WidgetType Type
@@ -204,7 +222,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         public ItemViewModel GetProxy(Synchronize direction = Synchronize.Twoway)
         {
-            return new ItemViewModel(_item, direction);
+            return new ItemViewModel(this, direction);
         }
 
         #endregion
