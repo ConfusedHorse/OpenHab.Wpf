@@ -278,11 +278,12 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         {
             dynamic configuration = condition.Configuration;
             string itemName = configuration.itemName;
-            string itemState = configuration.state;
+            string itemCommand = configuration.command;
+            //string itemOperator = configuration.@operator; // TODO handle Operator
             if (itemName == null) return;
             var item = NinjectKernel.StandardKernel.Get<RestContext>().Client
                 .ItemService.GetItem(itemName);
-            var itemViewModel = new ItemViewModel(item, Synchronize.Disabled) { State = itemState };
+            var itemViewModel = new ItemViewModel(item, Synchronize.Disabled) { State = itemCommand };
             InitializeConditionSource(itemViewModel);
         }
 
