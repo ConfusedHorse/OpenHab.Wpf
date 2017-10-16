@@ -31,6 +31,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         private readonly Action _action;
         private object _actionSource;
+        private bool _isTool;
 
         #endregion
 
@@ -196,6 +197,16 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
+        public bool IsTool
+        {
+            get => _isTool;
+            set
+            {
+                _isTool = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -276,6 +287,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
                 Label = string.Format(Properties.Resources.ItemCommandActionDefaultLabel, source.Name, source.State);
                 Description = string.Format(Properties.Resources.ItemCommandActionDefaultDescription, source.Name, source.State);
+
+                NinjectKernel.StandardKernel.Get<RulesViewModel>().CurrentRule.UnsavedChanges = true;
             };
         }
 

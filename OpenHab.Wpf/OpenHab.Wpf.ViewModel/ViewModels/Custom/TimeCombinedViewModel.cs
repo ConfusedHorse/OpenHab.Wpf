@@ -68,7 +68,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             //default
         }
 
-        public static TimeCombinedViewModel Default => new TimeCombinedViewModel();
+        public static TimeCombinedViewModel Default => new TimeCombinedViewModel {IsTool = true};
 
         #region Properties
 

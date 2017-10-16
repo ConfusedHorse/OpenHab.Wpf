@@ -27,6 +27,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         
         private Item _item;
         private Synchronize _direction;
+        private bool _isProxy;
 
         #endregion
 

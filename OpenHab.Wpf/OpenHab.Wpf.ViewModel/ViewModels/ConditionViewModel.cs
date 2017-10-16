@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using Framework.UI.Input;
 using GalaSoft.MvvmLight;
 using Ninject;
+using OpenHab.Wpf.CrossCutting.Context;
 using OpenHab.Wpf.CrossCutting.Module;
+using OpenHab.Wpf.ViewModel.Enums;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Models;
 
@@ -27,6 +29,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private string _id;
 
         private readonly Condition _condition;
+        private object _conditionSource;
+        private bool _isTool;
 
         #endregion
 
@@ -185,6 +189,26 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
+        public object ConditionSource
+        {
+            get => _conditionSource;
+            set
+            {
+                _conditionSource = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool IsTool
+        {
+            get => _isTool;
+            set
+            {
+                _isTool = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -209,6 +233,64 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         #endregion
 
         #region Private Methods
+
+        private void InitializeConditionSource(Condition condition)
+        {
+            switch (condition.Type)
+            {
+                case "core.GenericEventCondition":
+                    break;
+                case "script.ScriptCondition":
+                    break;
+                case "timer.DayOfWeekCondition":
+                    break;
+                case "jsr223.ScriptedCondition":
+                    break;
+                case "core.ItemStateCondition":
+                    InitializeConditionSourceFromItemCondition(condition);
+                    break;
+                case "core.GenericCompareCondition":
+                    break;
+            }
+        }
+
+        private void InitializeConditionSourceFromItemCondition(Condition condition)
+        {
+            dynamic configuration = condition.Configuration;
+            string itemName = configuration.itemName;
+            string itemState = configuration.state;
+            if (itemName == null) return;
+            var item = NinjectKernel.StandardKernel.Get<RestContext>().Client
+                .ItemService.GetItem(itemName);
+            var itemViewModel = new ItemViewModel(item, Synchronize.Disabled) { State = itemState };
+            InitializeConditionSource(itemViewModel);
+        }
+
+        private void InitializeConditionSource(ItemViewModel itemViewModel)
+        {
+            var proxy = itemViewModel;
+            if (itemViewModel.Direction != Synchronize.Disabled)
+            { // is item from thing
+                proxy = itemViewModel.GetProxy(Synchronize.Disabled);
+            }
+
+            ConditionSource = proxy;
+            proxy.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName != nameof(ItemViewModel.State)) return;
+                var source = (ItemViewModel)sender;
+                Configuration = new
+                {
+                    itemName = source.Name,
+                    command = source.State
+                };
+
+                Label = string.Format(Properties.Resources.ItemStateConditionDefaultLabel, source.Name, source.State);
+                Description = string.Format(Properties.Resources.ItemStateConditionDefaultDescription, source.Name, source.State);
+
+                NinjectKernel.StandardKernel.Get<RulesViewModel>().CurrentRule.UnsavedChanges = true;
+            };
+        }
 
         private async void LoadModuleTypeInformationAsync()
         {

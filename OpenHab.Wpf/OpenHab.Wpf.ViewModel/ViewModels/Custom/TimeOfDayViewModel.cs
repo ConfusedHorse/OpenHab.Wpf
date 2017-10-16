@@ -1,4 +1,6 @@
 ﻿using System;
+using Ninject;
+using OpenHab.Wpf.CrossCutting.Module;
 using OpenHAB.NetRestApi.Models;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
@@ -15,21 +17,27 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
         private int _hours;
         private TimeSpan _time;
 
+        private readonly bool _isLoaded;
+
         #endregion
         
         public TimeOfDayViewModel()
         {
             Type = "timer.TimeOfDayTrigger";
+
             RefreshInternals();
+            _isLoaded = true;
         }
 
         public TimeOfDayViewModel(Trigger trigger) : base(trigger)
         {
             Type = "timer.TimeOfDayTrigger";
+
             GenerateTimeOfDayFromTrigger(trigger);
+            _isLoaded = true;
         }
 
-        public static TimeOfDayViewModel Default => new TimeOfDayViewModel();
+        public static TimeOfDayViewModel Default => new TimeOfDayViewModel {IsTool = true};
 
         #region Properties
 
@@ -71,7 +79,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             get => _time;
             set
             {
+                if (_time == value) return;
                 _time = value;
+                if (!_isLoaded) return;
                 Hours = _time.Hours;
                 Minutes = _time.Minutes;
                 Seconds = _time.Seconds;
@@ -96,7 +106,14 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
         {
             Label = string.Format(Properties.Resources.TimeOfDayLabel, Time);
             Description = string.Format(Properties.Resources.TimeOfDayDescription, Time);
-            Configuration = new { time = Time.ToString() };
+            Configuration = new {time = Time.ToString()};
+
+            if(!IsTool && _isLoaded)
+            {
+                var ruleViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>().CurrentRule;
+                if (ruleViewModel != null)
+                    ruleViewModel.UnsavedChanges = true;
+            }
         }
 
         private void GenerateTimeOfDayFromTrigger(Trigger trigger)

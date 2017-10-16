@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ninject;
+using OpenHab.Wpf.CrossCutting.Module;
 using OpenHAB.NetRestApi.Models;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
@@ -19,6 +21,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
         private bool _wednesday;
         private bool _tuesday;
 
+        private readonly bool _isLoaded;
+
         #endregion
 
         public DayOfWeekViewModel()
@@ -26,15 +30,18 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             Type = "timer.DayOfWeekCondition";
 
             RefreshInternals();
+            _isLoaded = true;
         }
 
         public DayOfWeekViewModel(Condition condition) : base(condition)
         {
             Type = "timer.DayOfWeekCondition";
+
             GenerateTimeOfDayFromCondition(condition);
+            _isLoaded = true;
         }
 
-        public static DayOfWeekViewModel Default => new DayOfWeekViewModel();
+        public static DayOfWeekViewModel Default => new DayOfWeekViewModel {IsTool = true};
 
         #region Properties
 
@@ -155,7 +162,14 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
         {
             Label = string.Format(Properties.Resources.DaysOfWeekLabel, Days.Count);
             Description = $"{Properties.Resources.DaysOfWeekDescription}{string.Join(", ", Days)}";
-            Configuration = new { days = Days.ToArray() };
+            Configuration = new {days = Days.ToArray()};
+
+            if (!IsTool && _isLoaded)
+            {
+                var ruleViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>().CurrentRule;
+                if (ruleViewModel != null)
+                    ruleViewModel.UnsavedChanges = true;
+            }
         }
 
         private void GenerateTimeOfDayFromCondition(Condition condition)

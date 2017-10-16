@@ -30,6 +30,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         private readonly Trigger _trigger;
         private object _triggerSource;
+        private bool _isTool;
 
         #endregion
 
@@ -199,6 +200,16 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
+        public bool IsTool
+        {
+            get => _isTool;
+            set
+            {
+                _isTool = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -254,10 +265,11 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         {
             dynamic configuration = trigger.Configuration;
             string itemName = configuration.itemName;
+            string itemState = configuration.state;
             if (itemName == null) return;
             var item = NinjectKernel.StandardKernel.Get<RestContext>().Client
                 .ItemService.GetItem(itemName);
-            var itemViewModel = new ItemViewModel(item, Synchronize.Disabled);
+            var itemViewModel = new ItemViewModel(item, Synchronize.Disabled) { State = itemState };
             InitializeTriggerSource(itemViewModel);
         }
 
@@ -271,8 +283,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
             TriggerSource = proxy;
             proxy.PropertyChanged += (sender, args) =>
-            {
-                
+            { // TODO this is not generic (implement discinct handlers)
+                NinjectKernel.StandardKernel.Get<RulesViewModel>().CurrentRule.UnsavedChanges = true;
             };
         }
 
