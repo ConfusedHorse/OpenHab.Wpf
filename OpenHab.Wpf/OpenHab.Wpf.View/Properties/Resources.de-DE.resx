@@ -354,4 +354,10 @@
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
+  <data name="IsNotSelected" xml:space="preserve">
+    <value>ist nicht ausgewählt</value>
+  </data>
+  <data name="IsSelected" xml:space="preserve">
+    <value>ist ausgewählt</value>
+  </data>
 </root>

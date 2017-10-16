@@ -122,19 +122,201 @@
                         <StackPanel Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                                     Orientation="Horizontal">
                             <ToggleButton Content="{x:Static p:Resources.Monday}"
-                                          IsChecked="{Binding Monday, Mode=TwoWay}" />
+                                          IsChecked="{Binding Monday, Mode=TwoWay}">
+                                <ToggleButton.Style>
+                                    <Style TargetType="{x:Type ToggleButton}"
+                                           BasedOn="{StaticResource {x:Type ToggleButton}}">
+                                        <Setter Property="ToolTip">
+                                            <Setter.Value>
+                                                <TextBlock>
+                                                    <Run Text="{x:Static p:Resources.Monday}" />
+                                                    <Run Text="{x:Static p:Resources.IsNotSelected}" />
+                                                </TextBlock>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Monday}" Value="True">
+                                                <Setter Property="ToolTip">
+                                                    <Setter.Value>
+                                                        <TextBlock>
+                                                            <Run Text="{x:Static p:Resources.Monday}" />
+                                                            <Run Text="{x:Static p:Resources.IsSelected}" />
+                                                        </TextBlock>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ToggleButton.Style>
+                            </ToggleButton>
                             <ToggleButton Content="{x:Static p:Resources.Tuesday}"
-                                          IsChecked="{Binding Tuesday, Mode=TwoWay}" />
+                                          IsChecked="{Binding Tuesday, Mode=TwoWay}">
+                                <ToggleButton.Style>
+                                    <Style TargetType="{x:Type ToggleButton}"
+                                           BasedOn="{StaticResource {x:Type ToggleButton}}">
+                                        <Setter Property="ToolTip">
+                                            <Setter.Value>
+                                                <TextBlock>
+                                                    <Run Text="{x:Static p:Resources.Tuesday}" />
+                                                    <Run Text="{x:Static p:Resources.IsNotSelected}" />
+                                                </TextBlock>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Tuesday}" Value="True">
+                                                <Setter Property="ToolTip">
+                                                    <Setter.Value>
+                                                        <TextBlock>
+                                                            <Run Text="{x:Static p:Resources.Tuesday}" />
+                                                            <Run Text="{x:Static p:Resources.IsSelected}" />
+                                                        </TextBlock>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ToggleButton.Style>
+                            </ToggleButton>
                             <ToggleButton Content="{x:Static p:Resources.Wednesday}"
-                                          IsChecked="{Binding Wednesday, Mode=TwoWay}" />
+                                          IsChecked="{Binding Wednesday, Mode=TwoWay}">
+                                <ToggleButton.Style>
+                                    <Style TargetType="{x:Type ToggleButton}"
+                                           BasedOn="{StaticResource {x:Type ToggleButton}}">
+                                        <Setter Property="ToolTip">
+                                            <Setter.Value>
+                                                <TextBlock>
+                                                    <Run Text="{x:Static p:Resources.Wednesday}" />
+                                                    <Run Text="{x:Static p:Resources.IsNotSelected}" />
+                                                </TextBlock>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Wednesday}" Value="True">
+                                                <Setter Property="ToolTip">
+                                                    <Setter.Value>
+                                                        <TextBlock>
+                                                            <Run Text="{x:Static p:Resources.Wednesday}" />
+                                                            <Run Text="{x:Static p:Resources.IsSelected}" />
+                                                        </TextBlock>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ToggleButton.Style>
+                            </ToggleButton>
                             <ToggleButton Content="{x:Static p:Resources.Thursday}"
-                                          IsChecked="{Binding Thursday, Mode=TwoWay}" />
+                                          IsChecked="{Binding Thursday, Mode=TwoWay}">
+                                <ToggleButton.Style>
+                                    <Style TargetType="{x:Type ToggleButton}"
+                                           BasedOn="{StaticResource {x:Type ToggleButton}}">
+                                        <Setter Property="ToolTip">
+                                            <Setter.Value>
+                                                <TextBlock>
+                                                    <Run Text="{x:Static p:Resources.Thursday}" />
+                                                    <Run Text="{x:Static p:Resources.IsNotSelected}" />
+                                                </TextBlock>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Thursday}" Value="True">
+                                                <Setter Property="ToolTip">
+                                                    <Setter.Value>
+                                                        <TextBlock>
+                                                            <Run Text="{x:Static p:Resources.Thursday}" />
+                                                            <Run Text="{x:Static p:Resources.IsSelected}" />
+                                                        </TextBlock>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ToggleButton.Style>
+                            </ToggleButton>
                             <ToggleButton Content="{x:Static p:Resources.Friday}"
-                                          IsChecked="{Binding Friday, Mode=TwoWay}" />
+                                          IsChecked="{Binding Friday, Mode=TwoWay}">
+                                <ToggleButton.Style>
+                                    <Style TargetType="{x:Type ToggleButton}"
+                                           BasedOn="{StaticResource {x:Type ToggleButton}}">
+                                        <Setter Property="ToolTip">
+                                            <Setter.Value>
+                                                <TextBlock>
+                                                    <Run Text="{x:Static p:Resources.Friday}" />
+                                                    <Run Text="{x:Static p:Resources.IsNotSelected}" />
+                                                </TextBlock>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Friday}" Value="True">
+                                                <Setter Property="ToolTip">
+                                                    <Setter.Value>
+                                                        <TextBlock>
+                                                            <Run Text="{x:Static p:Resources.Friday}" />
+                                                            <Run Text="{x:Static p:Resources.IsSelected}" />
+                                                        </TextBlock>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ToggleButton.Style>
+                            </ToggleButton>
                             <ToggleButton Content="{x:Static p:Resources.Saturday}"
-                                          IsChecked="{Binding Saturday, Mode=TwoWay}" />
+                                          IsChecked="{Binding Saturday, Mode=TwoWay}">
+                                <ToggleButton.Style>
+                                    <Style TargetType="{x:Type ToggleButton}"
+                                           BasedOn="{StaticResource {x:Type ToggleButton}}">
+                                        <Setter Property="ToolTip">
+                                            <Setter.Value>
+                                                <TextBlock>
+                                                    <Run Text="{x:Static p:Resources.Saturday}" />
+                                                    <Run Text="{x:Static p:Resources.IsNotSelected}" />
+                                                </TextBlock>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Saturday}" Value="True">
+                                                <Setter Property="ToolTip">
+                                                    <Setter.Value>
+                                                        <TextBlock>
+                                                            <Run Text="{x:Static p:Resources.Saturday}" />
+                                                            <Run Text="{x:Static p:Resources.IsSelected}" />
+                                                        </TextBlock>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ToggleButton.Style>
+                            </ToggleButton>
                             <ToggleButton Content="{x:Static p:Resources.Sunday}"
-                                          IsChecked="{Binding Sunday, Mode=TwoWay}" />
+                                          IsChecked="{Binding Sunday, Mode=TwoWay}">
+                                <ToggleButton.Style>
+                                    <Style TargetType="{x:Type ToggleButton}"
+                                           BasedOn="{StaticResource {x:Type ToggleButton}}">
+                                        <Setter Property="ToolTip">
+                                            <Setter.Value>
+                                                <TextBlock>
+                                                    <Run Text="{x:Static p:Resources.Sunday}" />
+                                                    <Run Text="{x:Static p:Resources.IsNotSelected}" />
+                                                </TextBlock>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Sunday}" Value="True">
+                                                <Setter Property="ToolTip">
+                                                    <Setter.Value>
+                                                        <TextBlock>
+                                                            <Run Text="{x:Static p:Resources.Sunday}" />
+                                                            <Run Text="{x:Static p:Resources.IsSelected}" />
+                                                        </TextBlock>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ToggleButton.Style>
+                            </ToggleButton>
                         </StackPanel>
                     </Grid>
                 </Grid>

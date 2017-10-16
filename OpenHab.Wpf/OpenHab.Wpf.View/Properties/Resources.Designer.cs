@@ -385,6 +385,24 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die is not selected ähnelt.
+        /// </summary>
+        public static string IsNotSelected {
+            get {
+                return ResourceManager.GetString("IsNotSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die is selected ähnelt.
+        /// </summary>
+        public static string IsSelected {
+            get {
+                return ResourceManager.GetString("IsSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Items ähnelt.
         /// </summary>
         public static string Items {
