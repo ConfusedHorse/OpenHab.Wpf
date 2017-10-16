@@ -14,10 +14,20 @@ namespace OpenHab.Wpf.View.Controls
     /// </summary>
     public partial class RulesControl : UserControl
     {
+        public static readonly DependencyProperty EditableProperty = 
+            DependencyProperty.Register("Editable", typeof(bool), typeof(RulesControl), 
+                new PropertyMetadata(default(bool)));
+
         public RulesControl()
         {
             InitializeComponent();
             ((INotifyCollectionChanged)Rules.Items).CollectionChanged += RulesChanged;
+        }
+
+        public bool Editable
+        {
+            get => (bool) GetValue(EditableProperty);
+            set => SetValue(EditableProperty, value);
         }
 
         private void RulesChanged(object sender, NotifyCollectionChangedEventArgs e)

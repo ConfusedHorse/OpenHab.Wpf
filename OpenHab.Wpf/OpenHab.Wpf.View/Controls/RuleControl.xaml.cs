@@ -11,9 +11,19 @@ namespace OpenHab.Wpf.View.Controls
     /// </summary>
     public partial class RuleControl : UserControl
     {
+        public static readonly DependencyProperty EditableProperty =
+            DependencyProperty.Register("Editable", typeof(bool), typeof(RuleControl),
+                new PropertyMetadata(default(bool)));
+
         public RuleControl()
         {
             InitializeComponent();
+        }
+
+        public bool Editable
+        {
+            get => (bool)GetValue(EditableProperty);
+            set => SetValue(EditableProperty, value);
         }
 
         private void RuleToggleSwitch_OnChecked(object sender, RoutedEventArgs e)

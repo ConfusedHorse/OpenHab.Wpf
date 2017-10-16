@@ -34,7 +34,10 @@
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type viewModels:RuleViewModel}">
                     <Grid>
-                        <controls:RuleControl DataContext="{Binding}"/>
+                        <controls:RuleControl DataContext="{Binding}"
+                                              Editable="{Binding Path=Editable, 
+                                                                 RelativeSource={RelativeSource FindAncestor, 
+                                                                                                AncestorType={x:Type controls:RulesControl}}}"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -45,6 +48,19 @@
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     <Setter Property="Background" Value="{StaticResource AccentLevel5Brush}"/>
                     <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
+                    <Style.Triggers> <!--Collapse RuleDummy when Editable="False"-->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=Editable, 
+                                                             RelativeSource={RelativeSource FindAncestor, 
+                                                             AncestorType={x:Type controls:RulesControl}}}"
+                                           Value="False" />
+                                <Condition Binding="{Binding Path=IsRuleDummy}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Setter Property="Focusable" Value="False"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>

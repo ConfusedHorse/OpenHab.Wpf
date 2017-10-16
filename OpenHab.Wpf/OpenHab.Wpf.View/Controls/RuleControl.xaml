@@ -8,6 +8,7 @@
              xmlns:extra="http://schemas.extra.com/ui"
              xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
              xmlns:metro="http://schemas.codeplex.com/elysium"
+             xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance Type={x:Type viewModels:RuleViewModel}, 
@@ -92,7 +93,11 @@
                         </Grid>
 
                         <Grid Column="2"
-                              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
+                              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                              Visibility="{Binding Path=Editable, 
+                                                   RelativeSource={RelativeSource FindAncestor, 
+                                                                                  AncestorType={x:Type controls:RuleControl}}, 
+                                                   Converter={StaticResource BooleanToVisibilityConverter}}">
                             <metro:CommandButton Command="{Binding DeleteRuleCommand}">
                                 <extra:Icon VerticalAlignment="Top"
                                             Style="{StaticResource BookDeleteIconStyle}"

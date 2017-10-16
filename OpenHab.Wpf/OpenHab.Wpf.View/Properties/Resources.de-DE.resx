@@ -366,4 +366,7 @@
   <data name="RunAction" xml:space="preserve">
     <value>Diese Aktion ausführen</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
 </root>

@@ -127,8 +127,8 @@
                 <TabItem Header="{x:Static p:Resources.Rules}">
                     <controls:RuleDesignerControl/>
                 </TabItem>
-                <TabItem Header="{x:Static p:Resources.Things}">
-                    <controls:ThingsControl Orientation="Horizontal"/>
+                <TabItem Header="{x:Static p:Resources.Dashboard}">
+                    <controls:DashboardControl/>
                 </TabItem>
             </TabControl>
         </Grid>
