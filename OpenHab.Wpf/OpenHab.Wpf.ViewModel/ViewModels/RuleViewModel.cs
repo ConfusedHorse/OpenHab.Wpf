@@ -400,6 +400,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                     return true;
                 case DayOfWeekViewModel _:
                     return true;
+                case TimePeriodViewModel _:
+                    return true;
                 //TODO add other operations here
             }
             return false;
@@ -484,6 +486,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 case DayOfWeekViewModel dow:
                     AddConditionFromCondition(dow);
                     break;
+                case TimePeriodViewModel tp:
+                    AddConditionFromCondition(tp);
+                    break;
                 //TODO add other ModuleTypes here
             }
         }
@@ -549,6 +554,15 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             var currentRule = rulesViewModel.CurrentRule;
             currentRule.UnsavedChanges = true;
             DispatcherHelper.RunAsync(() => currentRule.Conditions.Add(dayOfWeekCondition));
+        }
+
+        private static void AddConditionFromCondition(TimePeriodViewModel timePeriodViewModel)
+        {
+            var timePeriodCondition = timePeriodViewModel.ToConditionViewModel();
+            var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
+            var currentRule = rulesViewModel.CurrentRule;
+            currentRule.UnsavedChanges = true;
+            DispatcherHelper.RunAsync(() => currentRule.Conditions.Add(timePeriodCondition));
         }
 
         private static void AddTriggersAndConditionsFromTimer(TimeCombinedViewModel timeViewModel)

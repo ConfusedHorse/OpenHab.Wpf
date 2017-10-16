@@ -304,11 +304,11 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die To ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die to ähnelt.
         /// </summary>
-        public static string End {
+        public static string EndRange {
             get {
-                return ResourceManager.GetString("End", resourceCulture);
+                return ResourceManager.GetString("EndRange", resourceCulture);
             }
         }
         

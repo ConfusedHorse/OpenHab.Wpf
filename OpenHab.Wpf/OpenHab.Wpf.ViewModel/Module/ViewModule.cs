@@ -12,7 +12,7 @@ namespace OpenHab.Wpf.ViewModel.Module
             Bind<ThingsViewModel>().ToSelf().InSingletonScope();
             Bind<RulesViewModel>().ToSelf().InSingletonScope();
             Bind<TriggersViewModel>().ToSelf().InSingletonScope();
-            //Bind<ConditionsViewModel>().ToSelf().InSingletonScope();
+            Bind<ConditionsViewModel>().ToSelf().InSingletonScope();
             //Bind<ActionsViewModel>().ToSelf().InSingletonScope();
 
             Bind<ThingViewModel>().ToSelf();

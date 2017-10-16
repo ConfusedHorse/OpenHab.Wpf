@@ -126,6 +126,11 @@ namespace OpenHab.Wpf.ViewModel.Helper
             return dayOfWeekViewModel.GenerateCondition();
         }
 
+        public static ConditionViewModel ToConditionViewModel(this TimePeriodViewModel timePeriodViewModel)
+        {
+            return timePeriodViewModel.GenerateCondition();
+        }
+
         public static ConditionViewModel[] ToConditionViewModels(this TimeCombinedViewModel timeViewModel)
         {
             return timeViewModel.GenerateConditions();

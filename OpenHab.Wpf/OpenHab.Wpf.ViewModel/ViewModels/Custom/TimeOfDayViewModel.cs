@@ -135,7 +135,6 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
                 Hours = _hours,
                 Minutes = _minutes,
                 Seconds = _seconds,
-
                 Time = new TimeSpan(0, _hours, _minutes, _seconds),
 
                 Type = "timer.TimeOfDayTrigger",

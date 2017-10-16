@@ -109,7 +109,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             //TODO add all custom ModuleTypes here
             var conditions = new ObservableCollection<ConditionViewModel>
             {
-                DayOfWeekViewModel.Default
+                DayOfWeekViewModel.Default,
+                TimePeriodViewModel.Default
             };
 
             Conditions = conditions;

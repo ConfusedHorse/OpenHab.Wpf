@@ -279,8 +279,8 @@
   <data name="ValidateHourMinSec" xml:space="preserve">
     <value>Please enter a value between {0} and {1}</value>
   </data>
-  <data name="End" xml:space="preserve">
-    <value>To</value>
+  <data name="EndRange" xml:space="preserve">
+    <value>to</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>At</value>
