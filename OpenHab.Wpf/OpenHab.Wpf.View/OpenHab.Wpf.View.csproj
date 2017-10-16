@@ -177,6 +177,7 @@
     <Compile Include="Resources\Helpers\ElysiumDragFix\DragManager.cs" />
     <Compile Include="Resources\Helpers\ElysiumDragFix\DragViewer.cs" />
     <Compile Include="Resources\Helpers\ElysiumDragFix\MouseHelper.cs" />
+    <Compile Include="Resources\Helpers\Extensions\HorizontalScrollBehaviour.cs" />
     <Compile Include="Resources\Helpers\Validation\MinSecValidationRule.cs" />
     <Compile Include="Resources\Helpers\Validation\HourValidationRule.cs" />
     <Compile Include="Resources\Helpers\Validation\DoubleValueValidationRule.cs" />

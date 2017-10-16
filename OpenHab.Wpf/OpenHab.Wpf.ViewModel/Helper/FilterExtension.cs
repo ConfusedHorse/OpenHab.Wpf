@@ -62,12 +62,6 @@ namespace OpenHab.Wpf.ViewModel.Helper
                 $"{r.Uid}{r.Name}{r.Description}{actionsBrowseValue}{triggersBrowseValue}{conditionsBrowseValue}{tagsBrowseValue}";
         }
 
-        private static string CreateBrowseValue(ActionViewModel a)
-        {
-            var tagsBrowseValue = a.Tags != null ? string.Join(string.Empty, a.Tags) : string.Empty;
-            return $"{a.Label}{a.Label}{a.Type}{a.Uid}{a.Description}{tagsBrowseValue}";
-        }
-
         private static string CreateBrowseValue(TriggerViewModel t)
         {
             var tagsBrowseValue = t.Tags != null ? string.Join(string.Empty, t.Tags) : string.Empty;
@@ -80,6 +74,12 @@ namespace OpenHab.Wpf.ViewModel.Helper
             return $"{c.Label}{c.Label}{c.Type}{c.Uid}{c.Description}{tagsBrowseValue}";
         }
 
+        private static string CreateBrowseValue(ActionViewModel a)
+        {
+            var tagsBrowseValue = a.Tags != null ? string.Join(string.Empty, a.Tags) : string.Empty;
+            return $"{a.Label}{a.Label}{a.Type}{a.Uid}{a.Description}{tagsBrowseValue}";
+        }
+
         public static ObservableCollection<TriggerViewModel> FilterBy(this ObservableCollection<TriggerViewModel> self,
             string filterCsv)
         {
@@ -88,6 +88,26 @@ namespace OpenHab.Wpf.ViewModel.Helper
                 : self.Where(t => CreateBrowseValue(t).Search(filterCsv));
 
             return new ObservableCollection<TriggerViewModel>(filteredTriggers);
+        }
+
+        public static ObservableCollection<ConditionViewModel> FilterBy(this ObservableCollection<ConditionViewModel> self,
+            string filterCsv)
+        {
+            var filteredTriggers = string.IsNullOrEmpty(filterCsv)
+                ? self
+                : self.Where(c => CreateBrowseValue(c).Search(filterCsv));
+
+            return new ObservableCollection<ConditionViewModel>(filteredTriggers);
+        }
+
+        public static ObservableCollection<ActionViewModel> FilterBy(this ObservableCollection<ActionViewModel> self,
+            string filterCsv)
+        {
+            var filteredTriggers = string.IsNullOrEmpty(filterCsv)
+                ? self
+                : self.Where(a => CreateBrowseValue(a).Search(filterCsv));
+
+            return new ObservableCollection<ActionViewModel>(filteredTriggers);
         }
     }
 }

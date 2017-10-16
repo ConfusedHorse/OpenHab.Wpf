@@ -360,4 +360,7 @@
   <data name="IsSelected" xml:space="preserve">
     <value>is selected</value>
   </data>
+  <data name="TriggersAndTools" xml:space="preserve">
+    <value>Triggers &amp; Tools</value>
+  </data>
 </root>

@@ -4,13 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:module="clr-namespace:OpenHab.Wpf.View.Module"
-             xmlns:p="clr-namespace:OpenHab.Wpf.View.Properties"
              xmlns:viewModels="clr-namespace:OpenHab.Wpf.ViewModel.ViewModels;assembly=OpenHab.Wpf.ViewModel"
              xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
              xmlns:params="http://schemas.codeplex.com/elysium/params"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:extensions="clr-namespace:OpenHab.Wpf.View.Resources.Helpers.Extensions"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
-         <!--DataContext="{Binding Source={x:Static module:ViewModelLocator.ConditionsViewModel}}"-->
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding Source={x:Static module:ViewModelLocator.ConditionsViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,25 +19,28 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Background="{StaticResource AccentLevel5Brush}">
-        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+    <Grid>
+        <ScrollViewer Background="{StaticResource AccentLevel5Brush}"
+                      HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Disabled">
-            <!--<ItemsControl x:Name="Conditions"
-                              Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"
-                              ItemsSource="{Binding ConditionsViewModel.FilteredConditions, Source={x:Static module:ViewModelLocator.Instance}}">
-                <i:Interaction.Behaviors>
+            <i:Interaction.Behaviors>
+                <extensions:HorizontalScrollBehavior />
+            </i:Interaction.Behaviors>
+            <ItemsControl x:Name="Conditions"
+                          ItemsSource="{Binding FilteredConditions}">
+                <!--<i:Interaction.Behaviors>
                     <extra:AnimatingItemsControlBehavior x:Name="ConditionBehavior"/>
-                </i:Interaction.Behaviors>
+                </i:Interaction.Behaviors>-->
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModels:ConditionViewModel}">
                         <controls:ConditionControl DataContext="{Binding}"
                                                    AllowDragOperations="{Binding Path=AllowDragOperations, 
-                                                                                   RelativeSource={RelativeSource FindAncestor, 
-                                                                                                               AncestorType={x:Type controls:ConditionsControl}}}"
+                                                                                 RelativeSource={RelativeSource FindAncestor, 
+                                                                                                                AncestorType={x:Type controls:ConditionsControl}}}"
                                                    AllowDeleteOperations="{Binding Path=AllowDeleteOperations, 
                                                                                    RelativeSource={RelativeSource FindAncestor, 
-                                                                                                                   AncestorType={x:Type controls:ConditionsControl}}}"
+                                                                                                                  AncestorType={x:Type controls:ConditionsControl}}}"
                                                    Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -46,7 +50,7 @@
                         <WrapPanel/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-            </ItemsControl>-->
+            </ItemsControl>
         </ScrollViewer>
     </Grid>
 </UserControl>

@@ -8,6 +8,8 @@
              xmlns:params="http://schemas.codeplex.com/elysium/params"
              xmlns:extra="http://schemas.extra.com/ui"
              xmlns:metro="http://schemas.codeplex.com/elysium"
+             xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
+             xmlns:elysiumDragFix="clr-namespace:OpenHab.Wpf.View.Resources.Helpers.ElysiumDragFix"
              MinHeight="20" MinWidth="250"
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="200"
@@ -84,22 +86,63 @@
             </ContentControl.Style>
         </ContentControl>
 
-        <Grid x:Name="ActionDeleteGrid"
-              Grid.Column="1">
-            <metro:CommandButton VerticalAlignment="Top"
-                                 Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                                 Command="{Binding DeleteActionCommand}">
-                <extra:Icon Style="{StaticResource Delete1IconStyle}"
-                            Size="Medium">
-                    <extra:Icon.ToolTip>
-                        <Grid>
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Text="{x:Static p:Resources.DeleteAction}"/>
-                            </StackPanel>
-                        </Grid>
-                    </extra:Icon.ToolTip>
-                </extra:Icon>
-            </metro:CommandButton>
+        <Grid x:Name="ActionOptionsGrid"
+              Column="1">
+            <StackPanel Orientation="Vertical">
+                <Grid x:Name="ActionDragGrid"
+                      Visibility="{Binding Path=AllowDragOperations, 
+                                           RelativeSource={RelativeSource FindAncestor, 
+                                                                          AncestorType={x:Type controls:ActionControl}}, 
+                                           Converter={StaticResource BooleanToVisibilityConverter}}"
+                      elysiumDragFix:DragManager.Data="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}}"
+                      elysiumDragFix:DragManager.Effects="Copy"
+                      elysiumDragFix:DragManager.Format="RuleComponent"
+                      elysiumDragFix:DragManager.IsEnabled="True">
+                    <elysiumDragFix:DragManager.ContentTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:ActionViewModel}">
+                            <Border Style="{StaticResource DragBorderStyle}">
+                                <controls:TriggerControl DataContext="{Binding}"/>
+                            </Border>
+                        </DataTemplate>
+                    </elysiumDragFix:DragManager.ContentTemplate>
+
+                    <Grid x:Name="DragGridVisual">
+                        <extra:Icon VerticalAlignment="Top"
+                                    Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                    Style="{StaticResource TouchIconStyle}"
+                                    Size="Large">
+                            <extra:Icon.ToolTip>
+                                <Grid>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{x:Static p:Resources.DragItemToAddAsAction}" />
+                                    </StackPanel>
+                                </Grid>
+                            </extra:Icon.ToolTip>
+                        </extra:Icon>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="TriggerDeleteGrid"
+                      Visibility="{Binding Path=AllowDeleteOperations, 
+                                           RelativeSource={RelativeSource FindAncestor, 
+                                                                          AncestorType={x:Type controls:ActionControl}}, 
+                                   Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <metro:CommandButton VerticalAlignment="Top"
+                                         Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
+                                         Command="{Binding DeleteActionCommand}">
+                        <extra:Icon Style="{StaticResource Delete1IconStyle}"
+                                    Size="Medium">
+                            <extra:Icon.ToolTip>
+                                <Grid>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{x:Static p:Resources.DeleteAction}" />
+                                    </StackPanel>
+                                </Grid>
+                            </extra:Icon.ToolTip>
+                        </extra:Icon>
+                    </metro:CommandButton>
+                </Grid>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

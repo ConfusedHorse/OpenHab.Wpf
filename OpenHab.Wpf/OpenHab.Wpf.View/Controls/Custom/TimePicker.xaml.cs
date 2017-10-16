@@ -88,18 +88,21 @@ namespace OpenHab.Wpf.View.Controls.Custom
             control.Value = new TimeSpan(control.Hours, control.Minutes, control.Seconds);
         }
 
-        private void Hours_OnMouseWheel(object sender, MouseWheelEventArgs e)
+        private void Hours_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
+            e.Handled = true;
             IncreaseHours(e.Delta > 0);
         }
 
-        private void Minutes_OnMouseWheel(object sender, MouseWheelEventArgs e)
+        private void Minutes_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
+            e.Handled = true;
             IncreaseMinutes(e.Delta > 0);
         }
 
-        private void Seconds_OnMouseWheel(object sender, MouseWheelEventArgs e)
+        private void Seconds_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
+            e.Handled = true;
             IncreaseSeconds(e.Delta > 0);
         }
 

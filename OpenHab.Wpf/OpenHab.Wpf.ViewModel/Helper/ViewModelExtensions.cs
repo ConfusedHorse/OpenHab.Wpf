@@ -101,11 +101,6 @@ namespace OpenHab.Wpf.ViewModel.Helper
             return new ObservableCollection<ConfigDescriptionViewModel>(configDescriptions.Select(cd => cd?.ToViewModel()));
         }
 
-        public static ActionViewModel ToViewModel(this Action action)
-        {
-            return new ActionViewModel(action);
-        }
-
         public static TriggerViewModel ToTriggerViewModel(this ItemViewModel itemViewModel)
         {
             return new TriggerViewModel(itemViewModel);
@@ -126,6 +121,11 @@ namespace OpenHab.Wpf.ViewModel.Helper
             return new ConditionViewModel(itemViewModel);
         }
 
+        public static ConditionViewModel ToConditionViewModel(this DayOfWeekViewModel dayOfWeekViewModel)
+        {
+            return dayOfWeekViewModel.GenerateCondition();
+        }
+
         public static ConditionViewModel[] ToConditionViewModels(this TimeCombinedViewModel timeViewModel)
         {
             return timeViewModel.GenerateConditions();
@@ -136,22 +136,18 @@ namespace OpenHab.Wpf.ViewModel.Helper
             return new ActionViewModel(itemViewModel);
         }
 
-        public static ObservableCollection<ActionViewModel> ToViewModels(this IEnumerable<Action> actions)
-        {
-            return new ObservableCollection<ActionViewModel>(actions.Select(a => a?.ToViewModel()));
-        }
-
         public static TriggerViewModel ToViewModel(this Trigger trigger)
-        {switch (trigger.Type)
+        {
+            switch (trigger.Type)
             {
                 case "timer.TimeOfDayTrigger": return new TimeOfDayViewModel(trigger);
-                case "jsr223.ScriptedTrigger": return new TriggerViewModel(trigger);
-                case "timer.GenericCronTrigger": return new TriggerViewModel(trigger);
+                //case "jsr223.ScriptedTrigger": return new TriggerViewModel(trigger);
+                //case "timer.GenericCronTrigger": return new TriggerViewModel(trigger);
                 case "core.ItemCommandTrigger": return new TriggerViewModel(trigger); //handled by TriggerViewModel.TriggerSource
-                case "core.GenericEventTrigger": return new TriggerViewModel(trigger);
+                //case "core.GenericEventTrigger": return new TriggerViewModel(trigger);
                 case "core.ItemStateUpdateTrigger": return new TriggerViewModel(trigger); //handled by TriggerViewModel.TriggerSource
                 case "core.ItemStateChangeTrigger": return new TriggerViewModel(trigger); //handled by TriggerViewModel.TriggerSource
-                case "core.ChannelEventTrigger": return new TriggerViewModel(trigger);
+                //case "core.ChannelEventTrigger": return new TriggerViewModel(trigger);
                 default: return new TriggerViewModel(trigger);
             }
         }
@@ -163,12 +159,41 @@ namespace OpenHab.Wpf.ViewModel.Helper
 
         public static ConditionViewModel ToViewModel(this Condition condition)
         {
-            return new ConditionViewModel(condition);
+            switch (condition.Type)
+            {
+                //case "core.GenericEventCondition": return new ConditionViewModel(condition);
+                //case "script.ScriptCondition": return new ConditionViewModel(condition);
+                case "timer.DayOfWeekCondition": return new DayOfWeekViewModel(condition);
+                //case "jsr223.ScriptedCondition": return new ConditionViewModel(condition);
+                //case "core.ItemStateCondition": return new ConditionViewModel(condition);
+                //case "core.GenericCompareCondition": return new ConditionViewModel(condition);
+                default: return new ConditionViewModel(condition);
+            }
         }
 
         public static ObservableCollection<ConditionViewModel> ToViewModels(this IEnumerable<Condition> conditions)
         {
             return new ObservableCollection<ConditionViewModel>(conditions.Select(c => c?.ToViewModel()));
+        }
+
+        public static ActionViewModel ToViewModel(this Action action)
+        {
+            switch (action.Type)
+            {
+                //case "media.PlayAction": return new ActionViewModel(action);
+                //case "core.ItemCommandAction": return new ActionViewModel(action);
+                //case "media.SayAction": return new ActionViewModel(action);
+                //case "jsr223.ScriptedAction": return new ActionViewModel(action);
+                //case "script.ScriptAction": return new ActionViewModel(action);
+                //case "core.RunRuleAction": return new ActionViewModel(action);
+                //case "core.RuleEnablementAction": return new ActionViewModel(action);
+                default: return new ActionViewModel(action);
+            }
+        }
+
+        public static ObservableCollection<ActionViewModel> ToViewModels(this IEnumerable<Action> actions)
+        {
+            return new ObservableCollection<ActionViewModel>(actions.Select(a => a?.ToViewModel()));
         }
 
         public static RuleViewModel ToViewModel(this Rule rule)

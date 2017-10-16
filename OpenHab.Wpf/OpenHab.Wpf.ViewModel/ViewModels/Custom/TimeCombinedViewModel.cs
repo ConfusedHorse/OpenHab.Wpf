@@ -21,6 +21,10 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
         private int _startMinutes;
         private int _startHours;
 
+        private int _endSeconds;
+        private int _endMinutes;
+        private int _endHours;
+
         private TimeDimension _timeDimension = TimeDimension.Day;
         private int _repeatValue = 1;
 
@@ -31,9 +35,6 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
         private bool _thursday;
         private bool _wednesday;
         private bool _tuesday;
-        private int _endSeconds;
-        private int _endMinutes;
-        private int _endHours;
         private bool _range;
 
         #endregion
@@ -43,7 +44,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             switch (trigger.Type ?? trigger.Uid)
             {
                 case "timer.TimeOfDayTrigger":
-                    //interpret days
+                    //interpret time
                     break;
                 case "timer.GenericCronTrigger":
                     //interpret cron
@@ -279,7 +280,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             return null;
         }
 
-        private ConditionViewModel CreateDayOfWeekCondition()
+        private DayOfWeekViewModel CreateDayOfWeekCondition()
         {
             if (Monday && Tuesday && Wednesday && Thursday && Friday && Saturday && Sunday
                 || !Monday && !Tuesday && !Wednesday && !Thursday && !Friday && !Saturday && !Sunday)
@@ -287,27 +288,17 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
                 return null;
             }
 
-            var listOfDays = new List<string>();
-            if (Monday) listOfDays.Add("MON");
-            if (Tuesday) listOfDays.Add("TUE");
-            if (Wednesday) listOfDays.Add("WED");
-            if (Thursday) listOfDays.Add("THU");
-            if (Friday) listOfDays.Add("FRI");
-            if (Saturday) listOfDays.Add("SAT");
-            if (Sunday) listOfDays.Add("SUN");
-
-            var configuration = new
-            {
-                days = listOfDays.ToArray()
-            };
-
-            return new ConditionViewModel
+            return new DayOfWeekViewModel
             {
                 Id = Guid.NewGuid().ToString(),
-                Label = string.Format(Properties.Resources.DaysOfWeekLabel, listOfDays.Count),
-                Description = $"{Properties.Resources.DaysOfWeekDescription}{string.Join(", ", listOfDays)}",
-                Configuration = configuration,
-                Type = "timer.DayOfWeekCondition"
+
+                Monday = _monday,
+                Tuesday = _tuesday,
+                Wednesday = _wednesday,
+                Thursday = _thursday,
+                Friday = _friday,
+                Saturday = _saturday,
+                Sunday = _sunday
             };
         }
 

@@ -425,9 +425,9 @@
             <StackPanel Orientation="Vertical">
                 <Grid x:Name="TriggerDragGrid"
                       Visibility="{Binding Path=AllowDragOperations, 
-                                   RelativeSource={RelativeSource FindAncestor, 
-                                                                  AncestorType={x:Type controls:TriggerControl}}, 
-                                   Converter={StaticResource BooleanToVisibilityConverter}}"
+                                           RelativeSource={RelativeSource FindAncestor, 
+                                                                          AncestorType={x:Type controls:TriggerControl}}, 
+                                           Converter={StaticResource BooleanToVisibilityConverter}}"
                       elysiumDragFix:DragManager.Data="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}}"
                       elysiumDragFix:DragManager.Effects="Copy"
                       elysiumDragFix:DragManager.Format="RuleComponent"

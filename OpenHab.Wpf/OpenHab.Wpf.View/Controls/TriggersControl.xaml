@@ -7,6 +7,8 @@
              xmlns:viewModels="clr-namespace:OpenHab.Wpf.ViewModel.ViewModels;assembly=OpenHab.Wpf.ViewModel"
              xmlns:controls="clr-namespace:OpenHab.Wpf.View.Controls"
              xmlns:params="http://schemas.codeplex.com/elysium/params"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:extensions="clr-namespace:OpenHab.Wpf.View.Resources.Helpers.Extensions"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding Source={x:Static module:ViewModelLocator.TriggersViewModel}}">
@@ -18,10 +20,13 @@
         </ResourceDictionary>
     </UserControl.Resources>
     
-    <Grid Background="{StaticResource AccentLevel5Brush}">
-        <ScrollViewer Background="Transparent" 
+    <Grid>
+        <ScrollViewer Background="{StaticResource AccentLevel5Brush}" 
                       HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Disabled">
+            <i:Interaction.Behaviors>
+                <extensions:HorizontalScrollBehavior />
+            </i:Interaction.Behaviors>
             <ItemsControl x:Name="Triggers"
                           ItemsSource="{Binding FilteredTriggers}">
                 <!--<i:Interaction.Behaviors>

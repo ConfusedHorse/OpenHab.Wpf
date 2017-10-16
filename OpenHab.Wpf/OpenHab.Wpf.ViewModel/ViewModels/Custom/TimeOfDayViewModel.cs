@@ -20,9 +20,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
         {
             Type = "timer.TimeOfDayTrigger";
 
-            Hours = 0;
-            Minutes = 0;
-            Seconds = 0;
+            RefreshInternals();
         }
 
         public TimeOfDayViewModel(Trigger trigger) : base(trigger)
@@ -40,8 +38,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             get => _hours;
             set
             {
-                _hours = value;
-                
+                _hours = value;                
                 RaisePropertyChanged();
                 RefreshInternals();
             }

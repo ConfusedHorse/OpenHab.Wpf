@@ -120,8 +120,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ConditionViewModel.cs" />
+    <Compile Include="ViewModels\Custom\DayOfWeekViewModel.cs" />
     <Compile Include="ViewModels\Custom\TimeOfDayViewModel.cs" />
     <Compile Include="ViewModels\Custom\TimeCombinedViewModel.cs" />
+    <Compile Include="ViewModels\ConditionsViewModel.cs" />
     <Compile Include="ViewModels\TriggersViewModel.cs" />
     <Compile Include="ViewModels\TriggerViewModel.cs" />
     <Compile Include="ViewModels\ConfigDescriptionViewModel.cs" />

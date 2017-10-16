@@ -49,7 +49,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _filterCsv = value;
-                UpdateFilteredThingsAsync();
+                UpdateFilteredTriggersAsync();
                 RaisePropertyChanged();
             }
         }
@@ -84,22 +84,22 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
 
         #region Private Methods
 
-        private void UpdateFilteredThingsAsync()
+        private void UpdateFilteredTriggersAsync()
         {
             DispatcherHelper.RunAsync(() =>
             {
-                var updatedThings = _triggers.FilterBy(_filterCsv);
-                var triggersToBeAdded = updatedThings.Where(ut => !_filteredTriggers.Contains(ut)).ToArray();
-                var triggersToBeRemoved = _filteredTriggers.Where(ft => !updatedThings.Contains(ft)).ToArray();
+                var updatedTriggers = _triggers.FilterBy(_filterCsv);
+                var triggersToBeAdded = updatedTriggers.Where(ut => !_filteredTriggers.Contains(ut)).ToArray();
+                var triggersToBeRemoved = _filteredTriggers.Where(ft => !updatedTriggers.Contains(ft)).ToArray();
 
                 foreach (var triggerViewModel in triggersToBeAdded)
                 {
                     FilteredTriggers.Add(triggerViewModel);
                 }
 
-                foreach (var thingViewModel in triggersToBeRemoved)
+                foreach (var triggerViewModel in triggersToBeRemoved)
                 {
-                    FilteredTriggers.Remove(thingViewModel);
+                    FilteredTriggers.Remove(triggerViewModel);
                 }
             });
         }

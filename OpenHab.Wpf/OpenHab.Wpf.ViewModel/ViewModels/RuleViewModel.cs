@@ -354,8 +354,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             DeleteRuleCommand = new DelegateCommand(DeleteRuleAsync, CanDeleteRule);
             SaveRuleCommand = new DelegateCommand(SaveChangesAsync, CanSaveRule);
             AddTriggerFromDragDataCommand = new DelegateCommand<object>(AddTriggerFromDragData, CanExecuteDropTrigger);
-            AddConditionFromDragDataCommand =
-                new DelegateCommand<object>(AddConditionFromDragData, CanExecuteDropCondition);
+            AddConditionFromDragDataCommand = new DelegateCommand<object>(AddConditionFromDragData, CanExecuteDropCondition);
             AddActionFromDragDataCommand = new DelegateCommand<object>(AddActionFromDragData, CanExecuteDropAction);
         }
 
@@ -398,6 +397,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 case ItemViewModel _:
                     return true;
                 case TimeCombinedViewModel _:
+                    return true;
+                case DayOfWeekViewModel _:
                     return true;
                 //TODO add other operations here
             }
@@ -477,8 +478,11 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 case ItemViewModel i:
                     AddConditionFromItem(i);
                     break;
-                case TimeCombinedViewModel t:
-                    AddTriggersAndConditionsFromTimer(t);
+                case TimeCombinedViewModel tc:
+                    AddTriggersAndConditionsFromTimer(tc);
+                    break;
+                case DayOfWeekViewModel dow:
+                    AddConditionFromCondition(dow);
                     break;
                 //TODO add other ModuleTypes here
             }
@@ -536,6 +540,15 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             var currentRule = rulesViewModel.CurrentRule;
             currentRule.UnsavedChanges = true;
             DispatcherHelper.RunAsync(() => currentRule.Conditions.Add(itemStateCondition));
+        }
+
+        private static void AddConditionFromCondition(DayOfWeekViewModel dayOfWeekViewModel)
+        {
+            var dayOfWeekCondition = dayOfWeekViewModel.ToConditionViewModel();
+            var rulesViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>();
+            var currentRule = rulesViewModel.CurrentRule;
+            currentRule.UnsavedChanges = true;
+            DispatcherHelper.RunAsync(() => currentRule.Conditions.Add(dayOfWeekCondition));
         }
 
         private static void AddTriggersAndConditionsFromTimer(TimeCombinedViewModel timeViewModel)

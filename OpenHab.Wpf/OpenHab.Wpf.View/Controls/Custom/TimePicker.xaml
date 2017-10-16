@@ -25,7 +25,7 @@
                             SelectAllOnGotFocus="True"
                             Watermark="hh"
                             LostFocus="Hours_OnLostFocus"
-                            MouseWheel="Hours_OnMouseWheel"
+                            PreviewMouseWheel="Hours_OnPreviewMouseWheel"
                             HorizontalContentAlignment="Center">
             <extra:DoubleUpDown.Value>
                 <Binding Path="Hours"
@@ -53,7 +53,7 @@
                             SelectAllOnGotFocus="True"
                             Watermark="mm"
                             LostFocus="Minutes_OnLostFocus"
-                            MouseWheel="Minutes_OnMouseWheel"
+                            PreviewMouseWheel="Minutes_OnPreviewMouseWheel"
                             HorizontalContentAlignment="Center">
             <extra:DoubleUpDown.Value>
                 <Binding Path="Minutes"
@@ -81,7 +81,7 @@
                             SelectAllOnGotFocus="True"
                             Watermark="ss"
                             LostFocus="Seconds_OnLostFocus"
-                            MouseWheel="Seconds_OnMouseWheel"
+                            PreviewMouseWheel="Seconds_OnPreviewMouseWheel"
                             HorizontalContentAlignment="Center">
             <extra:DoubleUpDown.Value>
                 <Binding Path="Seconds"

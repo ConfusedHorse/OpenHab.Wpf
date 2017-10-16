@@ -754,6 +754,15 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Triggers &amp; Tools ähnelt.
+        /// </summary>
+        public static string TriggersAndTools {
+            get {
+                return ResourceManager.GetString("TriggersAndTools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Tuesday ähnelt.
         /// </summary>
         public static string Tuesday {

@@ -177,6 +177,8 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type viewModels:ConditionViewModel}">
                                         <controls:ConditionControl DataContext="{Binding}"
+                                                                   AllowDragOperations="False"
+                                                                   AllowDeleteOperations="True"
                                                                    Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}" />
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -216,6 +218,8 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type viewModels:ActionViewModel}">
                                         <controls:ActionControl DataContext="{Binding}"
+                                                                AllowDragOperations="False"
+                                                                AllowDeleteOperations="True"
                                                                 Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}" />
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>

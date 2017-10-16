@@ -13,11 +13,11 @@ namespace OpenHab.Wpf.View.Module
         public static ThingsViewModel ThingsViewModel => NinjectKernel.StandardKernel.Get<ThingsViewModel>();
         public static RulesViewModel RulesViewModel => NinjectKernel.StandardKernel.Get<RulesViewModel>();
         public static TriggersViewModel TriggersViewModel => NinjectKernel.StandardKernel.Get<TriggersViewModel>();
+        public static ConditionsViewModel ConditionsViewModel => NinjectKernel.StandardKernel.Get<ConditionsViewModel>();
 
         public static Settings Settings => NinjectKernel.StandardKernel.Get<GlobalContext>().Settings;
 
-        //TODO ConditionsViewModel & ActionsViewModel
-        //public static ConditionsViewModel ConditionsViewModel => NinjectKernel.StandardKernel.Get<ConditionsViewModel>();
+        //TODO ActionsViewModel
         //public static ActionsViewModel ActionsViewModel => NinjectKernel.StandardKernel.Get<ActionsViewModel>();
     }
 }
