@@ -40,6 +40,8 @@
                 <ColumnDefinition Width="6"/>
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="6"/>
                 <ColumnDefinition Width="*" MinWidth="300"/>
             </Grid.ColumnDefinitions>
 
@@ -134,8 +136,12 @@
             <!--<GridSplitter Grid.Column="3" 
                           Style="{StaticResource VerticalGridSplitterStyle}"/>-->
 
+            <Separator Grid.Column="4"
+                       Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
+                       Background="{StaticResource AccentLevel5Brush}"/>
+
             <Grid x:Name="RightGrid"
-                  Column="4">
+                  Column="6">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>

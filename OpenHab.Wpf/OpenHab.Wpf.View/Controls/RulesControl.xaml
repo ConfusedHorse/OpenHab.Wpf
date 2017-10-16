@@ -48,8 +48,8 @@
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     <Setter Property="Background" Value="{StaticResource AccentLevel5Brush}"/>
                     <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"/>
-                    <Style.Triggers> <!--Collapse RuleDummy when Editable="False"-->
-                        <MultiDataTrigger>
+                    <Style.Triggers>
+                        <MultiDataTrigger> <!--Collapse RuleDummy when Editable="False"-->
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding Path=Editable, 
                                                              RelativeSource={RelativeSource FindAncestor, 
