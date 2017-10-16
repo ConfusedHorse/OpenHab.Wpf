@@ -4,4 +4,5 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <converters:StateToDimmerConverter x:Key="StateToDimmerConverter" />
     <converters:StateToColorConverter x:Key="StateToColorConverter" />
+    <converters:ConfigurationToJavaScriptConverter x:Key="ConfigurationToJavaScriptConverter" />
 </ResourceDictionary>

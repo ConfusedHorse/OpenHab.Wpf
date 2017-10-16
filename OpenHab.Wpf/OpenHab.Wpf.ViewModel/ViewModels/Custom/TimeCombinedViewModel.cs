@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using OpenHab.Wpf.ViewModel.Enums;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Models;
@@ -311,11 +312,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             var script =
                 $"((new Date()) >= ((new Date()).setHours({ss.Hours}, {ss.Minutes}, {ss.Seconds}))) || (new Date()) < ((new Date()).setHours({se.Hours}, {se.Minutes}, {se.Seconds}))";
 
-            var configuration = new
-            {
-                type = "application/javascript",
-                script = script
-            };
+            dynamic configuration = new ExpandoObject();
+            configuration.type = "application/javascript";
+            configuration.script = script;
 
             return new ConditionViewModel
             {

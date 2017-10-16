@@ -154,7 +154,7 @@
     <value>Die Aktionen der Regel werden nur zwischen {0} und {1} Uhr ausgeführt</value>
   </data>
   <data name="TimeRangeLabel" xml:space="preserve">
-    <value>{0} - {1}</value>
+    <value>{0} - {1} Uhr</value>
   </data>
   <data name="TimeOfDayDescription" xml:space="preserve">
     <value>Löst die Regel aus, wenn es {0} Uhr ist</value>

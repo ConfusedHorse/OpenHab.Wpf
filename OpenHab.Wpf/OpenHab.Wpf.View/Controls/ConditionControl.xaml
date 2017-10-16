@@ -264,19 +264,26 @@
             <ControlTemplate x:Key="ScriptConditionControlTemplate">
                 <Grid Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}">
                     <StackPanel Orientation="Vertical">
-                        <TextBlock
+                        <extra:TextBoxExtended
+                            Style="{StaticResource TransparentHeaderTextBoxExtendedStyle}"
+                            Text="{Binding Label, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox 
+                            MinHeight="75"
+                            MaxHeight="150"
                             Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                            Style="{StaticResource HeaderTextStyle}"
-                            Text="{Binding Label}" />
-                        <TextBlock
-                            Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                            Style="{StaticResource NormalTextStyle}"
-                            Text="{Binding Type}"
-                            HorizontalAlignment="Right" />
-                        <TextBlock
-                            Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                            Style="{StaticResource NormalTextStyle}"
-                            Text="{Binding Description}" />
+                            VerticalScrollBarVisibility="Auto"
+                            HorizontalScrollBarVisibility="Disabled"
+                            Text="{Binding Configuration, 
+                                           Mode=TwoWay, 
+                                           UpdateSourceTrigger=PropertyChanged, 
+                                           Converter={StaticResource ConfigurationToJavaScriptConverter}}"
+                            AcceptsReturn="True"
+                            VerticalContentAlignment="Top"
+                            TextWrapping="WrapWithOverflow"/>
+                        <extra:TextBoxExtended
+                            Style="{StaticResource TransparentTextBoxExtendedStyle}"
+                            Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            TextWrapping="WrapWithOverflow" />
                     </StackPanel>
                 </Grid>
             </ControlTemplate>

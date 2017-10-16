@@ -171,6 +171,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Converters\ConfigurationToScriptConverter.cs" />
     <Compile Include="Resources\Converters\StateToColorConverter.cs" />
     <Compile Include="Resources\Converters\StateToDimmerConverter.cs" />
     <Compile Include="Resources\Helpers\ElysiumDragFix\CopyCommand.cs" />

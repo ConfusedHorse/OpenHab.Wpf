@@ -51,6 +51,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             ConfigDescriptions = condition.ConfigDescriptions?.ToViewModels();
 
             _condition = condition;
+            InitializeConditionSource(condition);
             InitializeCommands();
         }
 
@@ -69,6 +70,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             Description = string.Format(Properties.Resources.ItemStateConditionDefaultDescription, itemName, state);
             Type = "core.ItemStateCondition";
 
+            InitializeConditionSource(itemViewModel);
             InitializeCommands();
         }
 
@@ -95,6 +97,12 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _configuration = value;
+                if (_type == "script.ScriptCondition")
+                {
+                    var ruleViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>().CurrentRule;
+                    if (ruleViewModel != null)
+                        ruleViewModel.UnsavedChanges = true;
+                }
                 RaisePropertyChanged();
             }
         }
@@ -165,6 +173,12 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _label = value;
+                if (_type == "script.ScriptCondition")
+                {
+                    var ruleViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>().CurrentRule;
+                    if (ruleViewModel != null)
+                        ruleViewModel.UnsavedChanges = true;
+                }
                 RaisePropertyChanged();
             }
         }
@@ -175,6 +189,12 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             set
             {
                 _description = value;
+                if (_type == "script.ScriptCondition")
+                {
+                    var ruleViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>().CurrentRule;
+                    if (ruleViewModel != null)
+                        ruleViewModel.UnsavedChanges = true;
+                }
                 RaisePropertyChanged();
             }
         }
@@ -247,14 +267,14 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 case "jsr223.ScriptedCondition":
                     break;
                 case "core.ItemStateCondition":
-                    InitializeConditionSourceFromItemCondition(condition);
+                    InitializeConditionSourceFromCondition(condition);
                     break;
                 case "core.GenericCompareCondition":
                     break;
             }
         }
 
-        private void InitializeConditionSourceFromItemCondition(Condition condition)
+        private void InitializeConditionSourceFromCondition(Condition condition)
         {
             dynamic configuration = condition.Configuration;
             string itemName = configuration.itemName;
