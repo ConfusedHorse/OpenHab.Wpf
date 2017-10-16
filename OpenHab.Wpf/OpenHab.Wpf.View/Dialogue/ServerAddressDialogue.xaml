@@ -37,7 +37,6 @@
                        Style="{StaticResource NormalTextStyle}"
                        TextWrapping="WrapWithOverflow"
                        Height="Auto"
-                       Background="#19FFFFFF"
                        Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.DefaultPadding), Mode=OneWay}"/>
 
         </Grid>
