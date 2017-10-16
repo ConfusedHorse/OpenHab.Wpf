@@ -13,13 +13,13 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
         private int _seconds;
         private int _minutes;
         private int _hours;
+        private TimeSpan _time;
 
         #endregion
         
         public TimeOfDayViewModel()
         {
             Type = "timer.TimeOfDayTrigger";
-
             RefreshInternals();
         }
 
@@ -66,7 +66,18 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             }
         }
 
-        public TimeSpan Time => new TimeSpan(0, Hours, Minutes, Seconds);
+        public TimeSpan Time
+        {
+            get => _time;
+            set
+            {
+                _time = value;
+                Hours = _time.Hours;
+                Minutes = _time.Minutes;
+                Seconds = _time.Seconds;
+                RaisePropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -95,9 +106,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             if (time == null) return;
             var timeSpan = TimeSpan.Parse(time);
 
-            Hours = timeSpan.Hours;
-            Minutes = timeSpan.Minutes;
-            Seconds = timeSpan.Seconds;
+            Time = timeSpan;
         }
 
         private TimeOfDayViewModel CreateTimeOfDayTrigger()
@@ -109,6 +118,8 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
                 Hours = _hours,
                 Minutes = _minutes,
                 Seconds = _seconds,
+
+                Time = new TimeSpan(0, _hours, _minutes, _seconds),
 
                 Type = "timer.TimeOfDayTrigger",
                 Label = Label,

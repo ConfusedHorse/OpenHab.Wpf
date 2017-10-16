@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Threading.Tasks;
-using Framework.UI;
 using Framework.UI.Input;
 using GalaSoft.MvvmLight;
 using Ninject;
@@ -12,7 +10,6 @@ using OpenHab.Wpf.ViewModel.Enums;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHab.Wpf.ViewModel.ViewModels.Custom;
 using OpenHAB.NetRestApi.Models;
-using OpenHAB.NetRestApi.Services;
 
 namespace OpenHab.Wpf.ViewModel.ViewModels
 {

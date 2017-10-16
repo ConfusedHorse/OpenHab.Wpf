@@ -267,10 +267,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             return new TimeOfDayViewModel
             {
                 Id = Guid.NewGuid().ToString(),
-
-                Hours = _startHours,
-                Minutes = _startMinutes,
-                Seconds = _startSeconds
+                Time = new TimeSpan(_startHours, _startMinutes, _startSeconds)
             };
         }
 

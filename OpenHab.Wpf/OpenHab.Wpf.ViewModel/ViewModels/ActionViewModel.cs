@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using Framework.UI.Input;
 using GalaSoft.MvvmLight;
 using Ninject;
+using OpenHab.Wpf.CrossCutting.Context;
 using OpenHab.Wpf.CrossCutting.Module;
+using OpenHab.Wpf.ViewModel.Enums;
 using OpenHab.Wpf.ViewModel.Helper;
 using OpenHAB.NetRestApi.Models;
 using Action = OpenHAB.NetRestApi.Models.Action;
@@ -28,6 +30,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         private string _id;
 
         private readonly Action _action;
+        private object _actionSource;
 
         #endregion
 
@@ -48,6 +51,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             ConfigDescriptions = action.ConfigDescriptions?.ToViewModels();
 
             _action = action;
+            InitializeActionSource(action);
             InitializeCommands();
         }
 
@@ -66,6 +70,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             Description = string.Format(Properties.Resources.ItemCommandActionDefaultDescription, itemName, state);
             Type = "core.ItemCommandAction";
 
+            InitializeActionSource(itemViewModel);
             InitializeCommands();
         }
 
@@ -181,6 +186,16 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             }
         }
 
+        public object ActionSource
+        {
+            get => _actionSource;
+            set
+            {
+                _actionSource = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -205,6 +220,64 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         #endregion
 
         #region Private Methods
+
+        private void InitializeActionSource(Action action)
+        {
+            switch (action.Type)
+            {
+                case "media.PlayAction":
+                    break;
+                case "core.ItemCommandAction":
+                    InitializeActionSourceFromItemAction(action);
+                    break;
+                case "media.SayAction":
+                    break;
+                case "jsr223.ScriptedAction":
+                    break;
+                case "script.ScriptAction":
+                    break;
+                case "core.RunRuleAction":
+                    break;
+                case "core.RuleEnablementAction":
+                    break;
+            }
+        }
+
+        private void InitializeActionSourceFromItemAction(Action action)
+        {
+            dynamic configuration = action.Configuration;
+            string itemName = configuration.itemName;
+            string itemState = configuration.command;
+            if (itemName == null) return;
+            var item = NinjectKernel.StandardKernel.Get<RestContext>().Client
+                .ItemService.GetItem(itemName);
+            var itemViewModel = new ItemViewModel(item, Synchronize.Disabled) {State = itemState};
+            InitializeActionSource(itemViewModel);
+        }
+
+        private void InitializeActionSource(ItemViewModel itemViewModel)
+        {
+            var proxy = itemViewModel;
+            if (itemViewModel.Direction != Synchronize.Disabled)
+            { // is item from thing
+                proxy = itemViewModel.GetProxy(Synchronize.Disabled);
+            }
+
+            ActionSource = proxy;
+            proxy.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName != nameof(ItemViewModel.State)) return;
+                var source = (ItemViewModel) sender;
+                Configuration = new
+                {
+                    itemName = source.Name,
+                    command = source.State
+                };
+
+                Label = string.Format(Properties.Resources.ItemCommandActionDefaultLabel, source.Name, source.State);
+                Description = string.Format(Properties.Resources.ItemCommandActionDefaultDescription, source.Name, source.State);
+            };
+        }
 
         private async void LoadModuleTypeInformationAsync()
         {

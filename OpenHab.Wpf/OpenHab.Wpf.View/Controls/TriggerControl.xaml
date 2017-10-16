@@ -355,9 +355,7 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                                Hours="{Binding Hours, Mode=TwoWay}"
-                                Minutes="{Binding Minutes, Mode=TwoWay}"
-                                Seconds="{Binding Seconds, Mode=TwoWay}" />
+                                Value="{Binding Time, Mode=TwoWay}"/>
                         </StackPanel>
                         <TextBlock
                             Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"

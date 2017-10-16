@@ -28,11 +28,7 @@
                             Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                             Style="{StaticResource HeaderTextStyle}"
                             Text="{Binding Label}" />
-                        <TextBlock
-                            Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
-                            Style="{StaticResource NormalTextStyle}"
-                            Text="{Binding Type}"
-                            HorizontalAlignment="Right" />
+                        <controls:ItemControl DataContext="{Binding ActionSource}"/>
                         <TextBlock
                             Margin="{Binding RelativeSource={RelativeSource Self}, Path=(params:General.BoldPadding), Mode=OneWay}"
                             Style="{StaticResource NormalTextStyle}"
