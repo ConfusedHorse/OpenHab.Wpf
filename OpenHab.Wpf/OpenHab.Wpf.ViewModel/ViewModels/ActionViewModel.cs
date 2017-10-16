@@ -216,16 +216,29 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
         #region Commands
 
         public DelegateCommand DeleteActionCommand { get; private set; }
+        public DelegateCommand RunActionCommand { get; private set; }
 
         private void InitializeCommands()
         {
             DeleteActionCommand = new DelegateCommand(DeleteAction);
+            RunActionCommand = new DelegateCommand(RunAction, CanRunAction);
         }
 
         private void DeleteAction()
         {
             var currentRule = NinjectKernel.StandardKernel.Get<RulesViewModel>().CurrentRule;
             currentRule?.RemoveAction(this);
+        }
+
+        private void RunAction()
+        {
+            var itemViewModel = (ItemViewModel) ActionSource;
+            itemViewModel.ForceStateCommand();
+        }
+
+        private bool CanRunAction()
+        {
+            return (ItemViewModel) ActionSource != null;
         }
 
         #endregion

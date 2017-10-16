@@ -574,6 +574,15 @@ namespace OpenHab.Wpf.View.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Run this action ähnelt.
+        /// </summary>
+        public static string RunAction {
+            get {
+                return ResourceManager.GetString("RunAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Performs all actions of this rule immediately ähnelt.
         /// </summary>
         public static string RunRule {

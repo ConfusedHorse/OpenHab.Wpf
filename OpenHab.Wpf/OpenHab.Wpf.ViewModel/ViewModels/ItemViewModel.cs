@@ -181,6 +181,11 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             await Task.Run(() => _item.SendCommand(_state));
         }
 
+        public async void ForceStateCommand()
+        {
+            await Task.Run(() => _item.SendCommand(_state));
+        }
+
         public void Update(Item item)
         {
             Type = item.Type.ToEnum(WidgetType.Text);

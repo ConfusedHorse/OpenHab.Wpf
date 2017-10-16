@@ -16,6 +16,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
         private int _minutes;
         private int _hours;
         private TimeSpan _time;
+        private TimeSpan _timeOnLoaded;
 
         private readonly bool _isLoaded;
 
@@ -26,6 +27,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             Type = "timer.TimeOfDayTrigger";
 
             RefreshInternals();
+            _timeOnLoaded = Time;
             _isLoaded = true;
         }
 
@@ -112,7 +114,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             {
                 var ruleViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>().CurrentRule;
                 if (ruleViewModel != null)
-                    ruleViewModel.UnsavedChanges = true;
+                    ruleViewModel.UnsavedChanges = _timeOnLoaded != _time;
             }
         }
 
@@ -124,6 +126,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             var timeSpan = TimeSpan.Parse(time);
 
             Time = timeSpan;
+            _timeOnLoaded = timeSpan;
         }
 
         private TimeOfDayViewModel CreateTimeOfDayTrigger()

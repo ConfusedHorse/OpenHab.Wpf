@@ -363,4 +363,7 @@
   <data name="TriggersAndTools" xml:space="preserve">
     <value>Triggers &amp; Tools</value>
   </data>
+  <data name="RunAction" xml:space="preserve">
+    <value>Run this action</value>
+  </data>
 </root>

@@ -20,13 +20,16 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
         private int _startMinutes;
         private int _startHours;
         private TimeSpan _startTime;
+        private TimeSpan _startTimeOnLoaded;
 
         private int _endSeconds;
         private int _endMinutes;
         private int _endHours;
         private TimeSpan _endTime;
+        private TimeSpan _endTimeOnLoaded;
 
         private readonly bool _isLoaded;
+        private string _scriptOnLoaded;
 
         #endregion
 
@@ -35,6 +38,12 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             Type = "TimePeriodViewModel";
 
             RefreshInternals();
+            _startTimeOnLoaded = StartTime;
+            _endTime = EndTime;
+
+            dynamic configuration = Configuration;
+            _scriptOnLoaded = configuration.script;
+
             _isLoaded = true;
         }
 
@@ -55,6 +64,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             get => _startHours;
             set
             {
+                if (_startHours == value) return;
                 _startHours = value;
                 RaisePropertyChanged();
                 RefreshInternals();
@@ -66,6 +76,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             get => _startMinutes;
             set
             {
+                if (_startMinutes == value) return;
                 _startMinutes = value;
                 RaisePropertyChanged();
                 RefreshInternals();
@@ -77,6 +88,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             get => _startSeconds;
             set
             {
+                if (_startSeconds == value) return;
                 _startSeconds = value;
                 RaisePropertyChanged();
                 RefreshInternals();
@@ -88,6 +100,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             get => _endHours;
             set
             {
+                if (_endHours == value) return;
                 _endHours = value;
                 RaisePropertyChanged();
                 RefreshInternals();
@@ -99,6 +112,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             get => _endMinutes;
             set
             {
+                if (_endMinutes == value) return;
                 _endMinutes = value;
                 RaisePropertyChanged();
                 RefreshInternals();
@@ -110,6 +124,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             get => _endSeconds;
             set
             {
+                if (_endSeconds == value) return;
                 _endSeconds = value;
                 RaisePropertyChanged();
                 RefreshInternals();
@@ -182,7 +197,9 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             {
                 var ruleViewModel = NinjectKernel.StandardKernel.Get<RulesViewModel>().CurrentRule;
                 if (ruleViewModel != null)
-                    ruleViewModel.UnsavedChanges = true;
+                    ruleViewModel.UnsavedChanges =
+                        _scriptOnLoaded == script;
+                //_startTimeOnLoaded != _startTime || _endTimeOnLoaded != _endTime;
             }
         }
 
@@ -191,6 +208,10 @@ namespace OpenHab.Wpf.ViewModel.ViewModels.Custom
             // TODO read from tag or whatever
             // don't forget to update CreateTimePeriodCondition
             throw new NotImplementedException();
+
+            //_startTimeOnLoaded = startTime;
+            //_endTimeOnLoaded = endTime;
+            //_scriptOnLoaded = script;
         }
 
         private TimePeriodViewModel CreateTimePeriodCondition()
