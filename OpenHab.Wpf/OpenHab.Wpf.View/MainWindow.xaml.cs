@@ -28,6 +28,7 @@ namespace OpenHab.Wpf.View
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             Icon = (DrawingImage)FindResource("OpenBookDrawingImage");
+            MaxWidth = int.MaxValue;
             var openHabWpf = Application.Current as ElysiumApplication;
             if (openHabWpf != null)
                 openHabWpf.Theme = ViewModelLocator.Settings.Theme == Theme.Dark.ToString() 
