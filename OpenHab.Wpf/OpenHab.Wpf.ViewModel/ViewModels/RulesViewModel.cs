@@ -59,12 +59,12 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
                 NinjectKernel.StandardKernel.Get<ThingsViewModel>().FilterCsv = value;
                 NinjectKernel.StandardKernel.Get<TriggersViewModel>().FilterCsv = value;
 
-                UpdateFilteredThingsAsync();
+                UpdateFilteredRulesAsync();
                 RaisePropertyChanged();
             }
         }
 
-        private void UpdateFilteredThingsAsync()
+        private void UpdateFilteredRulesAsync()
         {
             DispatcherHelper.RunAsync(() =>
             {
@@ -216,6 +216,7 @@ namespace OpenHab.Wpf.ViewModel.ViewModels
             var rule = eventObject.Rule.ToViewModel();
             DispatcherHelper.RunAsync(() =>
             {
+                if (_rules.Any(r => r.Uid == rule.Uid)) return;
                 Rules.Add(rule);
                 if (rule.FilterBy(_filterCsv))
                     FilteredRules.Add(rule);
